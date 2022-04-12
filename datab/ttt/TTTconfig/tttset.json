@@ -1,0 +1,15 @@
+{
+	"tttstatus": "off",
+	"tttdifficulty":  "indefinido",
+	"tttantibug": "off",
+	"player": "",
+	"playerName": "",
+	"playertest": "",
+	"mentionPlayer": "",
+	"local": "",
+	"reActivate1": "on", 
+	"reActivate2": "on",
+	"reActivate3": "on",
+	"waitingTime": "off",
+	"autoEndTime": "off"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "lolis.life",
+  "version": "4.0.0",
+  "description": "Lolis.life wrapper.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielVip3/lolis-dot-life.git"
+  },
+  "keywords": [
+    "lolis",
+    "wrapper"
+,
+    "lolis.life"  ],
+  "author": "DanielVip3",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DanielVip3/lolis-dot-life/issues"
+  },
+  "homepage": "https://github.com/DanielVip3/lolis-dot-life#readme"
+}

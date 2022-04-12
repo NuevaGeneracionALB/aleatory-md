@@ -1,0 +1,29 @@
+{
+  "name": "yts",
+  "version": "2.0.0",
+  "description": "Node.js promise-based library for interacting with the YTS YIFY movies API.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint **/*.js",
+    "lint:fix": "eslint --fix **/*.js"
+  },
+  "keywords": [
+    "movies",
+    "torrent",
+    "YIFY",
+    "YTS"
+  ],
+  "author": "Travis Horn (https://travishorn.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "emoji-unicode",
+  "description": "Get the unicode code of an emoji.",
+  "keywords": [
+    "emoji",
+    "unicode",
+    "get",
+    "the",
+    "code",
+    "of",
+    "an"
+  ],
+  "license": "MIT",
+  "version": "2.0.1",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "node test/"
+  },
+  "author": "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)",
+  "files": [
+    "bin/",
+    "app/",
+    "lib/",
+    "dist/",
+    "src/",
+    "scripts/",
+    "resources/",
+    "menu/",
+    "cli.js",
+    "index.js",
+    "bloggify.js",
+    "bloggify.json",
+    "bloggify/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/IonicaBizau/emoji-unicode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IonicaBizau/emoji-unicode/issues"
+  },
+  "homepage": "https://github.com/IonicaBizau/emoji-unicode#readme",
+  "devDependencies": {
+    "emoji-name-map": "^1.1.2",
+    "tester": "^1.3.3"
+  },
+  "blah": {
+    "thanks": "This module is heavily based on [this StackOverflow answer](http://stackoverflow.com/a/37729608/1420197) by [**@liufa**](https://github.com/liufa). :cake:"
+  }
+}
