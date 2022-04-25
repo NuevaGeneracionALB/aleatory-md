@@ -13,7 +13,7 @@ const STATUS_MAP = {
 } as { [_: string]: WAMessageStatus }
 
 const makeMessagesSocket = (config: LegacySocketConfig) => {
-	const { logger } = config
+	const { logger, treatCiphertextMessagesAsReal } = config
 	const sock = makeChatsSocket(config)
 	const {
 		ev,
@@ -120,7 +120,17 @@ const makeMessagesSocket = (config: LegacySocketConfig) => {
 			ev.emit('groups.update', [ { id: jid, ...update } ])
 		}
 
-		if(message.message) {
+		const normalizedContent = normalizeMessageContent(message.message)
+		const protocolMessage = normalizedContent?.protocolMessage
+
+		if(
+			(
+				!!normalizedContent ||
+				(message.messageStubType === WAMessageStubType.CIPHERTEXT && treatCiphertextMessagesAsReal)
+			)
+			&& !normalizedContent?.protocolMessage
+			&& !normalizedContent?.reactionMessage
+		) {
 			chatUpdate.conversationTimestamp = +toNumber(message.messageTimestamp)
 			// add to count if the message isn't from me & there exists a message
 			if(!message.key.fromMe) {
@@ -137,7 +147,18 @@ const makeMessagesSocket = (config: LegacySocketConfig) => {
 			}
 		}
 
-		const protocolMessage = normalizeMessageContent(message.message)?.protocolMessage
+		if(normalizedContent?.reactionMessage) {
+			const reaction: proto.IReaction = {
+				...normalizedContent.reactionMessage,
+				key: message.key,
+			}
+			const operation = normalizedContent.reactionMessage?.text ? 'add' : 'remove'
+			ev.emit(
+				'messages.reaction',
+				{ reaction, key: normalizedContent.reactionMessage!.key!, operation }
+			)
+		}
+
 		// if it's a message to delete another message
 		if(protocolMessage) {
 			switch (protocolMessage.type) {

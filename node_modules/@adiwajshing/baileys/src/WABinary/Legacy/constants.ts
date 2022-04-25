@@ -1,5 +1,5 @@
 
-export const Tags = {
+export const TAGS = {
 	LIST_EMPTY: 0,
 	STREAM_END: 2,
 	DICTIONARY_0: 236,
@@ -16,9 +16,10 @@ export const Tags = {
 	NIBBLE_8: 255,
 	SINGLE_BYTE_MAX: 256,
 	PACKED_MAX: 254,
+	AD_JID: 247,
 }
-export const DoubleByteTokens = []
-export const SingleByteTokens = [
+export const DOUBLE_BYTE_TOKENS = []
+export const SINGLE_BYTE_TOKENS = [
 	null,
 	null,
 	null,
@@ -196,3 +197,9 @@ export const SingleByteTokens = [
 	'video',
 	'recent',
 ]
+
+export const TOKEN_MAP: { [token: string]: { dict?: number, index: number } } = { }
+
+for(let i = 0;i < SINGLE_BYTE_TOKENS.length;i++) {
+	TOKEN_MAP[SINGLE_BYTE_TOKENS[i]] = { index: i }
+}

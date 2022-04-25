@@ -1,47 +1,63 @@
 import { Boom } from '@hapi/boom'
 import { createHash } from 'crypto'
 import { proto } from '../../WAProto'
+import { KEY_BUNDLE_TYPE } from '../Defaults'
 import type { AuthenticationCreds, SignalCreds, SocketConfig } from '../Types'
-import { Binary, BinaryNode, getAllBinaryNodeChildren, jidDecode, S_WHATSAPP_NET } from '../WABinary'
+import { BinaryNode, getBinaryNodeChild, jidDecode, S_WHATSAPP_NET } from '../WABinary'
 import { Curve, hmacSign } from './crypto'
-import { encodeInt } from './generics'
+import { encodeBigEndian } from './generics'
 import { createSignalIdentity } from './signal'
 
-const getUserAgent = ({ version, browser }: Pick<SocketConfig, 'version' | 'browser'>) => ({
-	appVersion: {
-		primary: version[0],
-		secondary: version[1],
-		tertiary: version[2],
-	},
-	platform: 14,
-	releaseChannel: 0,
-	mcc: '000',
-	mnc: '000',
-	osVersion: browser[2],
-	manufacturer: '',
-	device: browser[1],
-	osBuildNumber: '0.2',
-	localeLanguageIso6391: 'en',
-	localeCountryIso31661Alpha2: 'en',
+type ClientPayloadConfig = Pick<SocketConfig, 'version' | 'browser'>
+
+const getUserAgent = ({ version }: ClientPayloadConfig): proto.IUserAgent => {
+	const osVersion = '0.1'
+	return {
+		appVersion: {
+			primary: version[0],
+			secondary: version[1],
+			tertiary: version[2],
+		},
+		platform: proto.UserAgent.UserAgentPlatform.WEB,
+		releaseChannel: proto.UserAgent.UserAgentReleaseChannel.RELEASE,
+		mcc: '000',
+		mnc: '000',
+		osVersion: osVersion,
+		manufacturer: '',
+		device: 'Desktop',
+		osBuildNumber: osVersion,
+		localeLanguageIso6391: 'en',
+		localeCountryIso31661Alpha2: 'US',
+	}
+}
+
+const getWebInfo = (): proto.IWebInfo => ({
+	webSubPlatform: proto.WebInfo.WebInfoWebSubPlatform.WEB_BROWSER
 })
 
-export const generateLoginNode = (userJid: string, config: Pick<SocketConfig, 'version' | 'browser'>) => {
-	const { user, device } = jidDecode(userJid)
-	const payload = {
-		passive: true,
-		connectType: 1,
-		connectReason: 1,
+const getClientPayload = (config: ClientPayloadConfig): proto.IClientPayload => {
+	return {
+		connectType: proto.ClientPayload.ClientPayloadConnectType.WIFI_UNKNOWN,
+		connectReason: proto.ClientPayload.ClientPayloadConnectReason.USER_ACTIVATED,
 		userAgent: getUserAgent(config),
-		webInfo: { webSubPlatform: 0 },
-		username: parseInt(user, 10),
+		webInfo: getWebInfo(),
+	}
+}
+
+export const generateLoginNode = (userJid: string, config: ClientPayloadConfig): proto.IClientPayload => {
+	const { user, device } = jidDecode(userJid)
+	const payload: proto.IClientPayload = {
+		...getClientPayload(config),
+		passive: true,
+		username: +user,
 		device: device,
 	}
-	return proto.ClientPayload.encode(payload).finish()
+	return proto.ClientPayload.fromObject(payload)
 }
 
 export const generateRegistrationNode = (
 	{ registrationId, signedPreKey, signedIdentityKey }: SignalCreds,
-	config: Pick<SocketConfig, 'version' | 'browser'>
+	config: ClientPayloadConfig
 ) => {
 	// the app version needs to be md5 hashed
 	// and passed in
@@ -53,79 +69,79 @@ export const generateRegistrationNode = (
 	const companion: proto.ICompanionProps = {
 		os: config.browser[0],
 		version: {
-			primary: +(browserVersion[0] || 10),
-			secondary: +(browserVersion[1] || 0),
+			primary: +(browserVersion[0] || 0),
+			secondary: +(browserVersion[1] || 1),
 			tertiary: +(browserVersion[2] || 0),
 		},
-		platformType: proto.CompanionProps.CompanionPropsPlatformType.CHROME,
+		platformType: proto.CompanionProps.CompanionPropsPlatformType[config.browser[1].toUpperCase()] || proto.CompanionProps.CompanionPropsPlatformType.UNKNOWN,
 		requireFullSync: false,
 	}
 
 	const companionProto = proto.CompanionProps.encode(companion).finish()
 
 	const registerPayload: proto.IClientPayload = {
-		connectReason: proto.ClientPayload.ClientPayloadConnectReason.USER_ACTIVATED,
-		connectType: proto.ClientPayload.ClientPayloadConnectType.WIFI_UNKNOWN,
+		...getClientPayload(config),
 		passive: false,
 		regData: {
 			buildHash: appVersionBuf,
 			companionProps: companionProto,
-			eRegid: encodeInt(4, registrationId),
-			eKeytype: encodeInt(1, 5),
+			eRegid: encodeBigEndian(registrationId),
+			eKeytype: KEY_BUNDLE_TYPE,
 			eIdent: signedIdentityKey.public,
-			eSkeyId: encodeInt(3, signedPreKey.keyId),
+			eSkeyId: encodeBigEndian(signedPreKey.keyId, 3),
 			eSkeyVal: signedPreKey.keyPair.public,
 			eSkeySig: signedPreKey.signature,
 		},
-		userAgent: getUserAgent(config),
-		webInfo: {
-			webSubPlatform: proto.WebInfo.WebInfoWebSubPlatform.WEB_BROWSER,
-		},
 	}
 
-	return proto.ClientPayload.encode(registerPayload).finish()
+	return proto.ClientPayload.fromObject(registerPayload)
 }
 
 export const configureSuccessfulPairing = (
 	stanza: BinaryNode,
 	{ advSecretKey, signedIdentityKey, signalIdentities }: Pick<AuthenticationCreds, 'advSecretKey' | 'signedIdentityKey' | 'signalIdentities'>
 ) => {
-	const [pair] = getAllBinaryNodeChildren(stanza)
-	const pairContent = Array.isArray(pair.content) ? pair.content : []
-
 	const msgId = stanza.attrs.id
-	const deviceIdentity = pairContent.find(m => m.tag === 'device-identity')?.content
-	const businessName = pairContent.find(m => m.tag === 'biz')?.attrs?.name
-	const verifiedName = businessName || ''
-	const jid = pairContent.find(m => m.tag === 'device')?.attrs?.jid
 
-	const { details, hmac } = proto.ADVSignedDeviceIdentityHMAC.decode(deviceIdentity as Buffer)
+	const pairSuccessNode = getBinaryNodeChild(stanza, 'pair-success')
 
+	const deviceIdentityNode = getBinaryNodeChild(pairSuccessNode, 'device-identity')
+	const platformNode = getBinaryNodeChild(pairSuccessNode, 'platform')
+	const deviceNode = getBinaryNodeChild(pairSuccessNode, 'device')
+	const businessNode = getBinaryNodeChild(pairSuccessNode, 'biz')
+
+	if(!deviceIdentityNode || !deviceNode) {
+		throw new Boom('Missing device-identity or device in pair success node', { data: stanza })
+	}
+
+	const bizName = businessNode?.attrs.name
+	const jid = deviceNode.attrs.jid
+
+	const { details, hmac } = proto.ADVSignedDeviceIdentityHMAC.decode(deviceIdentityNode.content as Buffer)
+	// check HMAC matches
 	const advSign = hmacSign(details, Buffer.from(advSecretKey, 'base64'))
-
 	if(Buffer.compare(hmac, advSign) !== 0) {
-		throw new Boom('Invalid pairing')
+		throw new Boom('Invalid account signature')
 	}
 
 	const account = proto.ADVSignedDeviceIdentity.decode(details)
-	const { accountSignatureKey, accountSignature } = account
-
-	const accountMsg = Binary.build(new Uint8Array([6, 0]), account.details, signedIdentityKey.public).readByteArray()
+	const { accountSignatureKey, accountSignature, details: deviceDetails } = account
+	// verify the device signature matches
+	const accountMsg = Buffer.concat([ Buffer.from([6, 0]), deviceDetails, signedIdentityKey.public ])
 	if(!Curve.verify(accountSignatureKey, accountMsg, accountSignature)) {
 		throw new Boom('Failed to verify account signature')
 	}
 
-	const deviceMsg = Binary.build(new Uint8Array([6, 1]), account.details, signedIdentityKey.public, account.accountSignatureKey).readByteArray()
+	// sign the details with our identity key
+	const deviceMsg = Buffer.concat([ Buffer.from([6, 1]), deviceDetails, signedIdentityKey.public, accountSignatureKey ])
 	account.deviceSignature = Curve.sign(signedIdentityKey.private, deviceMsg)
+	// do not provide the "accountSignatureKey" back
+	account.accountSignatureKey = null
 
 	const identity = createSignalIdentity(jid, accountSignatureKey)
+	const accountEnc = proto.ADVSignedDeviceIdentity.encode(account).finish()
 
-	const keyIndex = proto.ADVDeviceIdentity.decode(account.details).keyIndex
-
-	const accountEnc = proto.ADVSignedDeviceIdentity.encode({
-		...account.toJSON(),
-		accountSignatureKey: undefined
-	}).finish()
+	const deviceIdentity = proto.ADVDeviceIdentity.decode(account.details)
 
 	const reply: BinaryNode = {
 		tag: 'iq',
@@ -141,7 +157,7 @@ export const configureSuccessfulPairing = (
 				content: [
 					{
 						tag: 'device-identity',
-						attrs: { 'key-index': `${keyIndex}` },
+						attrs: { 'key-index': deviceIdentity.keyIndex.toString() },
 						content: accountEnc
 					}
 				]
@@ -151,9 +167,14 @@ export const configureSuccessfulPairing = (
 
 	const authUpdate: Partial<AuthenticationCreds> = {
 		account,
-		me: { id: jid, verifiedName },
-		signalIdentities: [...(signalIdentities || []), identity]
+		me: { id: jid, name: bizName },
+		signalIdentities: [
+			...(signalIdentities || []),
+			identity
+		],
+		platform: platformNode?.attrs.name
 	}
+
 	return {
 		creds: authUpdate,
 		reply

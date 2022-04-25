@@ -89,8 +89,8 @@ exports.ExtendedHeader = {
 };
 exports.TextEncodingToken = {
     len: 1,
-    get: (buf, off) => {
-        switch (buf.readUInt8(off)) {
+    get: (uint8Array, off) => {
+        switch (uint8Array[off]) {
             case 0x00:
                 return { encoding: 'latin1' }; // binary
             case 0x01:

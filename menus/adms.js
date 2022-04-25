@@ -27,6 +27,7 @@ const adms = (prefix) => {
 ╎⩺ ${prefix}Anagrama 1 / 0
 ╎⩺ ${prefix}Autofigu 1 / 0
 ╎⩺ ${prefix}Antidocumento 1 / 0  
+╎⩺ ${prefix}Antipalavra 1 / 0
 ╎⩺ ${prefix}Antiloc 1 / 0  
 ╎⩺ ${prefix}Anticontato 1 / 0  
 ╎⩺ ${prefix}Antilink 1 / 0

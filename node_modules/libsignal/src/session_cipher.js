@@ -118,7 +118,9 @@ class SessionCipher {
                 }
                 body = Buffer.concat([
                     Buffer.from([this._encodeTupleByte(VERSION, VERSION)]),
-                    protobufs.PreKeyWhisperMessage.encode(preKeyMsg).finish()
+                    Buffer.from(
+                        protobufs.PreKeyWhisperMessage.encode(preKeyMsg).finish()
+                    )
                 ]);
             } else {
                 type = 1;  // normal

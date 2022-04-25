@@ -106,6 +106,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ┝━〢⎙ CMDS/BÁSICOS
 ╎
 ╎𖢼⩺ ${prefix}Gtts (LINGUAGEM + TEXTO)
+╎𖢼⩺ ${prefix}Traduzir Hello 
 ╎𖢼⩺ ${prefix}Tagme 
 ╎𖢼⩺ ${prefix}Emoji
 ╎𖢼⩺ ${prefix}Emojimix
