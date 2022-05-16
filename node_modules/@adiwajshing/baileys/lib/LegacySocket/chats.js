@@ -9,9 +9,9 @@ const WABinary_1 = require("../WABinary");
 const auth_1 = __importDefault(require("./auth"));
 const makeChatsSocket = (config) => {
     const { logger } = config;
-    const sock = auth_1.default(config);
+    const sock = (0, auth_1.default)(config);
     const { ev, ws: socketEvents, currentEpoch, setQuery, query, sendNode, state } = sock;
-    const chatsDebounceTimeout = generics_1.debouncedTimeout(10000, () => sendChatsQuery(1));
+    const chatsDebounceTimeout = (0, generics_1.debouncedTimeout)(10000, () => sendChatsQuery(1));
     const sendChatsQuery = (epoch) => (sendNode({
         json: {
             tag: 'query',
@@ -31,7 +31,7 @@ const makeChatsSocket = (config) => {
     const executeChatModification = (node) => {
         const { attrs: attributes } = node;
         const updateType = attributes.type;
-        const jid = WABinary_1.jidNormalizedUser(attributes === null || attributes === void 0 ? void 0 : attributes.jid);
+        const jid = (0, WABinary_1.jidNormalizedUser)(attributes === null || attributes === void 0 ? void 0 : attributes.jid);
         switch (updateType) {
             case 'delete':
                 ev.emit('chats.delete', [jid]);
@@ -81,8 +81,8 @@ const makeChatsSocket = (config) => {
         }
     };
     const applyingPresenceUpdate = (update) => {
-        const id = WABinary_1.jidNormalizedUser(update.id);
-        const participant = WABinary_1.jidNormalizedUser(update.participant || update.id);
+        const id = (0, WABinary_1.jidNormalizedUser)(update.id);
+        const participant = (0, WABinary_1.jidNormalizedUser)(update.participant || update.id);
         const presence = {
             lastSeen: update.t ? +update.t : undefined,
             lastKnownPresence: update.type
@@ -154,12 +154,12 @@ const makeChatsSocket = (config) => {
         if (Array.isArray(data)) {
             const contacts = [];
             const chats = data.map(({ attrs }) => {
-                const id = WABinary_1.jidNormalizedUser(attrs.jid);
+                const id = (0, WABinary_1.jidNormalizedUser)(attrs.jid);
                 if (attrs.name) {
                     contacts.push({ id, name: attrs.name });
                 }
                 return {
-                    id: WABinary_1.jidNormalizedUser(attrs.jid),
+                    id: (0, WABinary_1.jidNormalizedUser)(attrs.jid),
                     conversationTimestamp: attrs.t ? +attrs.t : undefined,
                     unreadCount: +attrs.count,
                     archive: attrs.archive === 'true' ? true : undefined,
@@ -181,7 +181,7 @@ const makeChatsSocket = (config) => {
         if (Array.isArray(data)) {
             const contacts = data.map(({ attrs }) => {
                 return {
-                    id: WABinary_1.jidNormalizedUser(attrs.jid),
+                    id: (0, WABinary_1.jidNormalizedUser)(attrs.jid),
                     name: attrs.name,
                     notify: attrs.notify,
                     verifiedName: attrs.verify === '2' ? attrs.vname : undefined
@@ -193,7 +193,7 @@ const makeChatsSocket = (config) => {
     });
     // status updates
     socketEvents.on('CB:Status,status', json => {
-        const id = WABinary_1.jidNormalizedUser(json[1].id);
+        const id = (0, WABinary_1.jidNormalizedUser)(json[1].id);
         ev.emit('contacts.update', [{ id, status: json[1].status }]);
     });
     // User Profile Name Updates
@@ -209,7 +209,7 @@ const makeChatsSocket = (config) => {
         if (Array.isArray(content)) {
             const { attrs } = content[0];
             const update = {
-                id: WABinary_1.jidNormalizedUser(attrs.jid)
+                id: (0, WABinary_1.jidNormalizedUser)(attrs.jid)
             };
             if (attrs.type === 'false') {
                 update.unreadCount = -1;
@@ -222,7 +222,7 @@ const makeChatsSocket = (config) => {
     });
     socketEvents.on('CB:Cmd,type:picture', async (json) => {
         json = json[1];
-        const id = WABinary_1.jidNormalizedUser(json.jid);
+        const id = (0, WABinary_1.jidNormalizedUser)(json.jid);
         const imgUrl = await profilePictureUrl(id).catch(() => '');
         ev.emit('contacts.update', [{ id, imgUrl }]);
     });
@@ -237,7 +237,7 @@ const makeChatsSocket = (config) => {
         if (Array.isArray(json.content)) {
             const user = json.content[0].attrs;
             if (user.id) {
-                user.id = WABinary_1.jidNormalizedUser(user.id);
+                user.id = (0, WABinary_1.jidNormalizedUser)(user.id);
                 //ev.emit('contacts.upsert', [user])
             }
             else {
@@ -271,7 +271,14 @@ const makeChatsSocket = (config) => {
         chatModify: async (modification, jid, chatInfo, timestampNow) => {
             const chatAttrs = { jid: jid };
             let data = undefined;
-            timestampNow = timestampNow || generics_1.unixTimestampSeconds();
+            timestampNow = timestampNow || (0, generics_1.unixTimestampSeconds)();
+            const getIndexKey = (list) => {
+                var _a, _b, _c;
+                if (Array.isArray(list)) {
+                    return list[list.length - 1].key;
+                }
+                return (_c = (_a = list.messages) === null || _a === void 0 ? void 0 : _a[((_b = list.messages) === null || _b === void 0 ? void 0 : _b.length) - 1]) === null || _c === void 0 ? void 0 : _c.key;
+            };
             if ('archive' in modification) {
                 chatAttrs.type = modification.archive ? 'archive' : 'unarchive';
             }
@@ -311,14 +318,14 @@ const makeChatsSocket = (config) => {
                 }));
             }
             else if ('markRead' in modification) {
-                const indexKey = modification.lastMessages[modification.lastMessages.length - 1].key;
+                const indexKey = getIndexKey(modification.lastMessages);
                 return chatRead(indexKey, modification.markRead ? 0 : -1);
             }
             else if ('delete' in modification) {
                 chatAttrs.type = 'delete';
             }
             if ('lastMessages' in modification) {
-                const indexKey = modification.lastMessages[modification.lastMessages.length - 1].key;
+                const indexKey = getIndexKey(modification.lastMessages);
                 if (indexKey) {
                     chatAttrs.index = indexKey.id;
                     chatAttrs.owner = indexKey.fromMe ? 'true' : 'false';
@@ -345,7 +352,7 @@ const makeChatsSocket = (config) => {
             if (status === 200) {
                 return {
                     exists: true,
-                    jid: WABinary_1.jidNormalizedUser(jid),
+                    jid: (0, WABinary_1.jidNormalizedUser)(jid),
                     isBusiness: biz
                 };
             }
@@ -422,7 +429,7 @@ const makeChatsSocket = (config) => {
          */
         async updateProfilePicture(jid, img) {
             var _a;
-            jid = WABinary_1.jidNormalizedUser(jid);
+            jid = (0, WABinary_1.jidNormalizedUser)(jid);
             const data = { img: Buffer.from([]), preview: Buffer.from([]) }; //await generateProfilePicture(img) TODO
             const tag = this.generateMessageTag();
             const query = {
@@ -470,7 +477,7 @@ const makeChatsSocket = (config) => {
          * @returns profile object or undefined if not business account
          */
         getBusinessProfile: async (jid) => {
-            jid = WABinary_1.jidNormalizedUser(jid);
+            jid = (0, WABinary_1.jidNormalizedUser)(jid);
             const { profiles: [{ profile, wid }] } = await query({
                 json: [
                     'query', 'businessProfile',
@@ -482,7 +489,7 @@ const makeChatsSocket = (config) => {
             });
             return {
                 ...profile,
-                wid: WABinary_1.jidNormalizedUser(wid)
+                wid: (0, WABinary_1.jidNormalizedUser)(wid)
             };
         }
     };

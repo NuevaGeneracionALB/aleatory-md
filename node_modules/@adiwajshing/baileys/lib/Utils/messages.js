@@ -6,6 +6,7 @@ const fs_1 = require("fs");
 const WAProto_1 = require("../../WAProto");
 const Defaults_1 = require("../Defaults");
 const Types_1 = require("../Types");
+const WABinary_1 = require("../WABinary");
 const generics_1 = require("./generics");
 const messages_media_1 = require("./messages-media");
 const MIMETYPE_MAP = {
@@ -67,7 +68,7 @@ const prepareWAMessageMedia = async (message, options) => {
     const requiresThumbnailComputation = (mediaType === 'image' || mediaType === 'video') &&
         (typeof uploadData['jpegThumbnail'] === 'undefined');
     const requiresOriginalForSomeProcessing = requiresDurationComputation || requiresThumbnailComputation;
-    const { mediaKey, encWriteStream, bodyPath, fileEncSha256, fileSha256, fileLength, didSaveToTmpPath } = await messages_media_1.encryptedStream(uploadData.media, mediaType, requiresOriginalForSomeProcessing);
+    const { mediaKey, encWriteStream, bodyPath, fileEncSha256, fileSha256, fileLength, didSaveToTmpPath } = await (0, messages_media_1.encryptedStream)(uploadData.media, mediaType, requiresOriginalForSomeProcessing);
     // url safe Base64 encode the SHA256 hash of the body
     const fileEncSha256B64 = encodeURIComponent(fileEncSha256.toString('base64')
         .replace(/\+/g, '-')
@@ -82,11 +83,11 @@ const prepareWAMessageMedia = async (message, options) => {
         (async () => {
             try {
                 if (requiresThumbnailComputation) {
-                    uploadData.jpegThumbnail = await messages_media_1.generateThumbnail(bodyPath, mediaType, options);
+                    uploadData.jpegThumbnail = await (0, messages_media_1.generateThumbnail)(bodyPath, mediaType, options);
                     logger === null || logger === void 0 ? void 0 : logger.debug('generated thumbnail');
                 }
                 if (requiresDurationComputation) {
-                    uploadData.seconds = await messages_media_1.getAudioDuration(bodyPath);
+                    uploadData.seconds = await (0, messages_media_1.getAudioDuration)(bodyPath);
                     logger === null || logger === void 0 ? void 0 : logger.debug('computed audio duration');
                 }
             }
@@ -112,7 +113,7 @@ const prepareWAMessageMedia = async (message, options) => {
             fileEncSha256,
             fileSha256,
             fileLength,
-            mediaKeyTimestamp: generics_1.unixTimestampSeconds(),
+            mediaKeyTimestamp: (0, generics_1.unixTimestampSeconds)(),
             ...uploadData
         })
     });
@@ -150,7 +151,7 @@ const generateForwardMessageContent = (message, forceForward) => {
         throw new boom_1.Boom('no content in message', { statusCode: 400 });
     }
     // hacky copy
-    content = exports.normalizeMessageContent(message.message);
+    content = (0, exports.normalizeMessageContent)(message.message);
     content = WAProto_1.proto.Message.decode(WAProto_1.proto.Message.encode(content).finish());
     let key = Object.keys(content)[0];
     let score = ((_a = content[key].contextInfo) === null || _a === void 0 ? void 0 : _a.forwardingScore) || 0;
@@ -173,20 +174,24 @@ const generateWAMessageContent = async (message, options) => {
     var _a, _b;
     let m = {};
     if ('text' in message) {
-        const extContent = { ...message };
-        if (!!options.getUrlInfo && message.text.match(Defaults_1.URL_REGEX)) {
+        const extContent = { text: message.text };
+        let urlInfo = message.linkPreview;
+        const matchedUrls = message.text.match(Defaults_1.URL_REGEX);
+        if (!urlInfo && !!options.getUrlInfo && matchedUrls) {
             try {
-                const data = await options.getUrlInfo(message.text);
-                extContent.canonicalUrl = data['canonical-url'];
-                extContent.matchedText = data['matched-text'];
-                extContent.jpegThumbnail = data.jpegThumbnail;
-                extContent.description = data.description;
-                extContent.title = data.title;
-                extContent.previewType = 0;
+                urlInfo = await options.getUrlInfo(matchedUrls[0]);
             }
             catch (error) { // ignore if fails
                 (_a = options.logger) === null || _a === void 0 ? void 0 : _a.warn({ trace: error.stack }, 'url generation failed');
             }
+        }
+        if (urlInfo) {
+            extContent.canonicalUrl = urlInfo['canonical-url'];
+            extContent.matchedText = urlInfo['matched-text'];
+            extContent.jpegThumbnail = urlInfo.jpegThumbnail;
+            extContent.description = urlInfo.description;
+            extContent.title = urlInfo.title;
+            extContent.previewType = 0;
         }
         m.extendedTextMessage = extContent;
     }
@@ -215,16 +220,16 @@ const generateWAMessageContent = async (message, options) => {
         };
     }
     else if ('forward' in message) {
-        m = exports.generateForwardMessageContent(message.forward, message.force);
+        m = (0, exports.generateForwardMessageContent)(message.forward, message.force);
     }
     else if ('disappearingMessagesInChat' in message) {
         const exp = typeof message.disappearingMessagesInChat === 'boolean' ?
             (message.disappearingMessagesInChat ? Defaults_1.WA_DEFAULT_EPHEMERAL : 0) :
             message.disappearingMessagesInChat;
-        m = exports.prepareDisappearingMessageSettingContent(exp);
+        m = (0, exports.prepareDisappearingMessageSettingContent)(exp);
     }
     else {
-        m = await exports.prepareWAMessageMedia(message, options);
+        m = await (0, exports.prepareWAMessageMedia)(message, options);
     }
     if ('buttons' in message && !!message.buttons) {
         const buttonsMessage = {
@@ -248,24 +253,26 @@ const generateWAMessageContent = async (message, options) => {
         m = { buttonsMessage };
     }
     else if ('templateButtons' in message && !!message.templateButtons) {
-        const templateMessage = {
-            hydratedTemplate: {
-                hydratedButtons: message.templateButtons
-            }
+        const msg = {
+            hydratedButtons: message.templateButtons
         };
         if ('text' in message) {
-            templateMessage.hydratedTemplate.hydratedContentText = message.text;
+            msg.hydratedContentText = message.text;
         }
         else {
             if ('caption' in message) {
-                templateMessage.hydratedTemplate.hydratedContentText = message.caption;
+                msg.hydratedContentText = message.caption;
             }
-            Object.assign(templateMessage.hydratedTemplate, m);
+            Object.assign(msg, m);
         }
         if ('footer' in message && !!message.footer) {
-            templateMessage.hydratedTemplate.hydratedFooterText = message.footer;
+            msg.hydratedFooterText = message.footer;
         }
-        m = { templateMessage };
+        m = {
+            templateMessage: {
+                hydratedTemplate: msg
+            }
+        };
     }
     if ('sections' in message && !!message.sections) {
         const listMessage = {
@@ -294,19 +301,28 @@ const generateWAMessageFromContent = (jid, message, options) => {
         options.timestamp = new Date();
     } // set timestamp to now
     const key = Object.keys(message)[0];
-    const timestamp = generics_1.unixTimestampSeconds(options.timestamp);
+    const timestamp = (0, generics_1.unixTimestampSeconds)(options.timestamp);
     const { quoted, userJid } = options;
     if (quoted) {
         const participant = quoted.key.fromMe ? userJid : (quoted.participant || quoted.key.participant || quoted.key.remoteJid);
-        message[key].contextInfo = message[key].contextInfo || {};
-        message[key].contextInfo.participant = participant;
-        message[key].contextInfo.stanzaId = quoted.key.id;
-        message[key].contextInfo.quotedMessage = quoted.message;
+        let quotedMsg = (0, exports.normalizeMessageContent)(quoted.message);
+        const msgType = (0, exports.getContentType)(quotedMsg);
+        // strip any redundant properties
+        quotedMsg = WAProto_1.proto.Message.fromObject({ [msgType]: quotedMsg[msgType] });
+        const quotedContent = quotedMsg[msgType];
+        if (typeof quotedContent === 'object' && quotedContent && 'contextInfo' in quotedContent) {
+            delete quotedContent.contextInfo;
+        }
+        const contextInfo = message[key].contextInfo || {};
+        contextInfo.participant = (0, WABinary_1.jidNormalizedUser)(participant);
+        contextInfo.stanzaId = quoted.key.id;
+        contextInfo.quotedMessage = quotedMsg;
         // if a participant is quoted, then it must be a group
         // hence, remoteJid of group must also be entered
         if (quoted.key.participant || quoted.participant) {
-            message[key].contextInfo.remoteJid = quoted.key.remoteJid;
+            contextInfo.remoteJid = quoted.key.remoteJid;
         }
+        message[key].contextInfo = contextInfo;
     }
     if (
     // if we want to send a disappearing message
@@ -331,7 +347,7 @@ const generateWAMessageFromContent = (jid, message, options) => {
         key: {
             remoteJid: jid,
             fromMe: true,
-            id: (options === null || options === void 0 ? void 0 : options.messageId) || generics_1.generateMessageID(),
+            id: (options === null || options === void 0 ? void 0 : options.messageId) || (0, generics_1.generateMessageID)(),
         },
         message: message,
         messageTimestamp: timestamp,
@@ -346,7 +362,7 @@ const generateWAMessage = async (jid, content, options) => {
     var _a;
     // ensure msg ID is with every log
     options.logger = (_a = options === null || options === void 0 ? void 0 : options.logger) === null || _a === void 0 ? void 0 : _a.child({ msgId: options.messageId });
-    return exports.generateWAMessageFromContent(jid, await exports.generateWAMessageContent(content, options), options);
+    return (0, exports.generateWAMessageFromContent)(jid, await (0, exports.generateWAMessageContent)(content, options), options);
 };
 exports.generateWAMessage = generateWAMessage;
 /** Get the key to access the true type of content */
@@ -397,7 +413,7 @@ const extractMessageContent = (content) => {
             return { conversation: 'contentText' in msg ? msg.contentText : ('hydratedContentText' in msg ? msg.hydratedContentText : '') };
         }
     };
-    content = exports.normalizeMessageContent(content);
+    content = (0, exports.normalizeMessageContent)(content);
     if (content === null || content === void 0 ? void 0 : content.buttonsMessage) {
         return extractFromTemplateMessage(content.buttonsMessage);
     }
@@ -456,17 +472,17 @@ exports.aggregateMessageKeysNotFromMe = aggregateMessageKeysNotFromMe;
  * Downloads the given message. Throws an error if it's not a media message
  */
 const downloadMediaMessage = async (message, type, options) => {
-    const mContent = exports.extractMessageContent(message.message);
+    const mContent = (0, exports.extractMessageContent)(message.message);
     if (!mContent) {
         throw new boom_1.Boom('No message present', { statusCode: 400, data: message });
     }
-    const contentType = exports.getContentType(mContent);
+    const contentType = (0, exports.getContentType)(mContent);
     const mediaType = contentType.replace('Message', '');
     const media = mContent[contentType];
     if (typeof media !== 'object' || !('url' in media)) {
         throw new boom_1.Boom(`"${contentType}" message is not a media message`);
     }
-    const stream = await messages_media_1.downloadContentFromMessage(media, mediaType, options);
+    const stream = await (0, messages_media_1.downloadContentFromMessage)(media, mediaType, options);
     if (type === 'buffer') {
         let buffer = Buffer.from([]);
         for await (const chunk of stream) {

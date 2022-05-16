@@ -1,7 +1,11 @@
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -19,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getWAUploadToServer = exports.extensionForMediaMessage = exports.downloadContentFromMessage = exports.encryptedStream = exports.getHttpStream = exports.generateThumbnail = exports.getStream = exports.toBuffer = exports.toReadable = exports.getAudioDuration = exports.mediaMessageSHA256B64 = exports.generateProfilePicture = exports.extractImageThumb = exports.getMediaKeys = exports.hkdfInfoKey = void 0;
+exports.getWAUploadToServer = exports.extensionForMediaMessage = exports.downloadEncryptedContent = exports.downloadContentFromMessage = exports.encryptedStream = exports.getHttpStream = exports.generateThumbnail = exports.getStream = exports.toBuffer = exports.toReadable = exports.getAudioDuration = exports.mediaMessageSHA256B64 = exports.generateProfilePicture = exports.extractImageThumb = exports.getMediaKeys = exports.hkdfInfoKey = void 0;
 const boom_1 = require("@hapi/boom");
 const child_process_1 = require("child_process");
 const Crypto = __importStar(require("crypto"));
@@ -31,7 +35,7 @@ const stream_1 = require("stream");
 const Defaults_1 = require("../Defaults");
 const crypto_1 = require("./crypto");
 const generics_1 = require("./generics");
-const getTmpFilesDirectory = () => os_1.tmpdir();
+const getTmpFilesDirectory = () => (0, os_1.tmpdir)();
 const getImageProcessingLibrary = async () => {
     const [jimp, sharp] = await Promise.all([
         (async () => {
@@ -69,7 +73,7 @@ function getMediaKeys(buffer, mediaType) {
         buffer = Buffer.from(buffer.replace('data:;base64,', ''), 'base64');
     }
     // expand using HKDF to 112 bytes, also pass in the relevant app info
-    const expandedMediaKey = crypto_1.hkdf(buffer, 112, { info: exports.hkdfInfoKey(mediaType) });
+    const expandedMediaKey = (0, crypto_1.hkdf)(buffer, 112, { info: (0, exports.hkdfInfoKey)(mediaType) });
     return {
         iv: expandedMediaKey.slice(0, 16),
         cipherKey: expandedMediaKey.slice(16, 48),
@@ -80,7 +84,7 @@ exports.getMediaKeys = getMediaKeys;
 /** Extracts video thumb using FFMPEG */
 const extractVideoThumb = async (path, destPath, time, size) => new Promise((resolve, reject) => {
     const cmd = `ffmpeg -ss ${time} -i ${path} -y -vf scale=${size.width}:-1 -vframes 1 -f image2 ${destPath}`;
-    child_process_1.exec(cmd, (err) => {
+    (0, child_process_1.exec)(cmd, (err) => {
         if (err) {
             reject(err);
         }
@@ -89,14 +93,14 @@ const extractVideoThumb = async (path, destPath, time, size) => new Promise((res
         }
     });
 });
-const extractImageThumb = async (bufferOrFilePath) => {
+const extractImageThumb = async (bufferOrFilePath, width = 32) => {
     if (bufferOrFilePath instanceof stream_1.Readable) {
-        bufferOrFilePath = await exports.toBuffer(bufferOrFilePath);
+        bufferOrFilePath = await (0, exports.toBuffer)(bufferOrFilePath);
     }
     const lib = await getImageProcessingLibrary();
     if ('sharp' in lib) {
         const result = await lib.sharp.default(bufferOrFilePath)
-            .resize(32)
+            .resize(width)
             .jpeg({ quality: 50 })
             .toBuffer();
         return result;
@@ -106,7 +110,7 @@ const extractImageThumb = async (bufferOrFilePath) => {
         const jimp = await read(bufferOrFilePath);
         const result = await jimp
             .quality(50)
-            .resize(32, AUTO, RESIZE_BILINEAR)
+            .resize(width, AUTO, RESIZE_BILINEAR)
             .getBufferAsync(MIME_JPEG);
         return result;
     }
@@ -121,7 +125,7 @@ const generateProfilePicture = async (mediaUpload) => {
         bufferOrFilePath = mediaUpload.url.toString();
     }
     else {
-        bufferOrFilePath = await exports.toBuffer(mediaUpload.stream);
+        bufferOrFilePath = await (0, exports.toBuffer)(mediaUpload.stream);
     }
     const lib = await getImageProcessingLibrary();
     let img;
@@ -161,7 +165,7 @@ async function getAudioDuration(buffer) {
         metadata = await musicMetadata.parseBuffer(buffer, null, { duration: true });
     }
     else if (typeof buffer === 'string') {
-        const rStream = fs_1.createReadStream(buffer);
+        const rStream = (0, fs_1.createReadStream)(buffer);
         metadata = await musicMetadata.parseStream(rStream, null, { duration: true });
         rStream.close();
     }
@@ -183,20 +187,21 @@ const toBuffer = async (stream) => {
     for await (const chunk of stream) {
         buff = Buffer.concat([buff, chunk]);
     }
+    stream.destroy();
     return buff;
 };
 exports.toBuffer = toBuffer;
 const getStream = async (item) => {
     if (Buffer.isBuffer(item)) {
-        return { stream: exports.toReadable(item), type: 'buffer' };
+        return { stream: (0, exports.toReadable)(item), type: 'buffer' };
     }
     if ('stream' in item) {
         return { stream: item.stream, type: 'readable' };
     }
     if (item.url.toString().startsWith('http://') || item.url.toString().startsWith('https://')) {
-        return { stream: await exports.getHttpStream(item.url), type: 'remote' };
+        return { stream: await (0, exports.getHttpStream)(item.url), type: 'remote' };
     }
-    return { stream: fs_1.createReadStream(item.url), type: 'file' };
+    return { stream: (0, fs_1.createReadStream)(item.url), type: 'file' };
 };
 exports.getStream = getStream;
 /** generates a thumbnail for a given media, if required */
@@ -204,11 +209,11 @@ async function generateThumbnail(file, mediaType, options) {
     var _a;
     let thumbnail;
     if (mediaType === 'image') {
-        const buff = await exports.extractImageThumb(file);
+        const buff = await (0, exports.extractImageThumb)(file);
         thumbnail = buff.toString('base64');
     }
     else if (mediaType === 'video') {
-        const imgFilename = path_1.join(getTmpFilesDirectory(), generics_1.generateMessageID() + '.jpg');
+        const imgFilename = (0, path_1.join)(getTmpFilesDirectory(), (0, generics_1.generateMessageID)() + '.jpg');
         try {
             await extractVideoThumb(file, imgFilename, '00:00:00', { width: 32, height: 32 });
             const buff = await fs_1.promises.readFile(imgFilename);
@@ -229,7 +234,7 @@ const getHttpStream = async (url, options = {}) => {
 };
 exports.getHttpStream = getHttpStream;
 const encryptedStream = async (media, mediaType, saveOriginalFileIfRequired = true, logger) => {
-    const { stream, type } = await exports.getStream(media);
+    const { stream, type } = await (0, exports.getStream)(media);
     logger === null || logger === void 0 ? void 0 : logger.debug('fetched media stream');
     const mediaKey = Crypto.randomBytes(32);
     const { cipherKey, iv, macKey } = getMediaKeys(mediaKey, mediaType);
@@ -244,8 +249,8 @@ const encryptedStream = async (media, mediaType, saveOriginalFileIfRequired = tr
         bodyPath = media.url;
     }
     else if (saveOriginalFileIfRequired) {
-        bodyPath = path_1.join(getTmpFilesDirectory(), mediaType + generics_1.generateMessageID());
-        writeStream = fs_1.createWriteStream(bodyPath);
+        bodyPath = (0, path_1.join)(getTmpFilesDirectory(), mediaType + (0, generics_1.generateMessageID)());
+        writeStream = (0, fs_1.createWriteStream)(bodyPath);
         didSaveToTmpPath = true;
     }
     let fileLength = 0;
@@ -264,7 +269,7 @@ const encryptedStream = async (media, mediaType, saveOriginalFileIfRequired = tr
             sha256Plain = sha256Plain.update(data);
             if (writeStream) {
                 if (!writeStream.write(data)) {
-                    await events_1.once(writeStream, 'drain');
+                    await (0, events_1.once)(writeStream, 'drain');
                 }
             }
             onChunk(aes.update(data));
@@ -307,8 +312,17 @@ const AES_CHUNK_SIZE = 16;
 const toSmallestChunkSize = (num) => {
     return Math.floor(num / AES_CHUNK_SIZE) * AES_CHUNK_SIZE;
 };
-const downloadContentFromMessage = async ({ mediaKey, directPath, url }, type, { startByte, endByte } = {}) => {
+const downloadContentFromMessage = ({ mediaKey, directPath, url }, type, opts = {}) => {
     const downloadUrl = url || `https://${DEF_HOST}${directPath}`;
+    const keys = getMediaKeys(mediaKey, type);
+    return (0, exports.downloadEncryptedContent)(downloadUrl, keys, opts);
+};
+exports.downloadContentFromMessage = downloadContentFromMessage;
+/**
+ * Decrypts and downloads an AES256-CBC encrypted file given the keys.
+ * Assumes the SHA256 of the plaintext is appended to the end of the ciphertext
+ * */
+const downloadEncryptedContent = async (downloadUrl, { cipherKey, iv }, { startByte, endByte } = {}) => {
     let bytesFetched = 0;
     let startChunk = 0;
     let firstBlockIsIV = false;
@@ -332,13 +346,12 @@ const downloadContentFromMessage = async ({ mediaKey, directPath, url }, type, {
         }
     }
     // download the message
-    const fetched = await exports.getHttpStream(downloadUrl, {
+    const fetched = await (0, exports.getHttpStream)(downloadUrl, {
         headers,
         maxBodyLength: Infinity,
         maxContentLength: Infinity,
     });
     let remainingBytes = Buffer.from([]);
-    const { cipherKey, iv } = getMediaKeys(mediaKey, type);
     let aes;
     const pushBytes = (bytes, push) => {
         if (startByte || endByte) {
@@ -390,7 +403,7 @@ const downloadContentFromMessage = async ({ mediaKey, directPath, url }, type, {
     });
     return fetched.pipe(output, { end: true });
 };
-exports.downloadContentFromMessage = downloadContentFromMessage;
+exports.downloadEncryptedContent = downloadEncryptedContent;
 function extensionForMediaMessage(message) {
     const getExtension = (mimetype) => mimetype.split(';')[0].split('/')[1];
     const type = Object.keys(message)[0];

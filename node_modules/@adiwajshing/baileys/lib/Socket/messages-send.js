@@ -8,11 +8,12 @@ const node_cache_1 = __importDefault(require("node-cache"));
 const WAProto_1 = require("../../WAProto");
 const Defaults_1 = require("../Defaults");
 const Utils_1 = require("../Utils");
+const link_preview_1 = require("../Utils/link-preview");
 const WABinary_1 = require("../WABinary");
 const groups_1 = require("./groups");
 const makeMessagesSocket = (config) => {
-    const { logger } = config;
-    const sock = groups_1.makeGroupsSocket(config);
+    const { logger, linkPreviewImageThumbnailWidth } = config;
+    const sock = (0, groups_1.makeGroupsSocket)(config);
     const { ev, authState, query, generateMessageTag, sendNode, groupMetadata, groupToggleEphemeral } = sock;
     const userDevicesCache = config.userDevicesCache || new node_cache_1.default({
         stdTTL: 300,
@@ -32,7 +33,7 @@ const makeMessagesSocket = (config) => {
                     { tag: 'privacy', attrs: {} }
                 ]
             });
-            privacySettings = WABinary_1.reduceBinaryNodeToDictionary(content[0], 'category');
+            privacySettings = (0, WABinary_1.reduceBinaryNodeToDictionary)(content[0], 'category');
         }
         return privacySettings;
     };
@@ -50,9 +51,9 @@ const makeMessagesSocket = (config) => {
                     },
                     content: [{ tag: 'media_conn', attrs: {} }]
                 });
-                const mediaConnNode = WABinary_1.getBinaryNodeChild(result, 'media_conn');
+                const mediaConnNode = (0, WABinary_1.getBinaryNodeChild)(result, 'media_conn');
                 const node = {
-                    hosts: WABinary_1.getBinaryNodeChildren(mediaConnNode, 'host').map(item => item.attrs),
+                    hosts: (0, WABinary_1.getBinaryNodeChildren)(mediaConnNode, 'host').map(item => item.attrs),
                     auth: mediaConnNode.attrs.auth,
                     ttl: +mediaConnNode.attrs.ttl,
                     fetchDate: new Date()
@@ -76,9 +77,9 @@ const makeMessagesSocket = (config) => {
         };
         const isReadReceipt = type === 'read' || type === 'read-self';
         if (isReadReceipt) {
-            node.attrs.t = Utils_1.unixTimestampSeconds().toString();
+            node.attrs.t = (0, Utils_1.unixTimestampSeconds)().toString();
         }
-        if (type === 'sender' && WABinary_1.isJidUser(jid)) {
+        if (type === 'sender' && (0, WABinary_1.isJidUser)(jid)) {
             node.attrs.recipient = jid;
             node.attrs.to = participant;
         }
@@ -115,7 +116,7 @@ const makeMessagesSocket = (config) => {
     };
     /** Bulk read messages. Keys can be from different chats & participants */
     const readMessages = async (keys) => {
-        const recps = Utils_1.aggregateMessageKeysNotFromMe(keys);
+        const recps = (0, Utils_1.aggregateMessageKeysNotFromMe)(keys);
         for (const { jid, participant, messageIds } of recps) {
             await sendReadReceipt(jid, participant, messageIds);
         }
@@ -125,8 +126,8 @@ const makeMessagesSocket = (config) => {
         const users = [];
         jids = Array.from(new Set(jids));
         for (let jid of jids) {
-            const user = WABinary_1.jidDecode(jid).user;
-            jid = WABinary_1.jidNormalizedUser(jid);
+            const user = (0, WABinary_1.jidDecode)(jid).user;
+            jid = (0, WABinary_1.jidNormalizedUser)(jid);
             if (userDevicesCache.has(user)) {
                 const devices = userDevicesCache.get(user);
                 deviceResults.push(...devices);
@@ -170,7 +171,7 @@ const makeMessagesSocket = (config) => {
             ],
         };
         const result = await query(iq);
-        const extracted = Utils_1.extractDeviceJids(result, authState.creds.me.id, ignoreZeroDevices);
+        const extracted = (0, Utils_1.extractDeviceJids)(result, authState.creds.me.id, ignoreZeroDevices);
         const deviceMap = {};
         for (const item of extracted) {
             deviceMap[item.user] = deviceMap[item.user] || [];
@@ -188,10 +189,10 @@ const makeMessagesSocket = (config) => {
             jidsRequiringFetch = jids;
         }
         else {
-            const addrs = jids.map(jid => Utils_1.jidToSignalProtocolAddress(jid).toString());
+            const addrs = jids.map(jid => (0, Utils_1.jidToSignalProtocolAddress)(jid).toString());
             const sessions = await authState.keys.get('session', addrs);
             for (const jid of jids) {
-                const signalId = Utils_1.jidToSignalProtocolAddress(jid).toString();
+                const signalId = (0, Utils_1.jidToSignalProtocolAddress)(jid).toString();
                 if (!sessions[signalId]) {
                     jidsRequiringFetch.push(jid);
                 }
@@ -217,7 +218,7 @@ const makeMessagesSocket = (config) => {
                     }
                 ]
             });
-            await Utils_1.parseAndInjectE2ESessions(result, authState);
+            await (0, Utils_1.parseAndInjectE2ESessions)(result, authState);
             return true;
         }
         return false;
@@ -225,10 +226,10 @@ const makeMessagesSocket = (config) => {
     const createParticipantNodes = async (jids, bytes) => {
         await assertSessions(jids, false);
         if (authState.keys.isInTransaction()) {
-            await authState.keys.prefetch('session', jids.map(jid => Utils_1.jidToSignalProtocolAddress(jid).toString()));
+            await authState.keys.prefetch('session', jids.map(jid => (0, Utils_1.jidToSignalProtocolAddress)(jid).toString()));
         }
         const nodes = await Promise.all(jids.map(async (jid) => {
-            const { type, ciphertext } = await Utils_1.encryptSignalProto(jid, bytes, authState);
+            const { type, ciphertext } = await (0, Utils_1.encryptSignalProto)(jid, bytes, authState);
             const node = {
                 tag: 'to',
                 attrs: { jid },
@@ -244,21 +245,21 @@ const makeMessagesSocket = (config) => {
     };
     const relayMessage = async (jid, message, { messageId: msgId, participant, additionalAttributes, cachedGroupMetadata }) => {
         const meId = authState.creds.me.id;
-        const { user, server } = WABinary_1.jidDecode(jid);
+        const { user, server } = (0, WABinary_1.jidDecode)(jid);
         const isGroup = server === 'g.us';
-        msgId = msgId || Utils_1.generateMessageID();
-        const encodedMsg = Utils_1.encodeWAMessage(message);
+        msgId = msgId || (0, Utils_1.generateMessageID)();
+        const encodedMsg = (0, Utils_1.encodeWAMessage)(message);
         const participants = [];
-        const destinationJid = WABinary_1.jidEncode(user, isGroup ? 'g.us' : 's.whatsapp.net');
+        const destinationJid = (0, WABinary_1.jidEncode)(user, isGroup ? 'g.us' : 's.whatsapp.net');
         const binaryNodeContent = [];
         const devices = [];
         if (participant) {
-            const { user, device } = WABinary_1.jidDecode(participant);
+            const { user, device } = (0, WABinary_1.jidDecode)(participant);
             devices.push({ user, device });
         }
         await authState.keys.transaction(async () => {
             if (isGroup) {
-                const { ciphertext, senderKeyDistributionMessageKey } = await Utils_1.encryptSenderKeyMsgSignalProto(destinationJid, encodedMsg, meId, authState);
+                const { ciphertext, senderKeyDistributionMessageKey } = await (0, Utils_1.encryptSenderKeyMsgSignalProto)(destinationJid, encodedMsg, meId, authState);
                 const [groupData, senderKeyMap] = await Promise.all([
                     (async () => {
                         let groupData = cachedGroupMetadata ? await cachedGroupMetadata(jid) : undefined;
@@ -280,7 +281,7 @@ const makeMessagesSocket = (config) => {
                 const senderKeyJids = [];
                 // ensure a connection is established with every device
                 for (const { user, device } of devices) {
-                    const jid = WABinary_1.jidEncode(user, 's.whatsapp.net', device);
+                    const jid = (0, WABinary_1.jidEncode)(user, 's.whatsapp.net', device);
                     if (!senderKeyMap[jid]) {
                         senderKeyJids.push(jid);
                         // store that this person has had the sender keys sent to them
@@ -291,7 +292,7 @@ const makeMessagesSocket = (config) => {
                 // if there are, we re-send the senderkey
                 if (senderKeyJids.length) {
                     logger.debug({ senderKeyJids }, 'sending new sender key');
-                    const encSenderKeyMsg = Utils_1.encodeWAMessage({
+                    const encSenderKeyMsg = (0, Utils_1.encodeWAMessage)({
                         senderKeyDistributionMessage: {
                             axolotlSenderKeyDistributionMessage: senderKeyDistributionMessageKey,
                             groupId: destinationJid
@@ -307,8 +308,8 @@ const makeMessagesSocket = (config) => {
                 await authState.keys.set({ 'sender-key-memory': { [jid]: senderKeyMap } });
             }
             else {
-                const { user: meUser } = WABinary_1.jidDecode(meId);
-                const encodedMeMsg = Utils_1.encodeWAMessage({
+                const { user: meUser } = (0, WABinary_1.jidDecode)(meId);
+                const encodedMeMsg = (0, Utils_1.encodeWAMessage)({
                     deviceSentMessage: {
                         destinationJid,
                         message
@@ -323,7 +324,7 @@ const makeMessagesSocket = (config) => {
                 const meJids = [];
                 const otherJids = [];
                 for (const { user, device } of devices) {
-                    const jid = WABinary_1.jidEncode(user, 's.whatsapp.net', device);
+                    const jid = (0, WABinary_1.jidEncode)(user, 's.whatsapp.net', device);
                     const isMe = user === meUser;
                     if (isMe) {
                         meJids.push(jid);
@@ -370,7 +371,7 @@ const makeMessagesSocket = (config) => {
         });
         return msgId;
     };
-    const waUploadToServer = Utils_1.getWAUploadToServer(config, refreshMediaConn);
+    const waUploadToServer = (0, Utils_1.getWAUploadToServer)(config, refreshMediaConn);
     return {
         ...sock,
         assertSessions,
@@ -386,7 +387,7 @@ const makeMessagesSocket = (config) => {
             if (typeof content === 'object' &&
                 'disappearingMessagesInChat' in content &&
                 typeof content['disappearingMessagesInChat'] !== 'undefined' &&
-                WABinary_1.isJidGroup(jid)) {
+                (0, WABinary_1.isJidGroup)(jid)) {
                 const { disappearingMessagesInChat } = content;
                 const value = typeof disappearingMessagesInChat === 'boolean' ?
                     (disappearingMessagesInChat ? Defaults_1.WA_DEFAULT_EPHEMERAL : 0) :
@@ -394,11 +395,11 @@ const makeMessagesSocket = (config) => {
                 await groupToggleEphemeral(jid, value);
             }
             else {
-                const fullMsg = await Utils_1.generateWAMessage(jid, content, {
+                const fullMsg = await (0, Utils_1.generateWAMessage)(jid, content, {
                     logger,
                     userJid,
                     // multi-device does not have this yet
-                    //getUrlInfo: generateUrlInfo,
+                    getUrlInfo: text => (0, link_preview_1.getUrlInfo)(text, { thumbnailWidth: linkPreviewImageThumbnailWidth, timeoutMs: 3000 }),
                     upload: waUploadToServer,
                     mediaCache: config.mediaCache,
                     ...options,

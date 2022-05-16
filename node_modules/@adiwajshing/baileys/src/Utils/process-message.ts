@@ -13,6 +13,13 @@ type ProcessMessageContext = {
 	treatCiphertextMessagesAsReal?: boolean
 }
 
+const MSG_MISSED_CALL_TYPES = new Set([
+	WAMessageStubType.CALL_MISSED_GROUP_VIDEO,
+	WAMessageStubType.CALL_MISSED_GROUP_VOICE,
+	WAMessageStubType.CALL_MISSED_VIDEO,
+	WAMessageStubType.CALL_MISSED_VOICE
+])
+
 const processMessage = async(
 	message: proto.IWebMessageInfo,
 	{ historyCache, meId, keyStore, accountSettings, logger, treatCiphertextMessagesAsReal }: ProcessMessageContext
@@ -24,8 +31,9 @@ const processMessage = async(
 	const normalizedContent = !!message.message && normalizeMessageContent(message.message)
 	if(
 		(
-			!!normalizedContent ||
-			(message.messageStubType === WAMessageStubType.CIPHERTEXT && treatCiphertextMessagesAsReal)
+			!!normalizedContent
+			|| MSG_MISSED_CALL_TYPES.has(message.messageStubType)
+			|| (message.messageStubType === WAMessageStubType.CIPHERTEXT && treatCiphertextMessagesAsReal)
 		)
 		&& !normalizedContent?.protocolMessage
 		&& !normalizedContent?.reactionMessage
@@ -38,6 +46,7 @@ const processMessage = async(
 
 		if(accountSettings?.unarchiveChats) {
 			chat.archive = false
+			chat.readOnly = false
 		}
 	}
 
@@ -112,7 +121,13 @@ const processMessage = async(
 			key: message.key,
 		}
 		const operation = content.reactionMessage?.text ? 'add' : 'remove'
-		map['messages.reaction'] = { reaction, key: content.reactionMessage!.key!, operation }
+		const msgKey = content.reactionMessage!.key!
+		if(!message.key.fromMe) {
+			msgKey.remoteJid = message.key.remoteJid
+			msgKey.fromMe = !msgKey.fromMe
+		}
+
+		map['messages.reaction'] = { reaction, key: msgKey, operation }
 	} else if(message.messageStubType) {
 		const jid = message.key!.remoteJid!
 		//let actor = whatsappID (message.participant)
