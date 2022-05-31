@@ -17,7 +17,7 @@ const STATUS_MAP = {
 };
 const makeMessagesSocket = (config) => {
     const { logger, treatCiphertextMessagesAsReal } = config;
-    const sock = chats_1.default(config);
+    const sock = (0, chats_1.default)(config);
     const { ev, ws: socketEvents, query, generateMessageTag, currentEpoch, setQuery, state } = sock;
     let mediaConn;
     const refreshMediaConn = async (forceGet = false) => {
@@ -98,17 +98,17 @@ const makeMessagesSocket = (config) => {
         const emitGroupUpdate = (update) => {
             ev.emit('groups.update', [{ id: jid, ...update }]);
         };
-        const normalizedContent = Utils_1.normalizeMessageContent(message.message);
+        const normalizedContent = (0, Utils_1.normalizeMessageContent)(message.message);
         const protocolMessage = normalizedContent === null || normalizedContent === void 0 ? void 0 : normalizedContent.protocolMessage;
         if ((!!normalizedContent ||
             (message.messageStubType === Types_1.WAMessageStubType.CIPHERTEXT && treatCiphertextMessagesAsReal))
             && !(normalizedContent === null || normalizedContent === void 0 ? void 0 : normalizedContent.protocolMessage)
             && !(normalizedContent === null || normalizedContent === void 0 ? void 0 : normalizedContent.reactionMessage)) {
-            chatUpdate.conversationTimestamp = +Utils_1.toNumber(message.messageTimestamp);
+            chatUpdate.conversationTimestamp = +(0, Utils_1.toNumber)(message.messageTimestamp);
             // add to count if the message isn't from me & there exists a message
             if (!message.key.fromMe) {
                 chatUpdate.unreadCount = 1;
-                const participant = WABinary_1.jidNormalizedUser(message.participant || jid);
+                const participant = (0, WABinary_1.jidNormalizedUser)(message.participant || jid);
                 ev.emit('presence.update', {
                     id: jid,
                     presences: { [participant]: { lastKnownPresence: 'available' } }
@@ -140,7 +140,7 @@ const makeMessagesSocket = (config) => {
                 case WAProto_1.proto.ProtocolMessage.ProtocolMessageType.EPHEMERAL_SETTING:
                     chatUpdate.ephemeralSettingTimestamp = message.messageTimestamp;
                     chatUpdate.ephemeralExpiration = protocolMessage.ephemeralExpiration;
-                    if (WABinary_1.isJidGroup(jid)) {
+                    if ((0, WABinary_1.isJidGroup)(jid)) {
                         emitGroupUpdate({ ephemeralDuration: protocolMessage.ephemeralExpiration || null });
                     }
                     break;
@@ -158,7 +158,7 @@ const makeMessagesSocket = (config) => {
                 case Types_1.WAMessageStubType.CHANGE_EPHEMERAL_SETTING:
                     chatUpdate.ephemeralSettingTimestamp = message.messageTimestamp;
                     chatUpdate.ephemeralExpiration = +message.messageStubParameters[0];
-                    if (WABinary_1.isJidGroup(jid)) {
+                    if ((0, WABinary_1.isJidGroup)(jid)) {
                         emitGroupUpdate({ ephemeralDuration: +message.messageStubParameters[0] || null });
                     }
                     break;
@@ -200,7 +200,7 @@ const makeMessagesSocket = (config) => {
         }
         ev.emit('messages.upsert', { messages: [message], type });
     };
-    const waUploadToServer = Utils_1.getWAUploadToServer(config, refreshMediaConn);
+    const waUploadToServer = (0, Utils_1.getWAUploadToServer)(config, refreshMediaConn);
     /** Query a string to check if it has a url, if it does, return WAUrlInfo */
     const generateUrlInfo = async (text) => {
         const response = await query({
@@ -236,7 +236,7 @@ const makeMessagesSocket = (config) => {
                 }
             ]
         };
-        const isMsgToMe = WABinary_1.areJidsSameUser(message.key.remoteJid, ((_a = state.legacy.user) === null || _a === void 0 ? void 0 : _a.id) || '');
+        const isMsgToMe = (0, WABinary_1.areJidsSameUser)(message.key.remoteJid, ((_a = state.legacy.user) === null || _a === void 0 ? void 0 : _a.id) || '');
         const flag = isMsgToMe ? Types_1.WAFlag.acknowledge : Types_1.WAFlag.ignore; // acknowledge when sending message to oneself
         const mID = message.key.id;
         const finalState = isMsgToMe ? Types_1.WAMessageStatus.READ : Types_1.WAMessageStatus.SERVER_ACK;
@@ -267,7 +267,7 @@ const makeMessagesSocket = (config) => {
     };
     // messages received
     const messagesUpdate = (node, isLatest) => {
-        const messages = WABinary_1.getBinaryNodeMessages(node);
+        const messages = (0, WABinary_1.getBinaryNodeMessages)(node);
         messages.reverse();
         ev.emit('messages.set', { messages, isLatest });
     };
@@ -276,7 +276,7 @@ const makeMessagesSocket = (config) => {
     socketEvents.on('CB:action,add:before', json => messagesUpdate(json, false));
     // new messages
     socketEvents.on('CB:action,add:relay,message', (node) => {
-        const msgs = WABinary_1.getBinaryNodeMessages(node);
+        const msgs = (0, WABinary_1.getBinaryNodeMessages)(node);
         for (const msg of msgs) {
             onMessage(msg, 'notify');
         }
@@ -284,7 +284,7 @@ const makeMessagesSocket = (config) => {
     // If a message has been updated
     // usually called when a video message gets its upload url, or live locations or ciphertext message gets fixed
     socketEvents.on('CB:action,add:update,message', (node) => {
-        const msgs = WABinary_1.getBinaryNodeMessages(node);
+        const msgs = (0, WABinary_1.getBinaryNodeMessages)(node);
         for (const msg of msgs) {
             onMessage(msg, 'replace');
         }
@@ -295,7 +295,7 @@ const makeMessagesSocket = (config) => {
             const updates = [];
             for (const { attrs: json } of content) {
                 const key = {
-                    remoteJid: WABinary_1.jidNormalizedUser(json.jid),
+                    remoteJid: (0, WABinary_1.jidNormalizedUser)(json.jid),
                     id: json.index,
                     fromMe: json.owner === 'true'
                 };
@@ -332,10 +332,10 @@ const makeMessagesSocket = (config) => {
                 return;
         }
         const keyPartial = {
-            remoteJid: WABinary_1.jidNormalizedUser(attributes.to),
-            fromMe: WABinary_1.areJidsSameUser(attributes.from, ((_b = (_a = state.legacy) === null || _a === void 0 ? void 0 : _a.user) === null || _b === void 0 ? void 0 : _b.id) || ''),
+            remoteJid: (0, WABinary_1.jidNormalizedUser)(attributes.to),
+            fromMe: (0, WABinary_1.areJidsSameUser)(attributes.from, ((_b = (_a = state.legacy) === null || _a === void 0 ? void 0 : _a.user) === null || _b === void 0 ? void 0 : _b.id) || ''),
         };
-        const userJid = WABinary_1.jidNormalizedUser(attributes.participant || attributes.to);
+        const userJid = (0, WABinary_1.jidNormalizedUser)(attributes.participant || attributes.to);
         const updates = ids.map(id => ({
             key: { ...keyPartial, id },
             receipt: {
@@ -346,7 +346,7 @@ const makeMessagesSocket = (config) => {
         ev.emit('message-receipt.update', updates);
         // for individual messages
         // it means the message is marked read/delivered
-        if (!WABinary_1.isJidGroup(keyPartial.remoteJid)) {
+        if (!(0, WABinary_1.isJidGroup)(keyPartial.remoteJid)) {
             ev.emit('messages.update', ids.map(id => ({
                 key: { ...keyPartial, id },
                 update: {
@@ -383,7 +383,7 @@ const makeMessagesSocket = (config) => {
             if (Array.isArray(content)) {
                 for (const { tag, content: innerData } of content) {
                     const [{ attrs }] = innerData;
-                    const jid = WABinary_1.jidNormalizedUser(attrs.jid);
+                    const jid = (0, WABinary_1.jidNormalizedUser)(attrs.jid);
                     const recp = info[jid] || { userJid: jid };
                     const date = +attrs.t;
                     switch (tag) {
@@ -401,14 +401,14 @@ const makeMessagesSocket = (config) => {
         },
         downloadMediaMessage: async (message, type = 'buffer', options = {}) => {
             try {
-                const result = await Utils_1.downloadMediaMessage(message, type, options);
+                const result = await (0, Utils_1.downloadMediaMessage)(message, type, options);
                 return result;
             }
             catch (error) {
                 if (error.message.includes('404')) { // media needs to be updated
                     logger.info(`updating media of message: ${message.key.id}`);
                     await updateMediaMessage(message);
-                    const result = await Utils_1.downloadMediaMessage(message, type, options);
+                    const result = await (0, Utils_1.downloadMediaMessage)(message, type, options);
                     return result;
                 }
                 throw error;
@@ -446,7 +446,7 @@ const makeMessagesSocket = (config) => {
             }); // encrypt and send  off
             return {
                 last: ((_a = node.attrs) === null || _a === void 0 ? void 0 : _a.last) === 'true',
-                messages: WABinary_1.getBinaryNodeMessages(node)
+                messages: (0, WABinary_1.getBinaryNodeMessages)(node)
             };
         },
         sendMessage: async (jid, content, options = { waitForAck: true }) => {
@@ -455,7 +455,7 @@ const makeMessagesSocket = (config) => {
             if (typeof content === 'object' &&
                 'disappearingMessagesInChat' in content &&
                 typeof content['disappearingMessagesInChat'] !== 'undefined' &&
-                WABinary_1.isJidGroup(jid)) {
+                (0, WABinary_1.isJidGroup)(jid)) {
                 const { disappearingMessagesInChat } = content;
                 const value = typeof disappearingMessagesInChat === 'boolean' ?
                     (disappearingMessagesInChat ? Defaults_1.WA_DEFAULT_EPHEMERAL : 0) :
@@ -472,7 +472,7 @@ const makeMessagesSocket = (config) => {
                 ]);
             }
             else {
-                const msg = await Utils_1.generateWAMessage(jid, content, {
+                const msg = await (0, Utils_1.generateWAMessage)(jid, content, {
                     logger,
                     userJid: userJid,
                     getUrlInfo: generateUrlInfo,

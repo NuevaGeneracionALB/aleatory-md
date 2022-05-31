@@ -8,87 +8,34 @@ SÓ DEVO LEMBRAR QUE O TERMUX DA PLAY STORE NÃO PRESTA, ENTÃO INSTALE O 118 PO
 Comandos Básicos do termux, nescessario para inicialização do bot:
 
 
-- _1 COMANDO :
+-_1 COMANDO :
 
+termux-change-repo 
 
-termux-change-repo
+Confirma, marca a terceira caixinha e confirma e prossegue > 
 
-APERTA OK
+-_2 COMANDO :
 
-_-_-_       _-_-_.        _-_-_
+apt-get upgrade
 
-MARCA A TERCEIRA CAIXINHA E APERTA OK.
+Vai precisar digitar y e confirmar toda vez que pedir.
 
-_-_-_      _-_-_-        _-_-_-
+-_3 COMANDO :
 
+apt-get update
 
-_2 COMANDO
+Vai precisar digitar y e confirmar toda vez que pedir.
 
+-_4 Comando :
 
-pkg upgrade -y 
+pkg upgrade -y && pkg update -y && pkg install nodejs -y && pkg install nodejs-lts -y && pkg install ffmpeg -y && pkg install wget -y && pkg install git -y
 
-
-ASSISTA O VIDEO, ALGUMAS VEZES QUANDO PAUSAR É NESCESSARIO DA ENTER, VAI PAUSAR A AÇÃO E VAI APARECER [default=N] ?
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-_3 COMANDO 
-
-
-pkg update -y
-
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-_4 COMANDO
-
+-_5 COMANDO :
 
 termux-setup-storage
 
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
-_5 COMANDO 
-
-
-pkg install nodejs -y
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-_6 COMANDO 
-
-
-pkg install nodejs-lts -y
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-_7 COMANDO 
-
-
-pkg install git -y
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-
-_8 COMANDO 
-
-
-pkg install ffmpeg -y
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-
-_9 COMANDO NESCESSARIO PRA O HEROKU
-
-
-npm i -g npm@6 && npm i heroku -g
-
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-
-PRONTO, BOA SORTE... 
-
-
+E permite.
 `
 }
 

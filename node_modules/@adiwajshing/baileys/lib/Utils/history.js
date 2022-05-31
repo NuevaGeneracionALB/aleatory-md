@@ -4,10 +4,11 @@ exports.downloadAndProcessHistorySyncNotification = exports.processHistoryMessag
 const util_1 = require("util");
 const zlib_1 = require("zlib");
 const WAProto_1 = require("../../WAProto");
+const WABinary_1 = require("../WABinary");
 const messages_media_1 = require("./messages-media");
-const inflatePromise = util_1.promisify(zlib_1.inflate);
+const inflatePromise = (0, util_1.promisify)(zlib_1.inflate);
 const downloadHistory = async (msg) => {
-    const stream = await messages_media_1.downloadContentFromMessage(msg, 'history');
+    const stream = await (0, messages_media_1.downloadContentFromMessage)(msg, 'history');
     let buffer = Buffer.from([]);
     for await (const chunk of stream) {
         buffer = Buffer.concat([buffer, chunk]);
@@ -41,6 +42,9 @@ const processHistoryMessage = (item, historyCache) => {
                 }
                 delete chat.messages;
                 if (!historyCache.has(chat.id)) {
+                    if ((0, WABinary_1.isJidUser)(chat.id) && chat.readOnly && chat.archived) {
+                        chat.readOnly = false;
+                    }
                     chats.push(chat);
                     historyCache.add(chat.id);
                 }
@@ -68,7 +72,7 @@ const processHistoryMessage = (item, historyCache) => {
 };
 exports.processHistoryMessage = processHistoryMessage;
 const downloadAndProcessHistorySyncNotification = async (msg, historyCache) => {
-    const historyMsg = await exports.downloadHistory(msg);
-    return exports.processHistoryMessage(historyMsg, historyCache);
+    const historyMsg = await (0, exports.downloadHistory)(msg);
+    return (0, exports.processHistoryMessage)(historyMsg, historyCache);
 };
 exports.downloadAndProcessHistorySyncNotification = downloadAndProcessHistorySyncNotification;

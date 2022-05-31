@@ -46,7 +46,9 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────╯
 ┝━〢⎙ INFO/DONO
 ╎
-╎𖢼⩺ ${prefix}Fotomenu (MARCAR-IMGx2) 
+╎𖢼⩺ ${prefix}Fotomenu (MARCAR-IMG) 
+╎𖢼⩺ ${prefix}Gifmenu (MARCAR) 
+╎𖢼⩺ ${prefix}audio-menu
 ╎𖢼⩺ ${prefix}InfoBemvindo
 ╎𖢼⩺ ${prefix}Infopalavrão
 ╎𖢼⩺ ${prefix}Infolistanegra
@@ -64,7 +66,9 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╎𖢼⩺ ${prefix}Ytmp4 (LINK) 
 ╎𖢼⩺ ${prefix}Ytmp3 (LINK) 
 ╎𖢼⩺ ${prefix}Tiktok (LINK) 
-╎𖢼⩺ ${prefix}Instadw (LINK) 
+╎𖢼⩺ ${prefix}Instagram (LINK) 
+╎𖢼⩺ ${prefix}Insta-story (NOME) 
+╎𖢼⩺ ${prefix}Facebook (LINK) 
 ╎𖢼⩺ ${prefix}Twitter (LINK) 
 ╎𖢼⩺ ${prefix}Imgpralink (MARCAR)
 ╎𖢼⩺ ${prefix}Videopralink (MARCAR-V) 

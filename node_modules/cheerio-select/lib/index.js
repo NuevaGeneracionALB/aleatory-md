@@ -12,7 +12,11 @@ var __assign = (this && this.__assign) || function () {
 };
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
@@ -29,10 +33,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __spreadArray = (this && this.__spreadArray) || function (to, from) {
-    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
-        to[j] = from[i];
-    return to;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.select = exports.filter = exports.some = exports.is = exports.aliases = exports.pseudos = exports.filters = void 0;
@@ -48,13 +56,16 @@ Object.defineProperty(exports, "pseudos", { enumerable: true, get: function () {
 Object.defineProperty(exports, "aliases", { enumerable: true, get: function () { return css_select_2.aliases; } });
 /** Used to indicate a scope should be filtered. Might be ignored when filtering. */
 var SCOPE_PSEUDO = {
-    type: "pseudo",
+    type: css_what_1.SelectorType.Pseudo,
     name: "scope",
     data: null,
 };
 /** Used for actually filtering for scope. */
 var CUSTOM_SCOPE_PSEUDO = __assign({}, SCOPE_PSEUDO);
-var UNIVERSAL_SELECTOR = { type: "universal", namespace: null };
+var UNIVERSAL_SELECTOR = {
+    type: css_what_1.SelectorType.Universal,
+    namespace: null,
+};
 function is(element, selector, options) {
     if (options === void 0) { options = {}; }
     return some([element], selector, options);
@@ -64,8 +75,8 @@ function some(elements, selector, options) {
     if (options === void 0) { options = {}; }
     if (typeof selector === "function")
         return elements.some(selector);
-    var _a = helpers_1.groupSelectors(css_what_1.parse(selector, options)), plain = _a[0], filtered = _a[1];
-    return ((plain.length > 0 && elements.some(css_select_1._compileToken(plain, options))) ||
+    var _a = (0, helpers_1.groupSelectors)((0, css_what_1.parse)(selector)), plain = _a[0], filtered = _a[1];
+    return ((plain.length > 0 && elements.some((0, css_select_1._compileToken)(plain, options))) ||
         filtered.some(function (sel) { return filterBySelector(sel, elements, options).length > 0; }));
 }
 exports.some = some;
@@ -97,7 +108,7 @@ function filterByPosition(filter, elems, data, options) {
 }
 function filter(selector, elements, options) {
     if (options === void 0) { options = {}; }
-    return filterParsed(css_what_1.parse(selector, options), elements, options);
+    return filterParsed((0, css_what_1.parse)(selector), elements, options);
 }
 exports.filter = filter;
 /**
@@ -112,7 +123,7 @@ exports.filter = filter;
 function filterParsed(selector, elements, options) {
     if (elements.length === 0)
         return [];
-    var _a = helpers_1.groupSelectors(selector), plainSelectors = _a[0], filteredSelectors = _a[1];
+    var _a = (0, helpers_1.groupSelectors)(selector), plainSelectors = _a[0], filteredSelectors = _a[1];
     var found;
     if (plainSelectors.length) {
         var filtered = filterElements(elements, plainSelectors, options);
@@ -165,8 +176,8 @@ function filterBySelector(selector, elements, options) {
          * Get root node, run selector with the scope
          * set to all of our nodes.
          */
-        var root = (_a = options.root) !== null && _a !== void 0 ? _a : helpers_1.getDocumentRoot(elements[0]);
-        var sel = __spreadArray(__spreadArray([], selector), [CUSTOM_SCOPE_PSEUDO]);
+        var root = (_a = options.root) !== null && _a !== void 0 ? _a : (0, helpers_1.getDocumentRoot)(elements[0]);
+        var sel = __spreadArray(__spreadArray([], selector, true), [CUSTOM_SCOPE_PSEUDO], false);
         return findFilterElements(root, sel, options, true, elements);
     }
     // Performance optimization: If we don't have to traverse, just filter set.
@@ -177,7 +188,7 @@ function select(selector, root, options) {
     if (typeof selector === "function") {
         return find(root, selector);
     }
-    var _a = helpers_1.groupSelectors(css_what_1.parse(selector, options)), plain = _a[0], filtered = _a[1];
+    var _a = (0, helpers_1.groupSelectors)((0, css_what_1.parse)(selector)), plain = _a[0], filtered = _a[1];
     var results = filtered.map(function (sel) {
         return findFilterElements(root, sel, options, true);
     });
@@ -185,16 +196,22 @@ function select(selector, root, options) {
     if (plain.length) {
         results.push(findElements(root, plain, options, Infinity));
     }
+    if (results.length === 0) {
+        return [];
+    }
     // If there was only a single selector, just return the result
     if (results.length === 1) {
         return results[0];
     }
     // Sort results, filtering for duplicates
-    return DomUtils.uniqueSort(results.reduce(function (a, b) { return __spreadArray(__spreadArray([], a), b); }));
+    return DomUtils.uniqueSort(results.reduce(function (a, b) { return __spreadArray(__spreadArray([], a, true), b, true); }));
 }
 exports.select = select;
 // Traversals that are treated differently in css-select.
-var specialTraversal = new Set(["descendant", "adjacent"]);
+var specialTraversal = new Set([
+    css_what_1.SelectorType.Descendant,
+    css_what_1.SelectorType.Adjacent,
+]);
 function includesScopePseudo(t) {
     return (t !== SCOPE_PSEUDO &&
         t.type === "pseudo" &&
@@ -222,7 +239,7 @@ function findFilterElements(root, selector, options, queryForSelector, scopeCont
      * Set the number of elements to retrieve.
      * Eg. for :first, we only have to get a single element.
      */
-    var limit = positionals_1.getLimit(filter.name, filter.data);
+    var limit = (0, positionals_1.getLimit)(filter.name, filter.data);
     if (limit === 0)
         return [];
     var subOpts = addContextIfScope(sub, options, scopeContext);
@@ -279,18 +296,18 @@ function findFilterElements(root, selector, options, queryForSelector, scopeCont
 function findElements(root, sel, options, limit) {
     if (limit === 0)
         return [];
-    var query = css_select_1._compileToken(sel, options, root);
+    var query = (0, css_select_1._compileToken)(sel, options, root);
     return find(root, query, limit);
 }
 function find(root, query, limit) {
     if (limit === void 0) { limit = Infinity; }
-    var elems = css_select_1.prepareContext(root, DomUtils, query.shouldTestNextSiblings);
+    var elems = (0, css_select_1.prepareContext)(root, DomUtils, query.shouldTestNextSiblings);
     return DomUtils.find(function (node) { return DomUtils.isTag(node) && query(node); }, elems, true, limit);
 }
 function filterElements(elements, sel, options) {
     var els = (Array.isArray(elements) ? elements : [elements]).filter(DomUtils.isTag);
     if (els.length === 0)
         return els;
-    var query = css_select_1._compileToken(sel, options);
+    var query = (0, css_select_1._compileToken)(sel, options);
     return els.filter(query);
 }
