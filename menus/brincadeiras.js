@@ -33,7 +33,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╎⩺ ${prefix}Ranknazista
 ╎⩺ ${prefix}Rankotakus
 ╎⩺ ${prefix}Rankpau
-╎⩺ ${prefix}Calunia @marca/bla/bla
 ╎
 ╰─────────────╯
 `

@@ -22,12 +22,13 @@ return `
 ╎⩺ ${prefix}legendasaiu (oq qr)
 ╎⩺ ${prefix}legendasaiu2 (oq qr)
 ╎⩺ ${prefix}legendabv2 (oq qr)
+╎⩺ ${prefix}prefixo_tipo2 simbolo
+╎⩺ ${prefix}prefixo_tipo_off
 ╎⩺ ${prefix}fundobemvindo (marcar-img)
 ╎⩺ ${prefix}fundosaiu (marcar-img)
 ╎⩺ ${prefix}serpremium
 ╎⩺ ${prefix}listabt
 ╎⩺ ${prefix}listagp
-╎⩺ ${prefix}limparmsg (chat-do-bot)
 ╎⩺ ${prefix}antipalavrão 1 / 0
 ╎⩺ ${prefix}antiligar 1 / 0
 ╎⩺ ${prefix}antipv 1 / 0 (esse da block)
