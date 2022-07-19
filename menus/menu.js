@@ -47,7 +47,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ┝━〢⎙ INFO/DONO
 ╎
 ╎𖢼⩺ ${prefix}Fotomenu (MARCAR-IMG) 
-╎𖢼⩺ ${prefix}Gifmenu (MARCAR) 
 ╎𖢼⩺ ${prefix}audio-menu
 ╎𖢼⩺ ${prefix}InfoBemvindo
 ╎𖢼⩺ ${prefix}Infopalavrão
@@ -90,7 +89,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╎𖢼⩺ ${prefix}Jogodavelha (@MARCAR) 
 ╎𖢼⩺ ${prefix}Ttt (JOGO-DA-VELHA) 
 ╎𖢼⩺ ${prefix}Cassino
-╎𖢼⩺ ${prefix}Quizanime 1 / 0
 ╎𖢼⩺ ${prefix}Quizanimais 1 / 0
 ╎𖢼⩺ ${prefix}Anagrama 1 / 0
 ╰──────────╮
