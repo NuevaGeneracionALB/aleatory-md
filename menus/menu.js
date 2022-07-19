@@ -66,7 +66,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╎𖢼⩺ ${prefix}Ytmp3 (LINK) 
 ╎𖢼⩺ ${prefix}Tiktok (LINK) 
 ╎𖢼⩺ ${prefix}Instagram (LINK) 
-╎𖢼⩺ ${prefix}Insta-story (NOME) 
 ╎𖢼⩺ ${prefix}Facebook (LINK) 
 ╎𖢼⩺ ${prefix}Twitter (LINK) 
 ╎𖢼⩺ ${prefix}Imgpralink (MARCAR)
@@ -115,7 +114,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╎𖢼⩺ ${prefix}Conselhobiblico
 ╎𖢼⩺ ${prefix}Simi (FALE-ALGO)  
 ╎𖢼⩺ ${prefix}Perfil
-╎𖢼⩺ ${prefix}Frases
 ╎𖢼⩺ ${prefix}Calcular (1 + 1)
 ╎𖢼⩺ ${prefix}Fazernick (NICK)
 ╎𖢼⩺ ${prefix}Bot
