@@ -27,7 +27,6 @@ return `
 ╎⩺ ${prefix}fundobemvindo (marcar-img)
 ╎⩺ ${prefix}fundosaiu (marcar-img)
 ╎⩺ ${prefix}serpremium
-╎⩺ ${prefix}listabt
 ╎⩺ ${prefix}listagp
 ╎⩺ ${prefix}antipalavrão 1 / 0
 ╎⩺ ${prefix}antiligar 1 / 0
@@ -60,6 +59,7 @@ return `
 
 }
 exports.menudono = menudono
+
 
 
 

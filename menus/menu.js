@@ -48,6 +48,9 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╎
 ╎𖢼⩺ ${prefix}Fotomenu (MARCAR-IMG) 
 ╎𖢼⩺ ${prefix}audio-menu
+╎𖢼⩺ ${prefix}verificado-global
+╎𖢼⩺ ${prefix}console
+╎𖢼⩺ ${prefix}botoes
 ╎𖢼⩺ ${prefix}InfoBemvindo
 ╎𖢼⩺ ${prefix}Infopalavrão
 ╎𖢼⩺ ${prefix}Infolistanegra

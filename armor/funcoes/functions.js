@@ -142,7 +142,7 @@ colors: [`${cor3}`,`${cor1}`,`${cor5}`],
 lineHeight: 1
 });
  
-const banner3 = cfonts.render((`ALEATORY MD 2.0`), {
+const banner3 = cfonts.render((`ALEATORY MD 2.5`), {
 font: 'tiny',             
 align: 'center',           
 colors: [`${cor1}`,`${cor3}`,`${cor4}`,`${cor2}`],
@@ -243,11 +243,11 @@ const cmdadd = () => {
 	fs.writeFileSync('./datab/data/totalcmd.json', JSON.stringify(ceemde))
 }
 
-authorname = 'ALEATORY-MD-2.0'
+authorname = 'ALEATORY-MD-2.5'
 packname = '-JR-'
   
 function addMetadata(packname, author) {	
-if (!packname) packname = '-JR-'; if (!author) author = 'ALEATORY-MD-2.0';	
+if (!packname) packname = '-JR-'; if (!author) author = 'ALEATORY-MD-2.5';	
 author = author.replace(/[^a-zA-Z0-9]/g, '');	
 let name = `${author}_${packname}`
 if (fs.existsSync(`./armor/stickers/${name}.exif`)) return `./armor/stickers/${name}.exif`

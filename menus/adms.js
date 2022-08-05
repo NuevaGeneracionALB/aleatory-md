@@ -41,7 +41,6 @@ const adms = (prefix) => {
 ╎⩺ ${prefix}Leveling 1 / 0  
 ╎⩺ ${prefix}Simih 1 / 0
 ╎⩺ ${prefix}Simih2 1 / 0
-╎⩺ ${prefix}Fotogp (Marca)
 ╎⩺ ${prefix}Descgp (TXT)
 ╎⩺ ${prefix}Nomegp (Nome)
 ╎⩺ ${prefix}Criartabela (ESCREVA-ALGO)
