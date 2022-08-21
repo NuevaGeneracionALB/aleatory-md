@@ -5,7 +5,6 @@ const ffmpeg = require('fluent-ffmpeg')
 const moment = require('moment-timezone')
 const _level = JSON.parse(fs.readFileSync('./datab/usuarios/level.json'))
 const _limit = JSON.parse(fs.readFileSync('./datab/grupos/limit.json'))
-const afk = JSON.parse(fs.readFileSync('./datab/grupos/afk.json'))
 const dindin = JSON.parse(fs.readFileSync('./datab/usuarios/dindin.json'));
 
 
@@ -73,8 +72,8 @@ fs.writeFileSync('./datab/usuarios/level.json', JSON.stringify(_level))
 }
 }
 
-const addLevelingId = (userId) => {
-const obj = {id: userId, xp: 1, level: 1}
+const addLevelingId = (idgrupo, userId) => {
+const obj = {idgp: idgrupo, id: userId, xp: 1, level: 1}
 _level.push(obj)
 fs.writeFileSync('./datab/usuarios/level.json', JSON.stringify(_level))
 }
@@ -169,32 +168,6 @@ fs.writeFileSync('./datab/usuarios/dindin.json', JSON.stringify(dindin))
 }
 }
 
-
-const cekafk = (_dir) => {
-    setInterval(() => {
-let position = null
-Object.keys(_dir).forEach((i) => {
-if (Date.now() >= _dir[i].expired) {
-position = i
-}
-})
-if (position !== null) {
-_dir.splice(position, 1)
-fs.writeFileSync('./datab/grupos/afk.json', JSON.stringify(_dir))
-}
-}, 1000)
-}
-
-const isAfk = (idi) => {
-let status = false
-Object.keys(afk).forEach((i) => {
-if (afk[i].id === idi) {
-status = true
-}
-})
-return status
-}
-
 const runtime = function(seconds) {
 	seconds = Number(seconds);
 	var d = Math.floor(seconds / (3600 * 24));
@@ -209,13 +182,6 @@ const runtime = function(seconds) {
 }
 
 supre = `558198923680@s.whatsapp.net`
-
-//AFK
-const addafk = (from) => {
-const obj = { id: from, expired: Date.now() + toMs('0m') }
-afk.push(obj)
-fs.writeFileSync('./datab/grupos/afk.json', JSON.stringify(afk))
-}
                          
 const getpc = async function(totalchat){
 pc = []
@@ -249,9 +215,6 @@ addRegisteredUser,
 createSerial, 
 checkRegisteredUser, 
 confirmATM, 
-cekafk,
-isAfk,
-runtime, 
-addafk, 
+runtime,
 getpc, 
 supre }

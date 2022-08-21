@@ -1,7 +1,5 @@
 const fs = require('fs')
 
-const daily = JSON.parse(fs.readFileSync('./datab/usuarios/diario.json'))
-
 const addLimit = (userId, _dir) => {
 const obj = { id: userId, time: Date.now() }
 _dir.push(obj)

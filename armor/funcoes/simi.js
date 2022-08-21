@@ -1,7 +1,6 @@
 const fs = require('fs');
 const simih = JSON.parse(fs.readFileSync('./datab/grupos/simi.json'));
 
-
 exports.insert = async(type, info) => {
 let keyword = (type == 'conversation') ? info.message.conversation : (type == 'extendedTextMessage') ? info.message.extendedTextMessage.contextInfo.quotedMessage.conversation : ''
   
