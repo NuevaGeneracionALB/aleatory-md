@@ -120,7 +120,6 @@ const adms = (prefix, sender) => {
 │ Usuário: @${sender.split("@")[0]}
 ╞───────────────┘
 │✾▹ ${prefix}ativacoes
-│✾▹ ${prefix}autorepo 1 / 0
 │✾▹ ${prefix}Kick [@] (pra-remover) 
 │✾▹ ${prefix}Ban (responder-mensagem)
 │✾▹ ${prefix}Promover [@] (Ser-ADM)
@@ -173,6 +172,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Fotomenu (MARCAR-IMG) 
 │✾▹ ${prefix}Blockcmd  (cmd)
 │✾▹ ${prefix}Unblockcmd (cmd)
+│✾▹ ${prefix}Legenda_estrangeiro (msg)
 │✾▹ ${prefix}Legendabv (oq qr)
 │✾▹ ${prefix}Legendasaiu (oq qr)
 │✾▹ ${prefix}Legendasaiu2 (oq qr)
