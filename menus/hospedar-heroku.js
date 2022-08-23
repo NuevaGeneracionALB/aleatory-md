@@ -57,6 +57,10 @@ rm -rf .git
 
 git init
 
+2.1 _COMANDO : 
+
+git config --global --add safe.directory /storage/emulated/0/aleatory-md
+
 3_ COMANDO :
 
 heroku apps:create NOMEDOAPP
