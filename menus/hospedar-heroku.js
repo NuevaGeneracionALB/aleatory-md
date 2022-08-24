@@ -150,15 +150,7 @@ cd /sdcard/aleatory-md
 
 _2 COMANDO :
 
-git add .
-
-3_ COMANDO :
-
-git commit -am "blabla"
-
-4_ COMANDO :
-
-git push heroku master
+sh heroku.sh
 
 -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
