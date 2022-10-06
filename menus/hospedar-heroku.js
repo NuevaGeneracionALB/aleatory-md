@@ -23,90 +23,60 @@ SITE : heroku.com
 
 APÓS SE CADASTRAR NO HEROKU, VÁ ATÉ O TERMUX E DE OS SEGUINTES COMANDOS :
 
-IREI PASSAR OS COMANDOS, PASSO A PASSO EM SEGUIDA..
+Abre o termux >
 
+Se nunca instalou esse comando no heroku, esse aqui olha, você dá ele no termux>
+
+npm i -g npm@6 && npm i heroku -g
+
+Ele demora um pouco, mas só esperar, e se a net cair vai ter que dá denovo kkkk.. 
+
+DEPOIS... 
+
+Da esse comando para acessar a conta criada do heroku
 
 heroku login -i
 
+Cola o e-mail, confirma
 
-ESSE COMANDO ^ É PARA CONECTAR NA CONTA DO HEROKU, VOCÊ VAI INSERIR PRIMEIRO O EMAIL DA CONTA DO HEROKU, E DÁ ENTER, DEPOIS A SENHA, E CONFIRMAR COM ENTER...
+Depois coloca a senha e confirma. 
 
-ELE VAI CONECTAR.
 
-Próximos comando :
- 
-1_ COMANDO :
+*Vamos acessar a pasta agora*
 
 cd /sdcard/aleatory-md 
 
-1.2_ COMANDO :
+*Depois liga com*
 
 node index
 
-ESCANEIA O QRCODE COM O TESTE BETA ATIVADO, SE FOR A VERSÃO MULTI-DEVICE, ALEATORY - MD
+*E escaneia o qrcode, depois vai no WhatsApp do bot, no privado de alguém, e digita !Configurar-bot, configura e depois... 
+aperta o volume de diminuir o som do celular e segura, e aperta letra C do teclado.*
 
-1.3_ PASSO :
+No lugar do volume pode apertar ctrl se quiser também. 
 
-DEPOIS PRESSIONA O VOLUME DE DIMINUIR O VOLUME DO CELULAR, E APERTA A LETRA Z, APÓS ESCANEAR O QRCODE, E FAÇA OS PROCEDIMENTOS, ABAIXO, LEMBRE-SE DE CONFIGURAR O BOT ANTES, EXPLIQUEI LÁ ENCIMA O PORQUE.
+*Vamos ao primeiro comando agora* >
 
-1.4_ COMANDO :
+*Edite primeiro os NOMEDOAPP*
 
-rm -rf .git
+*coloque um nome menusculo, e que não existe, por exemplo*
 
-2_ COMANDO :
+delicia126
 
-git init
+Algum nome aleatório tlg? 
 
-2.1 _COMANDO : 
+se existir ele vai da error de taken exists e etc.. 
 
-git config --global --add safe.directory /storage/emulated/0/aleatory-md
 
-3_ COMANDO :
+1- Comando _
 
-heroku apps:create NOMEDOAPP
+rm -rf .git && git init && git config --global --add safe.directory /storage/emulated/0/aleatory-md && heroku apps:create NOMEDOAPP && heroku buildpacks:add heroku/nodejs && heroku buildpacks:add https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest && heroku buildpacks:add https://github.com/clhuang/heroku-buildpack-webp-binaries.git && heroku git:remote -a NOMEDOAPP && git config --global user.email "tantofaz@gmail.com" && git config --global user.name "TantoFaz" && git add . && git commit -am "blabla" && git push heroku master 
 
-^ em NOMEDOAPP, coloque um nome seu, ou nick com numeração, pra ele aceitar, deve ser letra menuscula, lembre do nome.
 
--_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+Depois que editou  só copiar tudo isso e colar no terminal.. 
 
-PRÓXIMOS COMANDOS :
-
-4_ COMANDO :
-
-heroku buildpacks:add heroku/nodejs
-
-5_ COMANDO :
-
-heroku buildpacks:add https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest
-
-6_ COMANDO :
-
-heroku buildpacks:add https://github.com/clhuang/heroku-buildpack-webp-binaries.git
-
-_7 COMANDO :
-
-heroku git:remote -a NOMEDOAPP
-
-Em NOMEDOAPP você coloca o nome que colocou, que mandei criar, no primeiro que informei. 
-
-_8 COMANDO :
-
-git config --global user.email "tantofaz@gmail.com"
-git config --global user.name "TantoFaz"
-
-Cole exatamente dessa fórma, não precisa editar nada... 
-
-_9 COMANDO :
-
-git add . 
-
-_10 COMANDO :
-
-git commit -am "blabla"
-
-_11 COMANDO :
-
-git push heroku master
+Essa parte é só isso.. 
+_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 

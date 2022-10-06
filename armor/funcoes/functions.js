@@ -74,6 +74,14 @@ if(i.admin == 'superadmin') admins.push(i.id)
 return admins
 }
 
+const getMembros = (participants) => {
+admins = []
+for (let i of participants) {
+if(i.admin == null) admins.push(i.id)
+}
+return admins
+}
+
 const getRandom = (ext) => {
 	return `${Math.floor(Math.random() * 10000)}${ext}`;
 };
@@ -312,4 +320,4 @@ const getLimit = (userId, _dir) => {
     }
 }  
 
-module.exports = { start2, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, start, infopd, success, banner2, close, addATM, addKoinUser, checkATMuser, temporizador, color, recognize, bgcolor, cmdadd, isFiltered, addFilter, addLimit, getLimit, banner3, addMetadata, chyt, getExtension}
+module.exports = { start2, getBuffer, h2k, generateMessageID, getGroupAdmins, getMembros, getRandom, start, infopd, success, banner2, close, addATM, addKoinUser, checkATMuser, temporizador, color, recognize, bgcolor, cmdadd, isFiltered, addFilter, addLimit, getLimit, banner3, addMetadata, chyt, getExtension}

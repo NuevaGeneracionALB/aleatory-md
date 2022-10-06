@@ -57,8 +57,6 @@ fs.writeFileSync('./datab/usuarios/level.json', JSON.stringify(_level))
 }
 }
 
-
-
 const addLevelingLevel = (userId, amount) => {
 let position = false
 Object.keys(_level).forEach((i) => {
@@ -73,7 +71,7 @@ fs.writeFileSync('./datab/usuarios/level.json', JSON.stringify(_level))
 }
 
 const addLevelingId = (idgrupo, userId) => {
-const obj = {idgp: idgrupo, id: userId, xp: 1, level: 1}
+const obj = {idgp:idgrupo, id: userId, xp: 1, level: 1}
 _level.push(obj)
 fs.writeFileSync('./datab/usuarios/level.json', JSON.stringify(_level))
 }

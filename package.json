@@ -1,6 +1,6 @@
 {
   "name": "Aleatory-MD",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Aleatory-MD, Multi-Conexões, funcionamento mais rápido, e hospedado na heroku ou em outro servidor o seu celular funcionará sem internet.",
   "main": "index.js",
   "scripts": {
