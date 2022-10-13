@@ -87,6 +87,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Gtts (LINGUAGEM + TEXTO)
 │✾▹ ${prefix}Traduzir Hello 
 │✾▹ ${prefix}Tagme 
+│✾▹ ${prefix}Signo seu-signo
 │✾▹ ${prefix}Emoji 😏/whatsapp
 │✾▹ ${prefix}Emojimix 😉+🙂
 │✾▹ ${prefix}Tabela (LETRAS) 

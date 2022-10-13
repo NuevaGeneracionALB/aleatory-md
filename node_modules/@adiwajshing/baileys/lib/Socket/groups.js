@@ -212,17 +212,17 @@ const makeGroupsSocket = (config) => {
 };
 exports.makeGroupsSocket = makeGroupsSocket;
 const extractGroupMetadata = (result) => {
-    var _a, _b;
+    var _a;
     const group = (0, WABinary_1.getBinaryNodeChild)(result, 'group');
     const descChild = (0, WABinary_1.getBinaryNodeChild)(group, 'description');
     let desc;
     let descId;
     if (descChild) {
-        desc = (_a = (0, WABinary_1.getBinaryNodeChild)(descChild, 'body')) === null || _a === void 0 ? void 0 : _a.content;
+        desc = (0, WABinary_1.getBinaryNodeChildString)(descChild, 'body');
         descId = descChild.attrs.id;
     }
     const groupId = group.attrs.id.includes('@') ? group.attrs.id : (0, WABinary_1.jidEncode)(group.attrs.id, 'g.us');
-    const eph = (_b = (0, WABinary_1.getBinaryNodeChild)(group, 'ephemeral')) === null || _b === void 0 ? void 0 : _b.attrs.expiration;
+    const eph = (_a = (0, WABinary_1.getBinaryNodeChild)(group, 'ephemeral')) === null || _a === void 0 ? void 0 : _a.attrs.expiration;
     const metadata = {
         id: groupId,
         subject: group.attrs.subject,
