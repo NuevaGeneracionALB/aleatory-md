@@ -121,6 +121,7 @@ const adms = (prefix, sender) => {
 │ Usuário: @${sender.split("@")[0]}
 ╞───────────────┘
 │✾▹ ${prefix}ativacoes
+│✾▹ ${prefix}antispam 1 / 0
 │✾▹ ${prefix}listanegra (NUMERO)
 │✾▹ ${prefix}tirardalista (NUMERO)
 │✾▹ ${prefix}listanegraG (NÚMERO)
