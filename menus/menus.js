@@ -17,6 +17,18 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Git-bot
 ╰──────────┐
 ╭──────────┴─┐
+│ INFO - DONO
+├────────────
+│✾▹ ${prefix}InfoBemvindo
+│✾▹ ${prefix}Infopalavrão
+│✾▹ ${prefix}Infolistanegra
+│✾▹ ${prefix}Infobancarac
+│✾▹ ${prefix}Infovotação
+│✾▹ ${prefix}Infocontador
+│✾▹ ${prefix}Infosorteio 
+│✾▹ ${prefix}InfoAnotação
+╰──────────┐
+╭──────────┴─┐
 │ DIVERSOS MENUS
 ├────────────
 │✾▹ ${prefix}Menudono

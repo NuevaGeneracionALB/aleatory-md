@@ -1,93 +1,57 @@
 const cmd_termux = (prefix) => {
 return `
-SÓ DEVO LEMBRAR QUE O TERMUX DA PLAY STORE NÃO PRESTA, ENTÃO INSTALE O 118 POR LÁ 
+_-_-_-_-_-_-_-_-_
 
-> aleatoryapi.herokuapp.com 
+INSTALE O TERMUX, VERSÃO 119
 
+https://www.mediafire.com/file/0npdmv51pnttps0/com.termux_0.119.1-119_minAPI21(arm64-v8a,armeabi-v7a,x86,x86_64)(nodpi)_apkmirror.com.apk/file
+
+_-_-_-_-_-_-_-_-_-_
 
 Comandos Básicos do termux, nescessario para inicialização do bot:
 
 
-- _1 COMANDO :
+-_1 COMANDO :
 
+termux-change-repo 
 
-termux-change-repo
+Confirma, marca a terceira caixinha e confirma e prossegue > 
 
-APERTA OK
+-_2 COMANDO :
 
-_-_-_       _-_-_.        _-_-_
+apt-get upgrade
 
-MARCA A TERCEIRA CAIXINHA E APERTA OK.
+Vai precisar digitar y e confirmar toda vez que pedir.
 
-_-_-_      _-_-_-        _-_-_-
+-_3 COMANDO :
 
+apt-get update
 
-_2 COMANDO
+Vai precisar digitar y e confirmar toda vez que pedir.
 
+-_4 Comando :
 
-pkg upgrade -y 
+pkg upgrade -y && pkg update -y && pkg install nodejs -y && pkg install nodejs-lts -y && pkg install ffmpeg -y && pkg install wget -y && pkg install git -y
 
-
-ASSISTA O VIDEO, ALGUMAS VEZES QUANDO PAUSAR É NESCESSARIO DA ENTER, VAI PAUSAR A AÇÃO E VAI APARECER [default=N] ?
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-_3 COMANDO 
-
-
-pkg update -y
-
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-_4 COMANDO
-
+-_5 COMANDO :
 
 termux-setup-storage
 
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
-_5 COMANDO 
-
-
-pkg install nodejs -y
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-_6 COMANDO 
+E permite.
 
 
-pkg install nodejs-lts -y
 
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+__-_-_-_-_-
 
-_7 COMANDO 
+COMANDO PRA INSTALAR A PASTA DO BOT, APÓS TUDO QUE JÁ FEZ :
 
+___-_-_-_-_-
 
-pkg install git -y
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+cd /sdcard && rm -rf aleatory-md && git clone https://github.com/NuevaGeneracionALB/aleatory-md.git && cd aleatory-md && sh start.sh  
 
 
-_8 COMANDO 
-
-
-pkg install ffmpeg -y
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-
-_9 COMANDO NESCESSARIO PRA O HEROKU
-
-
-npm i -g npm@6 && npm i heroku -g
-
-
-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
-
-PRONTO, BOA SORTE... 
-
+_- SÓ BASTA COPIAR ELE TODO, E COLAR LÁ, NÃO É PRA COPIAR A METADE NEM UMA COISA SÓ, É TODO. 
 
 `
 }
