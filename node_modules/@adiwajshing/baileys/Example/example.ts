@@ -1,5 +1,5 @@
 import { Boom } from '@hapi/boom'
-import makeWASocket, { AnyMessageContent, delay, DisconnectReason, fetchLatestBaileysVersion, makeInMemoryStore, MessageRetryMap, useMultiFileAuthState } from '../src'
+import makeWASocket, { AnyMessageContent, delay, DisconnectReason, fetchLatestBaileysVersion, makeCacheableSignalKeyStore, makeInMemoryStore, MessageRetryMap, useMultiFileAuthState } from '../src'
 import MAIN_LOGGER from '../src/Utils/logger'
 
 const logger = MAIN_LOGGER.child({ })
@@ -32,12 +32,17 @@ const startSock = async() => {
 		version,
 		logger,
 		printQRInTerminal: true,
-		auth: state,
+		auth: {
+			creds: state.creds,
+			/** caching makes the store faster to send/recv messages */
+			keys: makeCacheableSignalKeyStore(state.keys, logger),
+		},
 		msgRetryCounterMap,
+		generateHighQualityLinkPreview: true,
 		// implement to handle retries
 		getMessage: async key => {
 			if(store) {
-				const msg = await store.loadMessage(key.remoteJid!, key.id!, undefined)
+				const msg = await store.loadMessage(key.remoteJid!, key.id!)
 				return msg?.message || undefined
 			}
 
@@ -93,21 +98,10 @@ const startSock = async() => {
 				console.log('recv call event', events.call)
 			}
 
-			// chat history received
-			if(events['chats.set']) {
-				const { chats, isLatest } = events['chats.set']
-				console.log(`recv ${chats.length} chats (is latest: ${isLatest})`)
-			}
-
-			// message history received
-			if(events['messages.set']) {
-				const { messages, isLatest } = events['messages.set']
-				console.log(`recv ${messages.length} messages (is latest: ${isLatest})`)
-			}
-
-			if(events['contacts.set']) {
-				const { contacts, isLatest } = events['contacts.set']
-				console.log(`recv ${contacts.length} contacts (is latest: ${isLatest})`)
+			// history received
+			if(events['messaging-history.set']) {
+				const { chats, contacts, messages, isLatest } = events['messaging-history.set']
+				console.log(`recv ${chats.length} chats, ${contacts.length} contacts, ${messages.length} msgs (is latest: ${isLatest})`)
 			}
 
 			// received a new message
@@ -145,6 +139,17 @@ const startSock = async() => {
 
 			if(events['chats.update']) {
 				console.log(events['chats.update'])
+			}
+
+			if(events['contacts.update']) {
+				for(const contact of events['contacts.update']) {
+					if(typeof contact.imgUrl !== 'undefined') {
+						const newUrl = contact.imgUrl === null ? null : await sock!.profilePictureUrl(contact.id!)
+						console.log(
+							`contact ${contact.id} has a new profile pic: ${newUrl}`,
+						)
+					}
+				}
 			}
 
 			if(events['chats.delete']) {
