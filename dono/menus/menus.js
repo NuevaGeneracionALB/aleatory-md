@@ -99,7 +99,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Gtts (LINGUAGEM + TEXTO)
 │✾▹ ${prefix}Traduzir Hello 
 │✾▹ ${prefix}Tagme 
-│✾▹ ${prefix}Signo seu-signo
 │✾▹ ${prefix}Emoji 😏/whatsapp
 │✾▹ ${prefix}Emojimix 😉+🙂
 │✾▹ ${prefix}Tabela (LETRAS) 
@@ -118,7 +117,6 @@ exports.menu = menu
 
 // NÃO APAGUE ESSE ${NickDono} nem 
 //${numerodn} nem ${NomeDoBot} nem ${prefix} só se quiser apagar completo, não coloque nada ${dentro assim} ISSO SÃO DEFINIÇÕES QUE ESTÁ PUXANDO DO settings.json, da pasta dono, só pode altera a base de tudo, menos as definições, só se quiser apagar a definição completa.
-
 const anotacao = (prefix) => {
 return `
 
@@ -168,7 +166,6 @@ const adms = (prefix, sender) => {
 │ Usuário: @${sender.split("@")[0]}
 ╞───────────────┘
 │✾▹ ${prefix}ativacoes
-│✾▹ ${prefix}antispam 1 / 0
 │✾▹ ${prefix}listanegra (NUMERO)
 │✾▹ ${prefix}tirardalista (NUMERO)
 │✾▹ ${prefix}listanegraG (NÚMERO)

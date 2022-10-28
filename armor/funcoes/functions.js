@@ -15,10 +15,9 @@ const cor1 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]
 const cor2 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
 const cor3 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
 const cor4 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
-const cor5 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
+const cor5 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]
 
 const ceemde = JSON.parse(fs.readFileSync('./datab/data/totalcmd.json'))
-const dindin = JSON.parse(fs.readFileSync('./datab/usuarios/dindin.json'))
 
 const h2k = (number) => {
     var SI_POSTFIXES = ["", " K", " M", " G", " T", " P", " E"]
@@ -164,38 +163,7 @@ independentGradient: false,
 transitionGradient: false, 
 env: 'node'
 });  
-  
-			
-const addATM = (sender) => {
-        	const obj = {id: sender, dindin : 0}
-            dindin.push(obj)
-            fs.writeFileSync('./datab/usuarios/dindin.json', JSON.stringify(dindin))
-        }
-        
-        const addKoinUser = (sender, amount) => {
-            let position = false
-            Object.keys(dindin).forEach((i) => {
-                if (dindin[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                dindin[position].dindin += amount
-                fs.writeFileSync('./datab/usuarios/dindin.json', JSON.stringify(dindin))
-            }
-        }
-       
-        const checkATMuser = (sender) => {
-        	let position = false
-            Object.keys(dindin).forEach((i) => {
-                if (dindin[i].id === sender) {
-                    position = i
-                }
-            })
-            if (position !== false) {
-                return dindin[position].dindin
-            }
-        }
+ 
 
 function temporizador(segundos){
   function tempo(s){
@@ -300,24 +268,4 @@ const addFilter = (userId) => {
     setTimeout(() => usedCommandRecently.delete(userId), 2000) 
 }
 
-const daily = JSON.parse(fs.readFileSync('./datab/diario.json'))
-
-const addLimit = (userId, _dir) => {
-    const obj = { id: userId, time: Date.now() }
-    _dir.push(obj)
-    fs.writeFileSync('./datab/diario.json', JSON.stringify(_dir))
-}
-
-const getLimit = (userId, _dir) => {
-    let position = false
-    Object.keys(_dir).forEach((i) => {
-        if (_dir[i].id === userId) {
-            position = i
-        }
-    })
-    if (position !== false) {
-        return _dir[position].time
-    }
-}  
-
-module.exports = { start2, getBuffer, h2k, generateMessageID, getGroupAdmins, getMembros, getRandom, start, infopd, success, banner2, close, addATM, addKoinUser, checkATMuser, temporizador, color, recognize, bgcolor, cmdadd, isFiltered, addFilter, addLimit, getLimit, banner3, addMetadata, chyt, getExtension}
+module.exports = { start2, getBuffer, h2k, generateMessageID, getGroupAdmins, getMembros, getRandom, start, infopd, success, banner2, close, temporizador, color, recognize, bgcolor, cmdadd, isFiltered, addFilter, banner3, addMetadata, chyt, getExtension}

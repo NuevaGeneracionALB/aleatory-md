@@ -172,8 +172,7 @@ body: form
 .then(html => html.json())
 .then(post => {
 resolve('https://telegra.ph' + post[0].src)
-})
-.catch(erro => reject(erro))
+}).catch(erro => {reject(erro)})
 } catch (erro) {
 return console.log(erro)
 }

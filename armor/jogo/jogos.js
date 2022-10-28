@@ -343,6 +343,18 @@ dica: 'ALIMENTO'
 }
 ]	
 
+
+const showdomilhao = [
+{
+original: 'AMEIXA',
+foto: 'https://telegra.ph/file/84928021bd4e6dfe8ff8c.jpg'
+}, 
+{
+original: '100',
+foto: 'https://telegra.ph/file/1530a82843034f1ede5d5.jpg'
+}
+]	
+
 //======== QUIZ DE ANIMAIS =======\\
 let quizanimais = [
 {
@@ -458,5 +470,6 @@ foto: 'https://telegra.ph/file/54f20cbd80737fe45a284.jpg'
 
 module.exports = {
 palavrasANA, 
-quizanimais
+quizanimais, 
+showdomilhao
 }

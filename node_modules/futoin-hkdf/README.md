@@ -94,7 +94,7 @@ const lhash = hash.toLowerCase().replace( '-', '' ); // 'sha256'
 
 hkdf.hash_length(lhash); // get hash_len
 hkdf.extract(lhash, hash_len, ikm, salt); // run only step #1
-hkdf.expand(lhash, hash_len. prk, length, info); // run only step #2
+hkdf.expand(lhash, hash_len, prk, length, info); // run only step #2
 
 // TLS v1.3+
 //-------------------
@@ -106,10 +106,10 @@ const context = Buffer.from( /* E.g some binary hash generation */ '' );
 hkdf_tls(ikm, length, {salt, label, context, hash}); // Buffer(length) - derived key
 
 // Advanced usage
-hkdf_tls.expand_label(lhash, hash_len. prk, length, labe, context);
+hkdf_tls.expand_label(lhash, hash_len, prk, length, label, context);
 
 // Same as:
-hkdf.expand(lhash, hash_len, prk, length, hkdf_tls.info(length, labe, context));
+hkdf.expand(lhash, hash_len, prk, length, hkdf_tls.info(length, label, context));
 
 ```
 
