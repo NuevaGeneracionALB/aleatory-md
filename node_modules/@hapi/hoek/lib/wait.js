@@ -1,37 +1,13 @@
 'use strict';
 
-const internals = {
-    maxTimer: 2 ** 31 - 1              // ~25 days
-};
+const internals = {};
 
 
-module.exports = function (timeout, returnValue, options) {
-
-    if (typeof timeout === 'bigint') {
-        timeout = Number(timeout);
-    }
-
-    if (timeout >= Number.MAX_SAFE_INTEGER) {         // Thousands of years
-        timeout = Infinity;
-    }
+module.exports = function (timeout, returnValue) {
 
     if (typeof timeout !== 'number' && timeout !== undefined) {
-        throw new TypeError('Timeout must be a number or bigint');
+        throw new TypeError('Timeout must be a number');
     }
 
-    return new Promise((resolve) => {
-
-        const _setTimeout = options ? options.setTimeout : setTimeout;
-
-        const activate = () => {
-
-            const time = Math.min(timeout, internals.maxTimer);
-            timeout -= time;
-            _setTimeout(() => (timeout > 0 ? activate() : resolve(returnValue)), time);
-        };
-
-        if (timeout !== Infinity) {
-            activate();
-        }
-    });
+    return new Promise((resolve) => setTimeout(resolve, timeout, returnValue));
 };

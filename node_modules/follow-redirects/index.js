@@ -15,11 +15,6 @@ events.forEach(function (event) {
   };
 });
 
-var InvalidUrlError = createErrorType(
-  "ERR_INVALID_URL",
-  "Invalid URL",
-  TypeError
-);
 // Error types with codes
 var RedirectionError = createErrorType(
   "ERR_FR_REDIRECTION_FAILURE",
@@ -80,10 +75,10 @@ RedirectableRequest.prototype.write = function (data, encoding, callback) {
   }
 
   // Validate input and shift parameters if necessary
-  if (!isString(data) && !isBuffer(data)) {
+  if (!(typeof data === "string" || typeof data === "object" && ("length" in data))) {
     throw new TypeError("data should be a string, Buffer or Uint8Array");
   }
-  if (isFunction(encoding)) {
+  if (typeof encoding === "function") {
     callback = encoding;
     encoding = null;
   }
@@ -112,11 +107,11 @@ RedirectableRequest.prototype.write = function (data, encoding, callback) {
 // Ends the current native request
 RedirectableRequest.prototype.end = function (data, encoding, callback) {
   // Shift parameters if necessary
-  if (isFunction(data)) {
+  if (typeof data === "function") {
     callback = data;
     data = encoding = null;
   }
-  else if (isFunction(encoding)) {
+  else if (typeof encoding === "function") {
     callback = encoding;
     encoding = null;
   }
@@ -275,30 +270,25 @@ RedirectableRequest.prototype._performRequest = function () {
   // If specified, use the agent corresponding to the protocol
   // (HTTP and HTTPS use different types of agents)
   if (this._options.agents) {
-    var scheme = protocol.slice(0, -1);
+    var scheme = protocol.substr(0, protocol.length - 1);
     this._options.agent = this._options.agents[scheme];
   }
 
-  // Create the native request and set up its event handlers
+  // Create the native request
   var request = this._currentRequest =
         nativeProtocol.request(this._options, this._onNativeResponse);
-  request._redirectable = this;
-  for (var event of events) {
-    request.on(event, eventHandlers[event]);
-  }
+  this._currentUrl = url.format(this._options);
 
-  // RFC7230§5.3.1: When making a request directly to an origin server, […]
-  // a client MUST send only the absolute path […] as the request-target.
-  this._currentUrl = /^\//.test(this._options.path) ?
-    url.format(this._options) :
-    // When making a request to a proxy, […]
-    // a client MUST send the target URI in absolute-form […].
-    this._options.path;
+  // Set up event handlers
+  request._redirectable = this;
+  for (var e = 0; e < events.length; e++) {
+    request.on(events[e], eventHandlers[events[e]]);
+  }
 
   // End a redirected request
   // (The first request must be ended explicitly with RedirectableRequest#end)
   if (this._isRedirect) {
-    // Write the request entity and end
+    // Write the request entity and end.
     var i = 0;
     var self = this;
     var buffers = this._requestBodyBuffers;
@@ -372,21 +362,10 @@ RedirectableRequest.prototype._processResponse = function (response) {
     return;
   }
 
-  // Store the request headers if applicable
-  var requestHeaders;
-  var beforeRedirect = this._options.beforeRedirect;
-  if (beforeRedirect) {
-    requestHeaders = Object.assign({
-      // The Host header was set by nativeProtocol.request
-      Host: response.req.getHeader("host"),
-    }, this._options.headers);
-  }
-
   // RFC7231§6.4: Automatic redirection needs to done with
   // care for methods not known to be safe, […]
   // RFC7231§6.4.2–3: For historical reasons, a user agent MAY change
   // the request method from POST to GET for the subsequent request.
-  var method = this._options.method;
   if ((statusCode === 301 || statusCode === 302) && this._options.method === "POST" ||
       // RFC7231§6.4.4: The 303 (See Other) status code indicates that
       // the server is redirecting the user agent to a different resource […]
@@ -414,7 +393,7 @@ RedirectableRequest.prototype._processResponse = function (response) {
     redirectUrl = url.resolve(currentUrl, location);
   }
   catch (cause) {
-    this.emit("error", new RedirectionError({ cause: cause }));
+    this.emit("error", new RedirectionError(cause));
     return;
   }
 
@@ -434,18 +413,10 @@ RedirectableRequest.prototype._processResponse = function (response) {
   }
 
   // Evaluate the beforeRedirect callback
-  if (isFunction(beforeRedirect)) {
-    var responseDetails = {
-      headers: response.headers,
-      statusCode: statusCode,
-    };
-    var requestDetails = {
-      url: currentUrl,
-      method: method,
-      headers: requestHeaders,
-    };
+  if (typeof this._options.beforeRedirect === "function") {
+    var responseDetails = { headers: response.headers };
     try {
-      beforeRedirect(this._options, responseDetails, requestDetails);
+      this._options.beforeRedirect.call(null, this._options, responseDetails);
     }
     catch (err) {
       this.emit("error", err);
@@ -459,7 +430,7 @@ RedirectableRequest.prototype._processResponse = function (response) {
     this._performRequest();
   }
   catch (cause) {
-    this.emit("error", new RedirectionError({ cause: cause }));
+    this.emit("error", new RedirectionError(cause));
   }
 };
 
@@ -481,19 +452,15 @@ function wrap(protocols) {
     // Executes a request, following redirects
     function request(input, options, callback) {
       // Parse parameters
-      if (isString(input)) {
-        var parsed;
+      if (typeof input === "string") {
+        var urlStr = input;
         try {
-          parsed = urlToOptions(new URL(input));
+          input = urlToOptions(new URL(urlStr));
         }
         catch (err) {
           /* istanbul ignore next */
-          parsed = url.parse(input);
+          input = url.parse(urlStr);
         }
-        if (!isString(parsed.protocol)) {
-          throw new InvalidUrlError({ input });
-        }
-        input = parsed;
       }
       else if (URL && (input instanceof URL)) {
         input = urlToOptions(input);
@@ -503,7 +470,7 @@ function wrap(protocols) {
         options = input;
         input = { protocol: protocol };
       }
-      if (isFunction(options)) {
+      if (typeof options === "function") {
         callback = options;
         options = null;
       }
@@ -514,9 +481,6 @@ function wrap(protocols) {
         maxBodyLength: exports.maxBodyLength,
       }, input, options);
       options.nativeProtocols = nativeProtocols;
-      if (!isString(options.host) && !isString(options.hostname)) {
-        options.hostname = "::1";
-      }
 
       assert.equal(options.protocol, protocol, "protocol mismatch");
       debug("options", options);
@@ -574,46 +538,35 @@ function removeMatchingHeaders(regex, headers) {
     undefined : String(lastValue).trim();
 }
 
-function createErrorType(code, message, baseClass) {
-  // Create constructor
-  function CustomError(properties) {
+function createErrorType(code, defaultMessage) {
+  function CustomError(cause) {
     Error.captureStackTrace(this, this.constructor);
-    Object.assign(this, properties || {});
-    this.code = code;
-    this.message = this.cause ? message + ": " + this.cause.message : message;
+    if (!cause) {
+      this.message = defaultMessage;
+    }
+    else {
+      this.message = defaultMessage + ": " + cause.message;
+      this.cause = cause;
+    }
   }
-
-  // Attach constructor and set default properties
-  CustomError.prototype = new (baseClass || Error)();
+  CustomError.prototype = new Error();
   CustomError.prototype.constructor = CustomError;
   CustomError.prototype.name = "Error [" + code + "]";
+  CustomError.prototype.code = code;
   return CustomError;
 }
 
 function abortRequest(request) {
-  for (var event of events) {
-    request.removeListener(event, eventHandlers[event]);
+  for (var e = 0; e < events.length; e++) {
+    request.removeListener(events[e], eventHandlers[events[e]]);
   }
   request.on("error", noop);
   request.abort();
 }
 
 function isSubdomain(subdomain, domain) {
-  assert(isString(subdomain) && isString(domain));
-  var dot = subdomain.length - domain.length - 1;
+  const dot = subdomain.length - domain.length - 1;
   return dot > 0 && subdomain[dot] === "." && subdomain.endsWith(domain);
-}
-
-function isString(value) {
-  return typeof value === "string" || value instanceof String;
-}
-
-function isFunction(value) {
-  return typeof value === "function";
-}
-
-function isBuffer(value) {
-  return typeof value === "object" && ("length" in value);
 }
 
 // Exports
