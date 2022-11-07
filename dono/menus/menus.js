@@ -19,12 +19,13 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────┴─┐
 │ INFO - DONO
 ├────────────
+│✾▹ ${prefix}InfoMultiPrefixo
 │✾▹ ${prefix}InfoBemvindo
 │✾▹ ${prefix}Infopalavrão
 │✾▹ ${prefix}Infolistanegra
 │✾▹ ${prefix}Infobancarac
 │✾▹ ${prefix}Infovotação
-│✾▹ ${prefix}Infocontador
+│✾▹ ${prefix}InfoBanghost
 │✾▹ ${prefix}Infosorteio 
 │✾▹ ${prefix}InfoAnotação
 ╰──────────┐

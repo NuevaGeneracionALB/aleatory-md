@@ -1767,6 +1767,216 @@ $root.proto = (function() {
         return AutoDownloadSettings;
     })();
 
+    proto.AvatarUserSettings = (function() {
+
+        /**
+         * Properties of an AvatarUserSettings.
+         * @memberof proto
+         * @interface IAvatarUserSettings
+         * @property {string|null} [fbid] AvatarUserSettings fbid
+         * @property {string|null} [password] AvatarUserSettings password
+         */
+
+        /**
+         * Constructs a new AvatarUserSettings.
+         * @memberof proto
+         * @classdesc Represents an AvatarUserSettings.
+         * @implements IAvatarUserSettings
+         * @constructor
+         * @param {proto.IAvatarUserSettings=} [properties] Properties to set
+         */
+        function AvatarUserSettings(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * AvatarUserSettings fbid.
+         * @member {string} fbid
+         * @memberof proto.AvatarUserSettings
+         * @instance
+         */
+        AvatarUserSettings.prototype.fbid = "";
+
+        /**
+         * AvatarUserSettings password.
+         * @member {string} password
+         * @memberof proto.AvatarUserSettings
+         * @instance
+         */
+        AvatarUserSettings.prototype.password = "";
+
+        /**
+         * Creates a new AvatarUserSettings instance using the specified properties.
+         * @function create
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {proto.IAvatarUserSettings=} [properties] Properties to set
+         * @returns {proto.AvatarUserSettings} AvatarUserSettings instance
+         */
+        AvatarUserSettings.create = function create(properties) {
+            return new AvatarUserSettings(properties);
+        };
+
+        /**
+         * Encodes the specified AvatarUserSettings message. Does not implicitly {@link proto.AvatarUserSettings.verify|verify} messages.
+         * @function encode
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {proto.IAvatarUserSettings} message AvatarUserSettings message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AvatarUserSettings.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.fbid != null && Object.hasOwnProperty.call(message, "fbid"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.fbid);
+            if (message.password != null && Object.hasOwnProperty.call(message, "password"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.password);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified AvatarUserSettings message, length delimited. Does not implicitly {@link proto.AvatarUserSettings.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {proto.IAvatarUserSettings} message AvatarUserSettings message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        AvatarUserSettings.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an AvatarUserSettings message from the specified reader or buffer.
+         * @function decode
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {proto.AvatarUserSettings} AvatarUserSettings
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AvatarUserSettings.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.proto.AvatarUserSettings();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.fbid = reader.string();
+                    break;
+                case 2:
+                    message.password = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an AvatarUserSettings message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {proto.AvatarUserSettings} AvatarUserSettings
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        AvatarUserSettings.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an AvatarUserSettings message.
+         * @function verify
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        AvatarUserSettings.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.fbid != null && message.hasOwnProperty("fbid"))
+                if (!$util.isString(message.fbid))
+                    return "fbid: string expected";
+            if (message.password != null && message.hasOwnProperty("password"))
+                if (!$util.isString(message.password))
+                    return "password: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an AvatarUserSettings message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {proto.AvatarUserSettings} AvatarUserSettings
+         */
+        AvatarUserSettings.fromObject = function fromObject(object) {
+            if (object instanceof $root.proto.AvatarUserSettings)
+                return object;
+            var message = new $root.proto.AvatarUserSettings();
+            if (object.fbid != null)
+                message.fbid = String(object.fbid);
+            if (object.password != null)
+                message.password = String(object.password);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an AvatarUserSettings message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof proto.AvatarUserSettings
+         * @static
+         * @param {proto.AvatarUserSettings} message AvatarUserSettings
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        AvatarUserSettings.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.fbid = "";
+                object.password = "";
+            }
+            if (message.fbid != null && message.hasOwnProperty("fbid"))
+                object.fbid = message.fbid;
+            if (message.password != null && message.hasOwnProperty("password"))
+                object.password = message.password;
+            return object;
+        };
+
+        /**
+         * Converts this AvatarUserSettings to JSON.
+         * @function toJSON
+         * @memberof proto.AvatarUserSettings
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        AvatarUserSettings.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return AvatarUserSettings;
+    })();
+
     proto.BizAccountLinkInfo = (function() {
 
         /**
@@ -6218,6 +6428,9 @@ $root.proto = (function() {
                     case 26:
                     case 27:
                     case 28:
+                    case 29:
+                    case 30:
+                    case 31:
                         break;
                     }
                 if (message.appVersion != null && message.hasOwnProperty("appVersion")) {
@@ -6396,6 +6609,18 @@ $root.proto = (function() {
                 case "CAPI":
                 case 28:
                     message.platform = 28;
+                    break;
+                case "WEAROS":
+                case 29:
+                    message.platform = 29;
+                    break;
+                case "ARDEVICE":
+                case 30:
+                    message.platform = 30;
+                    break;
+                case "VRDEVICE":
+                case 31:
+                    message.platform = 31;
                     break;
                 }
                 if (object.appVersion != null) {
@@ -6821,6 +7046,9 @@ $root.proto = (function() {
              * @property {number} OCULUS_CALL=26 OCULUS_CALL value
              * @property {number} MILAN=27 MILAN value
              * @property {number} CAPI=28 CAPI value
+             * @property {number} WEAROS=29 WEAROS value
+             * @property {number} ARDEVICE=30 ARDEVICE value
+             * @property {number} VRDEVICE=31 VRDEVICE value
              */
             UserAgent.Platform = (function() {
                 var valuesById = {}, values = Object.create(valuesById);
@@ -6853,6 +7081,9 @@ $root.proto = (function() {
                 values[valuesById[26] = "OCULUS_CALL"] = 26;
                 values[valuesById[27] = "MILAN"] = 27;
                 values[valuesById[28] = "CAPI"] = 28;
+                values[valuesById[29] = "WEAROS"] = 29;
+                values[valuesById[30] = "ARDEVICE"] = 30;
+                values[valuesById[31] = "VRDEVICE"] = 31;
                 return values;
             })();
 
@@ -7633,6 +7864,8 @@ $root.proto = (function() {
          * @property {proto.IActionLink|null} [actionLink] ContextInfo actionLink
          * @property {string|null} [groupSubject] ContextInfo groupSubject
          * @property {string|null} [parentGroupJid] ContextInfo parentGroupJid
+         * @property {string|null} [trustBannerType] ContextInfo trustBannerType
+         * @property {number|null} [trustBannerAction] ContextInfo trustBannerAction
          */
 
         /**
@@ -7836,6 +8069,22 @@ $root.proto = (function() {
         ContextInfo.prototype.parentGroupJid = "";
 
         /**
+         * ContextInfo trustBannerType.
+         * @member {string} trustBannerType
+         * @memberof proto.ContextInfo
+         * @instance
+         */
+        ContextInfo.prototype.trustBannerType = "";
+
+        /**
+         * ContextInfo trustBannerAction.
+         * @member {number} trustBannerAction
+         * @memberof proto.ContextInfo
+         * @instance
+         */
+        ContextInfo.prototype.trustBannerAction = 0;
+
+        /**
          * Creates a new ContextInfo instance using the specified properties.
          * @function create
          * @memberof proto.ContextInfo
@@ -7906,6 +8155,10 @@ $root.proto = (function() {
                 writer.uint32(/* id 34, wireType 2 =*/274).string(message.groupSubject);
             if (message.parentGroupJid != null && Object.hasOwnProperty.call(message, "parentGroupJid"))
                 writer.uint32(/* id 35, wireType 2 =*/282).string(message.parentGroupJid);
+            if (message.trustBannerType != null && Object.hasOwnProperty.call(message, "trustBannerType"))
+                writer.uint32(/* id 37, wireType 2 =*/298).string(message.trustBannerType);
+            if (message.trustBannerAction != null && Object.hasOwnProperty.call(message, "trustBannerAction"))
+                writer.uint32(/* id 38, wireType 0 =*/304).uint32(message.trustBannerAction);
             return writer;
         };
 
@@ -8010,6 +8263,12 @@ $root.proto = (function() {
                     break;
                 case 35:
                     message.parentGroupJid = reader.string();
+                    break;
+                case 37:
+                    message.trustBannerType = reader.string();
+                    break;
+                case 38:
+                    message.trustBannerAction = reader.uint32();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -8131,6 +8390,12 @@ $root.proto = (function() {
             if (message.parentGroupJid != null && message.hasOwnProperty("parentGroupJid"))
                 if (!$util.isString(message.parentGroupJid))
                     return "parentGroupJid: string expected";
+            if (message.trustBannerType != null && message.hasOwnProperty("trustBannerType"))
+                if (!$util.isString(message.trustBannerType))
+                    return "trustBannerType: string expected";
+            if (message.trustBannerAction != null && message.hasOwnProperty("trustBannerAction"))
+                if (!$util.isInteger(message.trustBannerAction))
+                    return "trustBannerAction: integer expected";
             return null;
         };
 
@@ -8228,6 +8493,10 @@ $root.proto = (function() {
                 message.groupSubject = String(object.groupSubject);
             if (object.parentGroupJid != null)
                 message.parentGroupJid = String(object.parentGroupJid);
+            if (object.trustBannerType != null)
+                message.trustBannerType = String(object.trustBannerType);
+            if (object.trustBannerAction != null)
+                message.trustBannerAction = object.trustBannerAction >>> 0;
             return message;
         };
 
@@ -8285,6 +8554,8 @@ $root.proto = (function() {
                 object.actionLink = null;
                 object.groupSubject = "";
                 object.parentGroupJid = "";
+                object.trustBannerType = "";
+                object.trustBannerAction = 0;
             }
             if (message.stanzaId != null && message.hasOwnProperty("stanzaId"))
                 object.stanzaId = message.stanzaId;
@@ -8338,6 +8609,10 @@ $root.proto = (function() {
                 object.groupSubject = message.groupSubject;
             if (message.parentGroupJid != null && message.hasOwnProperty("parentGroupJid"))
                 object.parentGroupJid = message.parentGroupJid;
+            if (message.trustBannerType != null && message.hasOwnProperty("trustBannerType"))
+                object.trustBannerType = message.trustBannerType;
+            if (message.trustBannerAction != null && message.hasOwnProperty("trustBannerAction"))
+                object.trustBannerAction = message.trustBannerAction;
             return object;
         };
 
@@ -9171,6 +9446,8 @@ $root.proto = (function() {
          * @property {string|null} [displayName] Conversation displayName
          * @property {string|null} [pnJid] Conversation pnJid
          * @property {boolean|null} [shareOwnPn] Conversation shareOwnPn
+         * @property {boolean|null} [pnhDuplicateLidThread] Conversation pnhDuplicateLidThread
+         * @property {string|null} [lidJid] Conversation lidJid
          */
 
         /**
@@ -9511,6 +9788,22 @@ $root.proto = (function() {
         Conversation.prototype.shareOwnPn = false;
 
         /**
+         * Conversation pnhDuplicateLidThread.
+         * @member {boolean} pnhDuplicateLidThread
+         * @memberof proto.Conversation
+         * @instance
+         */
+        Conversation.prototype.pnhDuplicateLidThread = false;
+
+        /**
+         * Conversation lidJid.
+         * @member {string} lidJid
+         * @memberof proto.Conversation
+         * @instance
+         */
+        Conversation.prototype.lidJid = "";
+
+        /**
          * Creates a new Conversation instance using the specified properties.
          * @function create
          * @memberof proto.Conversation
@@ -9615,6 +9908,10 @@ $root.proto = (function() {
                 writer.uint32(/* id 39, wireType 2 =*/314).string(message.pnJid);
             if (message.shareOwnPn != null && Object.hasOwnProperty.call(message, "shareOwnPn"))
                 writer.uint32(/* id 40, wireType 0 =*/320).bool(message.shareOwnPn);
+            if (message.pnhDuplicateLidThread != null && Object.hasOwnProperty.call(message, "pnhDuplicateLidThread"))
+                writer.uint32(/* id 41, wireType 0 =*/328).bool(message.pnhDuplicateLidThread);
+            if (message.lidJid != null && Object.hasOwnProperty.call(message, "lidJid"))
+                writer.uint32(/* id 42, wireType 2 =*/338).string(message.lidJid);
             return writer;
         };
 
@@ -9772,6 +10069,12 @@ $root.proto = (function() {
                     break;
                 case 40:
                     message.shareOwnPn = reader.bool();
+                    break;
+                case 41:
+                    message.pnhDuplicateLidThread = reader.bool();
+                    break;
+                case 42:
+                    message.lidJid = reader.string();
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -9956,6 +10259,12 @@ $root.proto = (function() {
             if (message.shareOwnPn != null && message.hasOwnProperty("shareOwnPn"))
                 if (typeof message.shareOwnPn !== "boolean")
                     return "shareOwnPn: boolean expected";
+            if (message.pnhDuplicateLidThread != null && message.hasOwnProperty("pnhDuplicateLidThread"))
+                if (typeof message.pnhDuplicateLidThread !== "boolean")
+                    return "pnhDuplicateLidThread: boolean expected";
+            if (message.lidJid != null && message.hasOwnProperty("lidJid"))
+                if (!$util.isString(message.lidJid))
+                    return "lidJid: string expected";
             return null;
         };
 
@@ -10148,6 +10457,10 @@ $root.proto = (function() {
                 message.pnJid = String(object.pnJid);
             if (object.shareOwnPn != null)
                 message.shareOwnPn = Boolean(object.shareOwnPn);
+            if (object.pnhDuplicateLidThread != null)
+                message.pnhDuplicateLidThread = Boolean(object.pnhDuplicateLidThread);
+            if (object.lidJid != null)
+                message.lidJid = String(object.lidJid);
             return message;
         };
 
@@ -10247,6 +10560,8 @@ $root.proto = (function() {
                 object.displayName = "";
                 object.pnJid = "";
                 object.shareOwnPn = false;
+                object.pnhDuplicateLidThread = false;
+                object.lidJid = "";
             }
             if (message.id != null && message.hasOwnProperty("id"))
                 object.id = message.id;
@@ -10355,6 +10670,10 @@ $root.proto = (function() {
                 object.pnJid = message.pnJid;
             if (message.shareOwnPn != null && message.hasOwnProperty("shareOwnPn"))
                 object.shareOwnPn = message.shareOwnPn;
+            if (message.pnhDuplicateLidThread != null && message.hasOwnProperty("pnhDuplicateLidThread"))
+                object.pnhDuplicateLidThread = message.pnhDuplicateLidThread;
+            if (message.lidJid != null && message.hasOwnProperty("lidJid"))
+                object.lidJid = message.lidJid;
             return object;
         };
 
@@ -11420,6 +11739,7 @@ $root.proto = (function() {
              * @interface IHistorySyncConfig
              * @property {number|null} [fullSyncDaysLimit] HistorySyncConfig fullSyncDaysLimit
              * @property {number|null} [fullSyncSizeMbLimit] HistorySyncConfig fullSyncSizeMbLimit
+             * @property {number|null} [storageQuotaMb] HistorySyncConfig storageQuotaMb
              */
 
             /**
@@ -11454,6 +11774,14 @@ $root.proto = (function() {
             HistorySyncConfig.prototype.fullSyncSizeMbLimit = 0;
 
             /**
+             * HistorySyncConfig storageQuotaMb.
+             * @member {number} storageQuotaMb
+             * @memberof proto.DeviceProps.HistorySyncConfig
+             * @instance
+             */
+            HistorySyncConfig.prototype.storageQuotaMb = 0;
+
+            /**
              * Creates a new HistorySyncConfig instance using the specified properties.
              * @function create
              * @memberof proto.DeviceProps.HistorySyncConfig
@@ -11481,6 +11809,8 @@ $root.proto = (function() {
                     writer.uint32(/* id 1, wireType 0 =*/8).uint32(message.fullSyncDaysLimit);
                 if (message.fullSyncSizeMbLimit != null && Object.hasOwnProperty.call(message, "fullSyncSizeMbLimit"))
                     writer.uint32(/* id 2, wireType 0 =*/16).uint32(message.fullSyncSizeMbLimit);
+                if (message.storageQuotaMb != null && Object.hasOwnProperty.call(message, "storageQuotaMb"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.storageQuotaMb);
                 return writer;
             };
 
@@ -11520,6 +11850,9 @@ $root.proto = (function() {
                         break;
                     case 2:
                         message.fullSyncSizeMbLimit = reader.uint32();
+                        break;
+                    case 3:
+                        message.storageQuotaMb = reader.uint32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -11562,6 +11895,9 @@ $root.proto = (function() {
                 if (message.fullSyncSizeMbLimit != null && message.hasOwnProperty("fullSyncSizeMbLimit"))
                     if (!$util.isInteger(message.fullSyncSizeMbLimit))
                         return "fullSyncSizeMbLimit: integer expected";
+                if (message.storageQuotaMb != null && message.hasOwnProperty("storageQuotaMb"))
+                    if (!$util.isInteger(message.storageQuotaMb))
+                        return "storageQuotaMb: integer expected";
                 return null;
             };
 
@@ -11581,6 +11917,8 @@ $root.proto = (function() {
                     message.fullSyncDaysLimit = object.fullSyncDaysLimit >>> 0;
                 if (object.fullSyncSizeMbLimit != null)
                     message.fullSyncSizeMbLimit = object.fullSyncSizeMbLimit >>> 0;
+                if (object.storageQuotaMb != null)
+                    message.storageQuotaMb = object.storageQuotaMb >>> 0;
                 return message;
             };
 
@@ -11600,11 +11938,14 @@ $root.proto = (function() {
                 if (options.defaults) {
                     object.fullSyncDaysLimit = 0;
                     object.fullSyncSizeMbLimit = 0;
+                    object.storageQuotaMb = 0;
                 }
                 if (message.fullSyncDaysLimit != null && message.hasOwnProperty("fullSyncDaysLimit"))
                     object.fullSyncDaysLimit = message.fullSyncDaysLimit;
                 if (message.fullSyncSizeMbLimit != null && message.hasOwnProperty("fullSyncSizeMbLimit"))
                     object.fullSyncSizeMbLimit = message.fullSyncSizeMbLimit;
+                if (message.storageQuotaMb != null && message.hasOwnProperty("storageQuotaMb"))
+                    object.storageQuotaMb = message.storageQuotaMb;
                 return object;
             };
 
@@ -12687,6 +13028,7 @@ $root.proto = (function() {
          * @property {boolean|null} [showGroupNotificationsPreview] GlobalSettings showGroupNotificationsPreview
          * @property {number|null} [disappearingModeDuration] GlobalSettings disappearingModeDuration
          * @property {number|Long|null} [disappearingModeTimestamp] GlobalSettings disappearingModeTimestamp
+         * @property {proto.IAvatarUserSettings|null} [avatarUserSettings] GlobalSettings avatarUserSettings
          */
 
         /**
@@ -12785,6 +13127,14 @@ $root.proto = (function() {
         GlobalSettings.prototype.disappearingModeTimestamp = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
         /**
+         * GlobalSettings avatarUserSettings.
+         * @member {proto.IAvatarUserSettings|null|undefined} avatarUserSettings
+         * @memberof proto.GlobalSettings
+         * @instance
+         */
+        GlobalSettings.prototype.avatarUserSettings = null;
+
+        /**
          * Creates a new GlobalSettings instance using the specified properties.
          * @function create
          * @memberof proto.GlobalSettings
@@ -12828,6 +13178,8 @@ $root.proto = (function() {
                 writer.uint32(/* id 9, wireType 0 =*/72).int32(message.disappearingModeDuration);
             if (message.disappearingModeTimestamp != null && Object.hasOwnProperty.call(message, "disappearingModeTimestamp"))
                 writer.uint32(/* id 10, wireType 0 =*/80).int64(message.disappearingModeTimestamp);
+            if (message.avatarUserSettings != null && Object.hasOwnProperty.call(message, "avatarUserSettings"))
+                $root.proto.AvatarUserSettings.encode(message.avatarUserSettings, writer.uint32(/* id 11, wireType 2 =*/90).fork()).ldelim();
             return writer;
         };
 
@@ -12891,6 +13243,9 @@ $root.proto = (function() {
                     break;
                 case 10:
                     message.disappearingModeTimestamp = reader.int64();
+                    break;
+                case 11:
+                    message.avatarUserSettings = $root.proto.AvatarUserSettings.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -12973,6 +13328,11 @@ $root.proto = (function() {
             if (message.disappearingModeTimestamp != null && message.hasOwnProperty("disappearingModeTimestamp"))
                 if (!$util.isInteger(message.disappearingModeTimestamp) && !(message.disappearingModeTimestamp && $util.isInteger(message.disappearingModeTimestamp.low) && $util.isInteger(message.disappearingModeTimestamp.high)))
                     return "disappearingModeTimestamp: integer|Long expected";
+            if (message.avatarUserSettings != null && message.hasOwnProperty("avatarUserSettings")) {
+                var error = $root.proto.AvatarUserSettings.verify(message.avatarUserSettings);
+                if (error)
+                    return "avatarUserSettings." + error;
+            }
             return null;
         };
 
@@ -13042,6 +13402,11 @@ $root.proto = (function() {
                     message.disappearingModeTimestamp = object.disappearingModeTimestamp;
                 else if (typeof object.disappearingModeTimestamp === "object")
                     message.disappearingModeTimestamp = new $util.LongBits(object.disappearingModeTimestamp.low >>> 0, object.disappearingModeTimestamp.high >>> 0).toNumber();
+            if (object.avatarUserSettings != null) {
+                if (typeof object.avatarUserSettings !== "object")
+                    throw TypeError(".proto.GlobalSettings.avatarUserSettings: object expected");
+                message.avatarUserSettings = $root.proto.AvatarUserSettings.fromObject(object.avatarUserSettings);
+            }
             return message;
         };
 
@@ -13073,6 +13438,7 @@ $root.proto = (function() {
                     object.disappearingModeTimestamp = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                 } else
                     object.disappearingModeTimestamp = options.longs === String ? "0" : 0;
+                object.avatarUserSettings = null;
             }
             if (message.lightThemeWallpaper != null && message.hasOwnProperty("lightThemeWallpaper"))
                 object.lightThemeWallpaper = $root.proto.WallpaperSettings.toObject(message.lightThemeWallpaper, options);
@@ -13097,6 +13463,8 @@ $root.proto = (function() {
                     object.disappearingModeTimestamp = options.longs === String ? String(message.disappearingModeTimestamp) : message.disappearingModeTimestamp;
                 else
                     object.disappearingModeTimestamp = options.longs === String ? $util.Long.prototype.toString.call(message.disappearingModeTimestamp) : options.longs === Number ? new $util.LongBits(message.disappearingModeTimestamp.low >>> 0, message.disappearingModeTimestamp.high >>> 0).toNumber() : message.disappearingModeTimestamp;
+            if (message.avatarUserSettings != null && message.hasOwnProperty("avatarUserSettings"))
+                object.avatarUserSettings = $root.proto.AvatarUserSettings.toObject(message.avatarUserSettings, options);
             return object;
         };
 
@@ -18668,7 +19036,7 @@ $root.proto = (function() {
             if (message.encReactionMessage != null && Object.hasOwnProperty.call(message, "encReactionMessage"))
                 $root.proto.Message.EncReactionMessage.encode(message.encReactionMessage, writer.uint32(/* id 56, wireType 2 =*/450).fork()).ldelim();
             if (message.editedMessage != null && Object.hasOwnProperty.call(message, "editedMessage"))
-                $root.proto.Message.FutureProofMessage.encode(message.editedMessage, writer.uint32(/* id 57, wireType 2 =*/458).fork()).ldelim();
+                $root.proto.Message.FutureProofMessage.encode(message.editedMessage, writer.uint32(/* id 58, wireType 2 =*/466).fork()).ldelim();
             return writer;
         };
 
@@ -18844,7 +19212,7 @@ $root.proto = (function() {
                 case 56:
                     message.encReactionMessage = $root.proto.Message.EncReactionMessage.decode(reader, reader.uint32());
                     break;
-                case 57:
+                case 58:
                     message.editedMessage = $root.proto.Message.FutureProofMessage.decode(reader, reader.uint32());
                     break;
                 default:
@@ -21156,6 +21524,7 @@ $root.proto = (function() {
              * @property {proto.IContextInfo|null} [contextInfo] AudioMessage contextInfo
              * @property {Uint8Array|null} [streamingSidecar] AudioMessage streamingSidecar
              * @property {Uint8Array|null} [waveform] AudioMessage waveform
+             * @property {number|null} [backgroundArgb] AudioMessage backgroundArgb
              */
 
             /**
@@ -21278,6 +21647,14 @@ $root.proto = (function() {
             AudioMessage.prototype.waveform = $util.newBuffer([]);
 
             /**
+             * AudioMessage backgroundArgb.
+             * @member {number} backgroundArgb
+             * @memberof proto.Message.AudioMessage
+             * @instance
+             */
+            AudioMessage.prototype.backgroundArgb = 0;
+
+            /**
              * Creates a new AudioMessage instance using the specified properties.
              * @function create
              * @memberof proto.Message.AudioMessage
@@ -21327,6 +21704,8 @@ $root.proto = (function() {
                     writer.uint32(/* id 18, wireType 2 =*/146).bytes(message.streamingSidecar);
                 if (message.waveform != null && Object.hasOwnProperty.call(message, "waveform"))
                     writer.uint32(/* id 19, wireType 2 =*/154).bytes(message.waveform);
+                if (message.backgroundArgb != null && Object.hasOwnProperty.call(message, "backgroundArgb"))
+                    writer.uint32(/* id 20, wireType 5 =*/165).fixed32(message.backgroundArgb);
                 return writer;
             };
 
@@ -21399,6 +21778,9 @@ $root.proto = (function() {
                         break;
                     case 19:
                         message.waveform = reader.bytes();
+                        break;
+                    case 20:
+                        message.backgroundArgb = reader.fixed32();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -21476,6 +21858,9 @@ $root.proto = (function() {
                 if (message.waveform != null && message.hasOwnProperty("waveform"))
                     if (!(message.waveform && typeof message.waveform.length === "number" || $util.isString(message.waveform)))
                         return "waveform: buffer expected";
+                if (message.backgroundArgb != null && message.hasOwnProperty("backgroundArgb"))
+                    if (!$util.isInteger(message.backgroundArgb))
+                        return "backgroundArgb: integer expected";
                 return null;
             };
 
@@ -21549,6 +21934,8 @@ $root.proto = (function() {
                         $util.base64.decode(object.waveform, message.waveform = $util.newBuffer($util.base64.length(object.waveform)), 0);
                     else if (object.waveform.length)
                         message.waveform = object.waveform;
+                if (object.backgroundArgb != null)
+                    message.backgroundArgb = object.backgroundArgb >>> 0;
                 return message;
             };
 
@@ -21617,6 +22004,7 @@ $root.proto = (function() {
                         if (options.bytes !== Array)
                             object.waveform = $util.newBuffer(object.waveform);
                     }
+                    object.backgroundArgb = 0;
                 }
                 if (message.url != null && message.hasOwnProperty("url"))
                     object.url = message.url;
@@ -21650,6 +22038,8 @@ $root.proto = (function() {
                     object.streamingSidecar = options.bytes === String ? $util.base64.encode(message.streamingSidecar, 0, message.streamingSidecar.length) : options.bytes === Array ? Array.prototype.slice.call(message.streamingSidecar) : message.streamingSidecar;
                 if (message.waveform != null && message.hasOwnProperty("waveform"))
                     object.waveform = options.bytes === String ? $util.base64.encode(message.waveform, 0, message.waveform.length) : options.bytes === Array ? Array.prototype.slice.call(message.waveform) : message.waveform;
+                if (message.backgroundArgb != null && message.hasOwnProperty("backgroundArgb"))
+                    object.backgroundArgb = message.backgroundArgb;
                 return object;
             };
 
@@ -28997,6 +29387,7 @@ $root.proto = (function() {
              * @property {number|null} [chunkOrder] HistorySyncNotification chunkOrder
              * @property {string|null} [originalMessageId] HistorySyncNotification originalMessageId
              * @property {number|null} [progress] HistorySyncNotification progress
+             * @property {number|Long|null} [oldestMsgInChunkTimestampSec] HistorySyncNotification oldestMsgInChunkTimestampSec
              */
 
             /**
@@ -29087,6 +29478,14 @@ $root.proto = (function() {
             HistorySyncNotification.prototype.progress = 0;
 
             /**
+             * HistorySyncNotification oldestMsgInChunkTimestampSec.
+             * @member {number|Long} oldestMsgInChunkTimestampSec
+             * @memberof proto.Message.HistorySyncNotification
+             * @instance
+             */
+            HistorySyncNotification.prototype.oldestMsgInChunkTimestampSec = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
+
+            /**
              * Creates a new HistorySyncNotification instance using the specified properties.
              * @function create
              * @memberof proto.Message.HistorySyncNotification
@@ -29128,6 +29527,8 @@ $root.proto = (function() {
                     writer.uint32(/* id 8, wireType 2 =*/66).string(message.originalMessageId);
                 if (message.progress != null && Object.hasOwnProperty.call(message, "progress"))
                     writer.uint32(/* id 9, wireType 0 =*/72).uint32(message.progress);
+                if (message.oldestMsgInChunkTimestampSec != null && Object.hasOwnProperty.call(message, "oldestMsgInChunkTimestampSec"))
+                    writer.uint32(/* id 10, wireType 0 =*/80).int64(message.oldestMsgInChunkTimestampSec);
                 return writer;
             };
 
@@ -29188,6 +29589,9 @@ $root.proto = (function() {
                         break;
                     case 9:
                         message.progress = reader.uint32();
+                        break;
+                    case 10:
+                        message.oldestMsgInChunkTimestampSec = reader.int64();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -29260,6 +29664,9 @@ $root.proto = (function() {
                 if (message.progress != null && message.hasOwnProperty("progress"))
                     if (!$util.isInteger(message.progress))
                         return "progress: integer expected";
+                if (message.oldestMsgInChunkTimestampSec != null && message.hasOwnProperty("oldestMsgInChunkTimestampSec"))
+                    if (!$util.isInteger(message.oldestMsgInChunkTimestampSec) && !(message.oldestMsgInChunkTimestampSec && $util.isInteger(message.oldestMsgInChunkTimestampSec.low) && $util.isInteger(message.oldestMsgInChunkTimestampSec.high)))
+                        return "oldestMsgInChunkTimestampSec: integer|Long expected";
                 return null;
             };
 
@@ -29333,6 +29740,15 @@ $root.proto = (function() {
                     message.originalMessageId = String(object.originalMessageId);
                 if (object.progress != null)
                     message.progress = object.progress >>> 0;
+                if (object.oldestMsgInChunkTimestampSec != null)
+                    if ($util.Long)
+                        (message.oldestMsgInChunkTimestampSec = $util.Long.fromValue(object.oldestMsgInChunkTimestampSec)).unsigned = false;
+                    else if (typeof object.oldestMsgInChunkTimestampSec === "string")
+                        message.oldestMsgInChunkTimestampSec = parseInt(object.oldestMsgInChunkTimestampSec, 10);
+                    else if (typeof object.oldestMsgInChunkTimestampSec === "number")
+                        message.oldestMsgInChunkTimestampSec = object.oldestMsgInChunkTimestampSec;
+                    else if (typeof object.oldestMsgInChunkTimestampSec === "object")
+                        message.oldestMsgInChunkTimestampSec = new $util.LongBits(object.oldestMsgInChunkTimestampSec.low >>> 0, object.oldestMsgInChunkTimestampSec.high >>> 0).toNumber();
                 return message;
             };
 
@@ -29381,6 +29797,11 @@ $root.proto = (function() {
                     object.chunkOrder = 0;
                     object.originalMessageId = "";
                     object.progress = 0;
+                    if ($util.Long) {
+                        var long = new $util.Long(0, 0, false);
+                        object.oldestMsgInChunkTimestampSec = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                    } else
+                        object.oldestMsgInChunkTimestampSec = options.longs === String ? "0" : 0;
                 }
                 if (message.fileSha256 != null && message.hasOwnProperty("fileSha256"))
                     object.fileSha256 = options.bytes === String ? $util.base64.encode(message.fileSha256, 0, message.fileSha256.length) : options.bytes === Array ? Array.prototype.slice.call(message.fileSha256) : message.fileSha256;
@@ -29403,6 +29824,11 @@ $root.proto = (function() {
                     object.originalMessageId = message.originalMessageId;
                 if (message.progress != null && message.hasOwnProperty("progress"))
                     object.progress = message.progress;
+                if (message.oldestMsgInChunkTimestampSec != null && message.hasOwnProperty("oldestMsgInChunkTimestampSec"))
+                    if (typeof message.oldestMsgInChunkTimestampSec === "number")
+                        object.oldestMsgInChunkTimestampSec = options.longs === String ? String(message.oldestMsgInChunkTimestampSec) : message.oldestMsgInChunkTimestampSec;
+                    else
+                        object.oldestMsgInChunkTimestampSec = options.longs === String ? $util.Long.prototype.toString.call(message.oldestMsgInChunkTimestampSec) : options.longs === Number ? new $util.LongBits(message.oldestMsgInChunkTimestampSec.low >>> 0, message.oldestMsgInChunkTimestampSec.high >>> 0).toNumber() : message.oldestMsgInChunkTimestampSec;
                 return object;
             };
 
@@ -43838,6 +44264,7 @@ $root.proto = (function() {
              * @property {Uint8Array|null} [pngThumbnail] StickerMessage pngThumbnail
              * @property {proto.IContextInfo|null} [contextInfo] StickerMessage contextInfo
              * @property {number|Long|null} [stickerSentTs] StickerMessage stickerSentTs
+             * @property {boolean|null} [isAvatar] StickerMessage isAvatar
              */
 
             /**
@@ -43984,6 +44411,14 @@ $root.proto = (function() {
             StickerMessage.prototype.stickerSentTs = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
+             * StickerMessage isAvatar.
+             * @member {boolean} isAvatar
+             * @memberof proto.Message.StickerMessage
+             * @instance
+             */
+            StickerMessage.prototype.isAvatar = false;
+
+            /**
              * Creates a new StickerMessage instance using the specified properties.
              * @function create
              * @memberof proto.Message.StickerMessage
@@ -44039,6 +44474,8 @@ $root.proto = (function() {
                     $root.proto.ContextInfo.encode(message.contextInfo, writer.uint32(/* id 17, wireType 2 =*/138).fork()).ldelim();
                 if (message.stickerSentTs != null && Object.hasOwnProperty.call(message, "stickerSentTs"))
                     writer.uint32(/* id 18, wireType 0 =*/144).int64(message.stickerSentTs);
+                if (message.isAvatar != null && Object.hasOwnProperty.call(message, "isAvatar"))
+                    writer.uint32(/* id 19, wireType 0 =*/152).bool(message.isAvatar);
                 return writer;
             };
 
@@ -44120,6 +44557,9 @@ $root.proto = (function() {
                         break;
                     case 18:
                         message.stickerSentTs = reader.int64();
+                        break;
+                    case 19:
+                        message.isAvatar = reader.bool();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -44206,6 +44646,9 @@ $root.proto = (function() {
                 if (message.stickerSentTs != null && message.hasOwnProperty("stickerSentTs"))
                     if (!$util.isInteger(message.stickerSentTs) && !(message.stickerSentTs && $util.isInteger(message.stickerSentTs.low) && $util.isInteger(message.stickerSentTs.high)))
                         return "stickerSentTs: integer|Long expected";
+                if (message.isAvatar != null && message.hasOwnProperty("isAvatar"))
+                    if (typeof message.isAvatar !== "boolean")
+                        return "isAvatar: boolean expected";
                 return null;
             };
 
@@ -44292,6 +44735,8 @@ $root.proto = (function() {
                         message.stickerSentTs = object.stickerSentTs;
                     else if (typeof object.stickerSentTs === "object")
                         message.stickerSentTs = new $util.LongBits(object.stickerSentTs.low >>> 0, object.stickerSentTs.high >>> 0).toNumber();
+                if (object.isAvatar != null)
+                    message.isAvatar = Boolean(object.isAvatar);
                 return message;
             };
 
@@ -44367,6 +44812,7 @@ $root.proto = (function() {
                         object.stickerSentTs = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.stickerSentTs = options.longs === String ? "0" : 0;
+                    object.isAvatar = false;
                 }
                 if (message.url != null && message.hasOwnProperty("url"))
                     object.url = message.url;
@@ -44409,6 +44855,8 @@ $root.proto = (function() {
                         object.stickerSentTs = options.longs === String ? String(message.stickerSentTs) : message.stickerSentTs;
                     else
                         object.stickerSentTs = options.longs === String ? $util.Long.prototype.toString.call(message.stickerSentTs) : options.longs === Number ? new $util.LongBits(message.stickerSentTs.low >>> 0, message.stickerSentTs.high >>> 0).toNumber() : message.stickerSentTs;
+                if (message.isAvatar != null && message.hasOwnProperty("isAvatar"))
+                    object.isAvatar = message.isAvatar;
                 return object;
             };
 
@@ -44956,8 +45404,10 @@ $root.proto = (function() {
              * @interface ITemplateMessage
              * @property {proto.IContextInfo|null} [contextInfo] TemplateMessage contextInfo
              * @property {proto.Message.TemplateMessage.IHydratedFourRowTemplate|null} [hydratedTemplate] TemplateMessage hydratedTemplate
+             * @property {string|null} [templateId] TemplateMessage templateId
              * @property {proto.Message.TemplateMessage.IFourRowTemplate|null} [fourRowTemplate] TemplateMessage fourRowTemplate
              * @property {proto.Message.TemplateMessage.IHydratedFourRowTemplate|null} [hydratedFourRowTemplate] TemplateMessage hydratedFourRowTemplate
+             * @property {proto.Message.IInteractiveMessage|null} [interactiveMessageTemplate] TemplateMessage interactiveMessageTemplate
              */
 
             /**
@@ -44992,6 +45442,14 @@ $root.proto = (function() {
             TemplateMessage.prototype.hydratedTemplate = null;
 
             /**
+             * TemplateMessage templateId.
+             * @member {string} templateId
+             * @memberof proto.Message.TemplateMessage
+             * @instance
+             */
+            TemplateMessage.prototype.templateId = "";
+
+            /**
              * TemplateMessage fourRowTemplate.
              * @member {proto.Message.TemplateMessage.IFourRowTemplate|null|undefined} fourRowTemplate
              * @memberof proto.Message.TemplateMessage
@@ -45007,17 +45465,25 @@ $root.proto = (function() {
              */
             TemplateMessage.prototype.hydratedFourRowTemplate = null;
 
+            /**
+             * TemplateMessage interactiveMessageTemplate.
+             * @member {proto.Message.IInteractiveMessage|null|undefined} interactiveMessageTemplate
+             * @memberof proto.Message.TemplateMessage
+             * @instance
+             */
+            TemplateMessage.prototype.interactiveMessageTemplate = null;
+
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
 
             /**
              * TemplateMessage format.
-             * @member {"fourRowTemplate"|"hydratedFourRowTemplate"|undefined} format
+             * @member {"fourRowTemplate"|"hydratedFourRowTemplate"|"interactiveMessageTemplate"|undefined} format
              * @memberof proto.Message.TemplateMessage
              * @instance
              */
             Object.defineProperty(TemplateMessage.prototype, "format", {
-                get: $util.oneOfGetter($oneOfFields = ["fourRowTemplate", "hydratedFourRowTemplate"]),
+                get: $util.oneOfGetter($oneOfFields = ["fourRowTemplate", "hydratedFourRowTemplate", "interactiveMessageTemplate"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
 
@@ -45053,6 +45519,10 @@ $root.proto = (function() {
                     $root.proto.ContextInfo.encode(message.contextInfo, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                 if (message.hydratedTemplate != null && Object.hasOwnProperty.call(message, "hydratedTemplate"))
                     $root.proto.Message.TemplateMessage.HydratedFourRowTemplate.encode(message.hydratedTemplate, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.interactiveMessageTemplate != null && Object.hasOwnProperty.call(message, "interactiveMessageTemplate"))
+                    $root.proto.Message.InteractiveMessage.encode(message.interactiveMessageTemplate, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.templateId != null && Object.hasOwnProperty.call(message, "templateId"))
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.templateId);
                 return writer;
             };
 
@@ -45093,11 +45563,17 @@ $root.proto = (function() {
                     case 4:
                         message.hydratedTemplate = $root.proto.Message.TemplateMessage.HydratedFourRowTemplate.decode(reader, reader.uint32());
                         break;
+                    case 9:
+                        message.templateId = reader.string();
+                        break;
                     case 1:
                         message.fourRowTemplate = $root.proto.Message.TemplateMessage.FourRowTemplate.decode(reader, reader.uint32());
                         break;
                     case 2:
                         message.hydratedFourRowTemplate = $root.proto.Message.TemplateMessage.HydratedFourRowTemplate.decode(reader, reader.uint32());
+                        break;
+                    case 5:
+                        message.interactiveMessageTemplate = $root.proto.Message.InteractiveMessage.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -45145,6 +45621,9 @@ $root.proto = (function() {
                     if (error)
                         return "hydratedTemplate." + error;
                 }
+                if (message.templateId != null && message.hasOwnProperty("templateId"))
+                    if (!$util.isString(message.templateId))
+                        return "templateId: string expected";
                 if (message.fourRowTemplate != null && message.hasOwnProperty("fourRowTemplate")) {
                     properties.format = 1;
                     {
@@ -45161,6 +45640,16 @@ $root.proto = (function() {
                         var error = $root.proto.Message.TemplateMessage.HydratedFourRowTemplate.verify(message.hydratedFourRowTemplate);
                         if (error)
                             return "hydratedFourRowTemplate." + error;
+                    }
+                }
+                if (message.interactiveMessageTemplate != null && message.hasOwnProperty("interactiveMessageTemplate")) {
+                    if (properties.format === 1)
+                        return "format: multiple values";
+                    properties.format = 1;
+                    {
+                        var error = $root.proto.Message.InteractiveMessage.verify(message.interactiveMessageTemplate);
+                        if (error)
+                            return "interactiveMessageTemplate." + error;
                     }
                 }
                 return null;
@@ -45188,6 +45677,8 @@ $root.proto = (function() {
                         throw TypeError(".proto.Message.TemplateMessage.hydratedTemplate: object expected");
                     message.hydratedTemplate = $root.proto.Message.TemplateMessage.HydratedFourRowTemplate.fromObject(object.hydratedTemplate);
                 }
+                if (object.templateId != null)
+                    message.templateId = String(object.templateId);
                 if (object.fourRowTemplate != null) {
                     if (typeof object.fourRowTemplate !== "object")
                         throw TypeError(".proto.Message.TemplateMessage.fourRowTemplate: object expected");
@@ -45197,6 +45688,11 @@ $root.proto = (function() {
                     if (typeof object.hydratedFourRowTemplate !== "object")
                         throw TypeError(".proto.Message.TemplateMessage.hydratedFourRowTemplate: object expected");
                     message.hydratedFourRowTemplate = $root.proto.Message.TemplateMessage.HydratedFourRowTemplate.fromObject(object.hydratedFourRowTemplate);
+                }
+                if (object.interactiveMessageTemplate != null) {
+                    if (typeof object.interactiveMessageTemplate !== "object")
+                        throw TypeError(".proto.Message.TemplateMessage.interactiveMessageTemplate: object expected");
+                    message.interactiveMessageTemplate = $root.proto.Message.InteractiveMessage.fromObject(object.interactiveMessageTemplate);
                 }
                 return message;
             };
@@ -45217,6 +45713,7 @@ $root.proto = (function() {
                 if (options.defaults) {
                     object.contextInfo = null;
                     object.hydratedTemplate = null;
+                    object.templateId = "";
                 }
                 if (message.fourRowTemplate != null && message.hasOwnProperty("fourRowTemplate")) {
                     object.fourRowTemplate = $root.proto.Message.TemplateMessage.FourRowTemplate.toObject(message.fourRowTemplate, options);
@@ -45232,6 +45729,13 @@ $root.proto = (function() {
                     object.contextInfo = $root.proto.ContextInfo.toObject(message.contextInfo, options);
                 if (message.hydratedTemplate != null && message.hasOwnProperty("hydratedTemplate"))
                     object.hydratedTemplate = $root.proto.Message.TemplateMessage.HydratedFourRowTemplate.toObject(message.hydratedTemplate, options);
+                if (message.interactiveMessageTemplate != null && message.hasOwnProperty("interactiveMessageTemplate")) {
+                    object.interactiveMessageTemplate = $root.proto.Message.InteractiveMessage.toObject(message.interactiveMessageTemplate, options);
+                    if (options.oneofs)
+                        object.format = "interactiveMessageTemplate";
+                }
+                if (message.templateId != null && message.hasOwnProperty("templateId"))
+                    object.templateId = message.templateId;
                 return object;
             };
 
@@ -60172,6 +60676,7 @@ $root.proto = (function() {
              * @interface IContactAction
              * @property {string|null} [fullName] ContactAction fullName
              * @property {string|null} [firstName] ContactAction firstName
+             * @property {string|null} [lidJid] ContactAction lidJid
              */
 
             /**
@@ -60206,6 +60711,14 @@ $root.proto = (function() {
             ContactAction.prototype.firstName = "";
 
             /**
+             * ContactAction lidJid.
+             * @member {string} lidJid
+             * @memberof proto.SyncActionValue.ContactAction
+             * @instance
+             */
+            ContactAction.prototype.lidJid = "";
+
+            /**
              * Creates a new ContactAction instance using the specified properties.
              * @function create
              * @memberof proto.SyncActionValue.ContactAction
@@ -60233,6 +60746,8 @@ $root.proto = (function() {
                     writer.uint32(/* id 1, wireType 2 =*/10).string(message.fullName);
                 if (message.firstName != null && Object.hasOwnProperty.call(message, "firstName"))
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.firstName);
+                if (message.lidJid != null && Object.hasOwnProperty.call(message, "lidJid"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.lidJid);
                 return writer;
             };
 
@@ -60272,6 +60787,9 @@ $root.proto = (function() {
                         break;
                     case 2:
                         message.firstName = reader.string();
+                        break;
+                    case 3:
+                        message.lidJid = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -60314,6 +60832,9 @@ $root.proto = (function() {
                 if (message.firstName != null && message.hasOwnProperty("firstName"))
                     if (!$util.isString(message.firstName))
                         return "firstName: string expected";
+                if (message.lidJid != null && message.hasOwnProperty("lidJid"))
+                    if (!$util.isString(message.lidJid))
+                        return "lidJid: string expected";
                 return null;
             };
 
@@ -60333,6 +60854,8 @@ $root.proto = (function() {
                     message.fullName = String(object.fullName);
                 if (object.firstName != null)
                     message.firstName = String(object.firstName);
+                if (object.lidJid != null)
+                    message.lidJid = String(object.lidJid);
                 return message;
             };
 
@@ -60352,11 +60875,14 @@ $root.proto = (function() {
                 if (options.defaults) {
                     object.fullName = "";
                     object.firstName = "";
+                    object.lidJid = "";
                 }
                 if (message.fullName != null && message.hasOwnProperty("fullName"))
                     object.fullName = message.fullName;
                 if (message.firstName != null && message.hasOwnProperty("firstName"))
                     object.firstName = message.firstName;
+                if (message.lidJid != null && message.hasOwnProperty("lidJid"))
+                    object.lidJid = message.lidJid;
                 return object;
             };
 
@@ -61828,6 +62354,7 @@ $root.proto = (function() {
              * @interface IMuteAction
              * @property {boolean|null} [muted] MuteAction muted
              * @property {number|Long|null} [muteEndTimestamp] MuteAction muteEndTimestamp
+             * @property {boolean|null} [autoMuted] MuteAction autoMuted
              */
 
             /**
@@ -61862,6 +62389,14 @@ $root.proto = (function() {
             MuteAction.prototype.muteEndTimestamp = $util.Long ? $util.Long.fromBits(0,0,false) : 0;
 
             /**
+             * MuteAction autoMuted.
+             * @member {boolean} autoMuted
+             * @memberof proto.SyncActionValue.MuteAction
+             * @instance
+             */
+            MuteAction.prototype.autoMuted = false;
+
+            /**
              * Creates a new MuteAction instance using the specified properties.
              * @function create
              * @memberof proto.SyncActionValue.MuteAction
@@ -61889,6 +62424,8 @@ $root.proto = (function() {
                     writer.uint32(/* id 1, wireType 0 =*/8).bool(message.muted);
                 if (message.muteEndTimestamp != null && Object.hasOwnProperty.call(message, "muteEndTimestamp"))
                     writer.uint32(/* id 2, wireType 0 =*/16).int64(message.muteEndTimestamp);
+                if (message.autoMuted != null && Object.hasOwnProperty.call(message, "autoMuted"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).bool(message.autoMuted);
                 return writer;
             };
 
@@ -61928,6 +62465,9 @@ $root.proto = (function() {
                         break;
                     case 2:
                         message.muteEndTimestamp = reader.int64();
+                        break;
+                    case 3:
+                        message.autoMuted = reader.bool();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -61970,6 +62510,9 @@ $root.proto = (function() {
                 if (message.muteEndTimestamp != null && message.hasOwnProperty("muteEndTimestamp"))
                     if (!$util.isInteger(message.muteEndTimestamp) && !(message.muteEndTimestamp && $util.isInteger(message.muteEndTimestamp.low) && $util.isInteger(message.muteEndTimestamp.high)))
                         return "muteEndTimestamp: integer|Long expected";
+                if (message.autoMuted != null && message.hasOwnProperty("autoMuted"))
+                    if (typeof message.autoMuted !== "boolean")
+                        return "autoMuted: boolean expected";
                 return null;
             };
 
@@ -61996,6 +62539,8 @@ $root.proto = (function() {
                         message.muteEndTimestamp = object.muteEndTimestamp;
                     else if (typeof object.muteEndTimestamp === "object")
                         message.muteEndTimestamp = new $util.LongBits(object.muteEndTimestamp.low >>> 0, object.muteEndTimestamp.high >>> 0).toNumber();
+                if (object.autoMuted != null)
+                    message.autoMuted = Boolean(object.autoMuted);
                 return message;
             };
 
@@ -62019,6 +62564,7 @@ $root.proto = (function() {
                         object.muteEndTimestamp = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                     } else
                         object.muteEndTimestamp = options.longs === String ? "0" : 0;
+                    object.autoMuted = false;
                 }
                 if (message.muted != null && message.hasOwnProperty("muted"))
                     object.muted = message.muted;
@@ -62027,6 +62573,8 @@ $root.proto = (function() {
                         object.muteEndTimestamp = options.longs === String ? String(message.muteEndTimestamp) : message.muteEndTimestamp;
                     else
                         object.muteEndTimestamp = options.longs === String ? $util.Long.prototype.toString.call(message.muteEndTimestamp) : options.longs === Number ? new $util.LongBits(message.muteEndTimestamp.low >>> 0, message.muteEndTimestamp.high >>> 0).toNumber() : message.muteEndTimestamp;
+                if (message.autoMuted != null && message.hasOwnProperty("autoMuted"))
+                    object.autoMuted = message.autoMuted;
                 return object;
             };
 
@@ -73087,6 +73635,11 @@ $root.proto = (function() {
                 case 154:
                 case 155:
                 case 156:
+                case 157:
+                case 158:
+                case 159:
+                case 160:
+                case 161:
                     break;
                 }
             if (message.clearMedia != null && message.hasOwnProperty("clearMedia"))
@@ -73943,6 +74496,26 @@ $root.proto = (function() {
             case 156:
                 message.messageStubType = 156;
                 break;
+            case "CAG_MASKED_THREAD_CREATED":
+            case 157:
+                message.messageStubType = 157;
+                break;
+            case "COMMUNITY_PARENT_GROUP_SUBJECT_CHANGED":
+            case 158:
+                message.messageStubType = 158;
+                break;
+            case "CAG_INVITE_AUTO_ADD":
+            case 159:
+                message.messageStubType = 159;
+                break;
+            case "BIZ_CHAT_ASSIGNMENT_UNASSIGN":
+            case 160:
+                message.messageStubType = 160;
+                break;
+            case "CAG_INVITE_AUTO_JOINED":
+            case 161:
+                message.messageStubType = 161;
+                break;
             }
             if (object.clearMedia != null)
                 message.clearMedia = Boolean(object.clearMedia);
@@ -74522,6 +75095,11 @@ $root.proto = (function() {
          * @property {number} BIZ_CHAT_ASSIGNMENT=154 BIZ_CHAT_ASSIGNMENT value
          * @property {number} CHAT_PSA=155 CHAT_PSA value
          * @property {number} CHAT_POLL_CREATION_MESSAGE=156 CHAT_POLL_CREATION_MESSAGE value
+         * @property {number} CAG_MASKED_THREAD_CREATED=157 CAG_MASKED_THREAD_CREATED value
+         * @property {number} COMMUNITY_PARENT_GROUP_SUBJECT_CHANGED=158 COMMUNITY_PARENT_GROUP_SUBJECT_CHANGED value
+         * @property {number} CAG_INVITE_AUTO_ADD=159 CAG_INVITE_AUTO_ADD value
+         * @property {number} BIZ_CHAT_ASSIGNMENT_UNASSIGN=160 BIZ_CHAT_ASSIGNMENT_UNASSIGN value
+         * @property {number} CAG_INVITE_AUTO_JOINED=161 CAG_INVITE_AUTO_JOINED value
          */
         WebMessageInfo.StubType = (function() {
             var valuesById = {}, values = Object.create(valuesById);
@@ -74682,6 +75260,11 @@ $root.proto = (function() {
             values[valuesById[154] = "BIZ_CHAT_ASSIGNMENT"] = 154;
             values[valuesById[155] = "CHAT_PSA"] = 155;
             values[valuesById[156] = "CHAT_POLL_CREATION_MESSAGE"] = 156;
+            values[valuesById[157] = "CAG_MASKED_THREAD_CREATED"] = 157;
+            values[valuesById[158] = "COMMUNITY_PARENT_GROUP_SUBJECT_CHANGED"] = 158;
+            values[valuesById[159] = "CAG_INVITE_AUTO_ADD"] = 159;
+            values[valuesById[160] = "BIZ_CHAT_ASSIGNMENT_UNASSIGN"] = 160;
+            values[valuesById[161] = "CAG_INVITE_AUTO_JOINED"] = 161;
             return values;
         })();
 
