@@ -19,7 +19,7 @@
   "forwarding": false,
   "banChats": false,
   "menu_audio": false,
-  "verificado": true,
+  "verificado": false,
   "botoes": true,
   "consoleoff": true,
   "antipv": false,
@@ -31,5 +31,6 @@
   "dono3": ".",
   "dono4": ".",
   "dono5": ".",
-  "dono6": "."
+  "dono6": ".",
+  "botoff": false
 }

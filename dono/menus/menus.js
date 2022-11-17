@@ -93,6 +93,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Toimg (MARCAR-FIGU)
 │✾▹ ${prefix}Togif (MARCAR-FIGU)
 │✾▹ ${prefix}Roubar (TEXT/TEXT)
+│✾▹ ${prefix}figurinhas quantidade
 ╰──────────┐
 ╭──────────┴─┐
 │ COMANDOS/BÁSICOS
