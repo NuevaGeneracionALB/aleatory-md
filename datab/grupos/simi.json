@@ -5753,7 +5753,7 @@
             "vc é viado kaick",
             "pros e contras?",
             "morte aos bot",
-            "case 'cassino':\naddfilter(from)  \nconst soto = [\n'🍊 : 🍒 : 🍐',\n'🍒 : 🔔 : 🍊',\n'🍇 : 🍇 : 🍇',\n'🍊 : 🍋 : 🔔',\n'🔔 : 🍒 : 🍐',\n'🔔 : 🍒 : 🍊',\n'🍊 : 🍋 : ??',\t\t\n'🍐 : 🍒 : 🍋',\n'🍐 : 🍐 : 🍐',\n'🍊 : 🍒 : 🍒',\n'🔔 : 🔔 : 🍇',\n'🍌 : 🍒 : ??',\n'🍐 : 🔔 : 🔔',\n'🍊 : 🍋 : 🍒',\n'🍋 : 🍋 : 🍌',\n'🔔 : 🔔 : 🍇',\n'🔔 : 🍐 : 🍇',\n'🔔 : 🔔 : 🔔',\n'🍒 : 🍒 : 🍒',\n'🍌 : 🍌 : 🍌'\n]\t\t  \n\nconst somtoy2 = sotoy[math.floor(math.random() * sotoy.length)]\nif ((somtoy2 == '🥑 : 🥑 : 🥑') ||(somtoy2 == '🍉 : 🍉 : 🍉') ||(somtoy2 == '🍓 : 🍓 : 🍓') ||(somtoy2 == '🍎 : 🍎 : 🍎') ||(somtoy2 == '🍍 : 🍍 : 🍍') ||(somtoy2 == '🥝 : 🥝 : 🥝') ||(somtoy2 == '🍑 : 🍑 : 🍑') ||(somtoy2 == '🥥 : 🥥 : 🥥') ||(somtoy2 == '🍋 : 🍋 : 🍋') ||(somtoy2 == '🍐 : 🍐 : 🍐') ||(somtoy2 == '🍌 : 🍌 : 🍌') ||(somtoy2 == '🍒 : 🍒 : 🍒') ||(somtoy2 == '🔔 : 🔔 : 🔔') ||(somtoy2 == '🍊 : 🍊 : 🍊') ||(somtoy2 == '🍇 : 🍇 : 🍇')) {\nvar vitória = \"você ganhou!!!\"\n} else {\nvar vitória = \"você perdeu...\"\n}\n\nconst cassino = `\n┏━━━━❪🎰❫━━━━\n┣► ${somtoy2}◄┛\n┗━━━━❪💰❫━━━━\n\n*${vitória}*`\n  \nsendbtext(from, `${cassino}`, `insta-dono: @faaelzx\\ninsta-bot: @nami.wpp`, [\n{buttonid: `${prefix}cassino`, buttontext: {displaytext: `🍀tentar novamente🍀`}, type: 1}], selo)\nbreak",
+            "então também não.",
             "vsfd",
             "simih ativado ne kkk",
             "sim",
@@ -13947,7 +13947,7 @@
             "esse bot ta estranho kk",
             "cal",
             "disponha",
-            "case 'hentai':\nconst { hentai } = require('./armor/nsfw/hentai.js')\nvar envhentai = hentai[math.floor(math.random() * hentai.length)]\nconn.sendmessage(from, {image: envhentai, caption: `algo`}, {quoted: info})\nbreak",
+            "eu que agradeço",
             "gay",
             "mingau",
             "kkkk",
@@ -30586,7 +30586,7 @@
     {
         "msg": "eu n mexi na case",
         "messages": [
-            "case 'tiktok2':\nqp = args.join(\" \")\nif (!qp) return reply('ops, insira o link.')\nsendbtext(from, \"✔️ download de vídeo / audio [ tiktok ]\\nescolha uma opção que deseja.\", `☂️`, [\n{buttonid: `${prefix}tiktokvideo ${qp}`, buttontext: {displaytext: `🎥 video`}, type: 1},\n{buttonid: `${prefix}tiktokaudio ${qp}`, buttontext: {displaytext: `🎵 audio`}, type: 1}], selo)\nbreak"
+            "mexeu simm"
         ]
     },
     {
@@ -33208,7 +33208,7 @@
     {
         "msg": "me manda",
         "messages": [
-            "case 'vemqrcode':\nif(!sodono) return reply(\"apenas dono..\")\nbla = fs.readfilesync(\"./qrcode.json\")\nconn.sendmessage(from, {document: bla, mimetype: 'document/json', filename: 'qrcode.json'})\nbreak \n\nusa esse de base pra fazer",
+            "não",
             "pv fof"
         ]
     },
@@ -33697,7 +33697,7 @@
         "msg": "por acaso exite um comando (seradm) ?",
         "messages": [
             "sim",
-            "case 'seradm':\n  if (sodono){\nconn.groupparticipantsupdate(from, [sender], \"promote\")\n}\nreply('pronto')\nbreak \n\ncase 'sermembro':\nif (sodono){\nconn.groupparticipantsupdate(from, [sender], \"demote\")\n}\nreply(`pronto`)\nbreak"
+            "aham, fala com o josival"
         ]
     },
     {
@@ -45271,7 +45271,7 @@
     {
         "msg": "isso que eu quero",
         "messages": [
-            "case 'seradm':\n  if (sodono){\nconn.groupparticipantsupdate(from, [sender], \"promote\")\n}\nreply('pronto')\nbreak \n\ncase 'sermembro':\nif (sodono){\nconn.groupparticipantsupdate(from, [sender], \"demote\")\n}\nreply(`pronto`)\nbreak"
+            "secsu?"
         ]
     },
     {
@@ -55479,7 +55479,7 @@
     {
         "msg": "alguem me manda a case de avaliar?",
         "messages": [
-            "case 'avalie':\nconst avalie = body.slice(8)\nif (args.length <= 1) return reply(`exemplo: ${prefix}avalie \"bot muito bom, parabéns. \"`)\nif (args.length >= 400) return conn.sendmessage(from, {text: 'máximo 400 caracteres'}, {quoted: selo})\nvar nomor = info.participant\ntdptls = `[ avaliação ]\\nde: wa.me/${sender.split(\"@s.whatsapp.net\")[0]}\\n: ${avalie}`\nawait conn.sendmessage(`${setting.numerodono}@s.whatsapp.net`, {text: tdptls }, {quoted: selo})\nreply(\"mensagem enviada ao meu dono, obrigado pela avaliação, iremos melhorar a cada dia.\")\nbreak"
+            "não"
         ]
     },
     {
@@ -73591,7 +73591,7 @@
     {
         "msg": "blz mano 🤙🌹",
         "messages": [
-            "case 'figurinhas':\ncase 'pacotefig':\ncase 'pacotefigurinhas':\ncase 'figpacote':\ncase 'figutinhaspacote':\nif (!ispremium && !sodono) return reply(enviar.msg.premium)\nif (q.length <= 1) return reply(`não existe nada com apenas ${q.length} aqui. adicione mais letras nesse nome.\\n\\n*exemplo: ${prefix + command} meme`)\nconst { st } = require('./armor/pesquisastick.js')\nreply(enviar.espere)\ntry {\nfing = await st(q)\nfor(let a of fing.figurinhas) {\nawait sleep(500)\nsendstickerfromurl(from, a)\n}\n} catch {\n  reply('a api caiu ou eu não encontrei esse pacote, desculpa. 🥺')\n}\nbreak"
+            "Salve dlc"
         ]
     },
     {

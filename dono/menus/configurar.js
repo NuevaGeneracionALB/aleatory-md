@@ -39,7 +39,7 @@ return `
   
 ⏣➣  ${prefix}numero-dono 55xxxxxx
 
-⏣➣  o número pode ser junto ou separado, e não pode ter o 9 da operadora, tem que ser o número idêntico ao seu do whatsapp.
+⏣➣  o número tem que ser junto, e não pode conter o símbolo de + nem - e não pode ter o 9 da operadora, tem que ser o número idêntico ao seu do whatsapp.
   
   
 ╰───────────────

@@ -17,8 +17,10 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Git-bot
 ╰──────────┐
 ╭──────────┴─┐
-│ INFO - DONO
+│ INFO - DONO - ADM
 ├────────────
+│✾▹ ${prefix}Infotransmitir
+│✾▹ ${prefix}Infoaluguel
 │✾▹ ${prefix}InfoMultiPrefixo
 │✾▹ ${prefix}InfoBemvindo
 │✾▹ ${prefix}Infopalavrão
@@ -76,6 +78,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────┴─┐
 │ JOGOS/QUIZ
 ├────────────
+│✾▹ ${prefix}Iniciar_forca
 │✾▹ ${prefix}Ppt (PEDRA/PAPEL/TESOURA) 
 │✾▹ ${prefix}Jogodavelha (@MARCAR) 
 │✾▹ ${prefix}Ttt (JOGO-DA-VELHA) 
@@ -93,7 +96,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Toimg (MARCAR-FIGU)
 │✾▹ ${prefix}Togif (MARCAR-FIGU)
 │✾▹ ${prefix}Roubar (TEXT/TEXT)
-│✾▹ ${prefix}figurinhas quantidade
 ╰──────────┐
 ╭──────────┴─┐
 │ COMANDOS/BÁSICOS
@@ -112,13 +114,41 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Bot
 ╰──────────┘
 
-`
-}
+`;
+};
 
-exports.menu = menu
+exports.menu = menu;
 
 // NÃO APAGUE ESSE ${NickDono} nem 
 //${numerodn} nem ${NomeDoBot} nem ${prefix} só se quiser apagar completo, não coloque nada ${dentro assim} ISSO SÃO DEFINIÇÕES QUE ESTÁ PUXANDO DO settings.json, da pasta dono, só pode altera a base de tudo, menos as definições, só se quiser apagar a definição completa.
+
+const infotransmitir = (prefix, pushname) => {
+return`
+Olá ${pushname}, irei explicar como funciona os seguintes comando:
+
+${prefix}rgtm
+
+${prefix}tirardatm
+
+${prefix}fazertm
+
+${prefix}listatm
+
+O comando rgtm, você entra no grupo ou privado de alguém que deseja que ele receba transmissão, digita ${prefix}rgtm
+
+E caso queira tirar o grupo da transmissão, entra nele e digita 
+
+${prefix}tirardatm ou se já saiu dele, procura o id dele no comando ${prefix}listatm
+
+E caso queira fazer a transmissão para todos os grupos que foi registrado para transmissão, digita 
+
+${prefix}fazertm e digita o que quer enviar para todos os grupos que foi registrado ou marque uma imagem já com legenda, ou envie uma imagem com legenda, ou documento, ou vídeo, ou texto, então é isso..
+`;
+};
+
+exports.infotransmitir = infotransmitir;
+
+
 const anotacao = (prefix) => {
 return `
 
@@ -150,10 +180,10 @@ Já o terceiro, ele é pra buscar a anotação que deseja, pelo título, exemplo
 É isso... 
 
 Boa sorte. 
-`
-}
+`;
+};
 
-exports.anotacao = anotacao
+exports.anotacao = anotacao;
 
 // MENU DE ADMINISTRADORES 
 
@@ -194,13 +224,40 @@ const adms = (prefix, sender) => {
 │✾▹ ${prefix}Tabelagp
 ╰──────────┘
 
-`
-}
+`;
+};
 
-exports.adms = adms
+exports.adms = adms;
 
 // NÃO APAGUE ESSE ${prefix}, não coloque nada ${dentro assim} ISSO SÃO DEFINIÇÕES QUE ESTÁ PUXANDO DO settings.json, da pasta dono, só pode altera a base de tudo, menos as definições, só se quiser apagar a definição completa. 
 
+
+const infoaluguel = (prefix, pushname) => {
+return`
+
+Olá ${pushname} Irei explicar como utilizar o comando 
+
+${prefix}rg_aluguel
+
+O exemplo é: ${prefix}rg_aluguel 01/01|coloca o número do dono aqui
+
+Você coloca o mês que vai expirar, ae ele vai enviar uma mensagem no seu privado no dia que expirar, e vai renovar sozinho pro próximo mês, na mesma data, só não coloque pro mês 12, pois senão ele vai renovar pro mês 13 kkkk, mas só tirar o registro do aluguel..
+
+Comando de tirar um aluguel do registro..
+
+${prefix}rm_aluguel iddogrupo 
+
+Em iddogrupo você tem que pegar o id do grupo, que está registrado o aluguel, use o comando ${prefix}iddogrupo 
+
+E contem também o comando ${prefix}lista_aluguel que visualiza todos aluguel já registrado... 
+
+Lá você pode pegar o id do grupo também, pra tirar do registro kkkk
+
+Boa sorte..
+`;
+};
+
+exports.infoaluguel = infoaluguel;
 
 // MENU DE DONO
 
@@ -255,11 +312,11 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Dono5 @marca
 │✾▹ ${prefix}Bcgp (TM-PRA-PV-MEMBROS)
 ╰──────────┘
-`
+`;
 
-}
+};
 
-exports.menudono = menudono
+exports.menudono = menudono;
 
 // MENU DE LOGOS 
 
@@ -380,10 +437,10 @@ const menulogos = (prefix, sender) => {
 │✾▹ ${prefix}Ffbanner (txt/txt) 
 │✾▹ ${prefix}Mascoteavatar (txt/txt) 
 ╰──────────┘
-`
-}
+`;
+};
 
-exports.menulogos = menulogos
+exports.menulogos = menulogos;
 
 // MENU DE ALTERAR ÁUDIOS E VÍDEOS
 
@@ -417,10 +474,10 @@ return`
 │✾▹ ${prefix}Bass2 (marca)
 │✾▹ ${prefix}Vozmenino (marca)
 ╰──────────┘
-`
-}
+`;
+};
 
-exports.alteradores = alteradores
+exports.alteradores = alteradores;
 
 // MENU PREMIUM 
 
@@ -443,10 +500,10 @@ return `
 │✾▹ ${prefix}PremiumList
 │✾▹ ${prefix}EncurtaLink (LINK)
 ╰──────────┘
-`
-}
+`;
+};
 
-exports.menuprem = menuprem
+exports.menuprem = menuprem;
 
 // MENU DE BRINCADEIRAS.. 
 
@@ -486,10 +543,10 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Rankotakus
 │✾▹ ${prefix}Rankpau
 ╰──────────┘
-`
-}
+`;
+};
 
-exports.brincadeiras = brincadeiras
+exports.brincadeiras = brincadeiras;
 
 // MENU DE EFEITOS DE IMAGEM, MONTAGEM Tops Kkk
 
@@ -514,7 +571,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Lgbt (marcar)-(img) 
 │
 ╰──────────┘
-`
-}
+`;
+};
 
-exports.efeitos = efeitos
+exports.efeitos = efeitos;
