@@ -62,12 +62,12 @@ const LANGUAGES = {
 }
 
 function Text2Speech(_lang, _debug) {
+try {
   var lang = _lang || 'en';
   var debug = _debug || false;
   lang = lang.toLowerCase();
 
-  if (!LANGUAGES[lang])
-    throw new Error('Language not supported: ' + lang);
+  if (!LANGUAGES[lang]) console.log('linguagem no cmd gtts incorreta: ' + lang);
 
   var getArgs = getArgsFactory(lang);
 
@@ -77,6 +77,9 @@ function Text2Speech(_lang, _debug) {
     stream: (text) => stream(getArgs, text),
     save: (filepath, text, callback) => save(getArgs, filepath, text, callback)
   }
+} catch (e) {
+console.log("Error, GTTS")
+}
 }
 
 function save(getArgs, filepath, text, callback) {

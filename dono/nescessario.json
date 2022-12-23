@@ -19,7 +19,7 @@
   "forwarding": false,
   "banChats": false,
   "menu_audio": false,
-  "verificado": false,
+  "verificado": true,
   "botoes": true,
   "consoleoff": true,
   "antipv": false,

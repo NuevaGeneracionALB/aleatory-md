@@ -19,6 +19,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────┴─┐
 │ INFO - DONO - ADM
 ├────────────
+│✾▹ ${prefix}Infoduelo
 │✾▹ ${prefix}Infotransmitir
 │✾▹ ${prefix}Infoaluguel
 │✾▹ ${prefix}InfoMultiPrefixo
@@ -286,8 +287,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Legendasaiu (oq qr)
 │✾▹ ${prefix}Legendasaiu2 (oq qr)
 │✾▹ ${prefix}Legendabv2 (oq qr)
-│✾▹ ${prefix}Prefixo_tipo2 simbolo
-│✾▹ ${prefix}Prefixo_tipo_off
 │✾▹ ${prefix}Fundobemvindo (marcar-img)
 │✾▹ ${prefix}Fundosaiu (marcar-img)
 │✾▹ ${prefix}Serpremium
@@ -306,10 +305,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Block [@] (bloq de usar cmds) 
 │✾▹ ${prefix}Unblock [@] (desbloquear) 
 │✾▹ ${prefix}Setprefix  (prefixo-novo)
-│✾▹ ${prefix}Dono2 @marca
-│✾▹ ${prefix}Dono3 @marca
-│✾▹ ${prefix}Dono4 @marca
-│✾▹ ${prefix}Dono5 @marca
 │✾▹ ${prefix}Bcgp (TM-PRA-PV-MEMBROS)
 ╰──────────┘
 `;

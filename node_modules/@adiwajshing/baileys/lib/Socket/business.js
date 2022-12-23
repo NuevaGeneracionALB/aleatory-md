@@ -8,10 +8,34 @@ const messages_recv_1 = require("./messages-recv");
 const makeBusinessSocket = (config) => {
     const sock = (0, messages_recv_1.makeMessagesRecvSocket)(config);
     const { authState, query, waUploadToServer } = sock;
-    const getCatalog = async (jid, limit = 10) => {
+    const getCatalog = async ({ jid, limit, cursor }) => {
         var _a;
         jid = jid || ((_a = authState.creds.me) === null || _a === void 0 ? void 0 : _a.id);
         jid = (0, WABinary_1.jidNormalizedUser)(jid);
+        const queryParamNodes = [
+            {
+                tag: 'limit',
+                attrs: {},
+                content: Buffer.from((limit || 10).toString())
+            },
+            {
+                tag: 'width',
+                attrs: {},
+                content: Buffer.from('100')
+            },
+            {
+                tag: 'height',
+                attrs: {},
+                content: Buffer.from('100')
+            },
+        ];
+        if (cursor) {
+            queryParamNodes.push({
+                tag: 'after',
+                attrs: {},
+                content: cursor
+            });
+        }
         const result = await query({
             tag: 'iq',
             attrs: {
@@ -26,23 +50,7 @@ const makeBusinessSocket = (config) => {
                         jid,
                         allow_shop_source: 'true'
                     },
-                    content: [
-                        {
-                            tag: 'limit',
-                            attrs: {},
-                            content: Buffer.from(limit.toString())
-                        },
-                        {
-                            tag: 'width',
-                            attrs: {},
-                            content: Buffer.from('100')
-                        },
-                        {
-                            tag: 'height',
-                            attrs: {},
-                            content: Buffer.from('100')
-                        }
-                    ]
+                    content: queryParamNodes
                 }
             ]
         });

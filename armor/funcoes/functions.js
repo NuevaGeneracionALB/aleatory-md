@@ -1,68 +1,68 @@
-const fetch = require('node-fetch')
-const fs = require('fs')
-const axios = require('axios')
-const cfonts = require('cfonts')
-const spin = require('spinnies')
-const Crypto = require('crypto')
-const chalk = require('chalk')
-const exec = require("child_process").exec
-const log = console.debug
-const mimetype = require('mime-types')
-const cheerio = require('cheerio')
-const { spawn } = require("child_process")
-const ff = require('fluent-ffmpeg')
-const { JSDOM } = require('jsdom')
-const FormData = require('form-data')
-const qs = require('qs')
-const { fromBuffer } = require('file-type')
-const toMs = require('ms')
-const request = require('request')
-const ffmpeg = require('fluent-ffmpeg')
-const moment = require('moment-timezone')
+const fetch = require('node-fetch');
+const fs = require('fs');
+const axios = require('axios');
+const cfonts = require('cfonts');
+const spin = require('spinnies');
+const Crypto = require('crypto');
+const chalk = require('chalk');
+const exec = require("child_process").exec;
+const log = console.debug;
+const mimetype = require('mime-types');
+const cheerio = require('cheerio');
+const { spawn } = require("child_process");
+const ff = require('fluent-ffmpeg');
+const { JSDOM } = require('jsdom');
+const FormData = require('form-data');
+const qs = require('qs');
+const { fromBuffer } = require('file-type');
+const toMs = require('ms');
+const request = require('request');
+const ffmpeg = require('fluent-ffmpeg');
+const moment = require('moment-timezone');
 
-var corzinhas = ["red","green","yellow","blue","magenta","cyan","white","gray","redBright","greenBright","yellowBright","blueBright","magentaBright","cyanBright","whiteBright"]
-const cor1 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
-const cor2 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
-const cor3 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
-const cor4 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]	
-const cor5 = corzinhas[Math.floor(Math.random() * (corzinhas.length))]
+var corzinhas = ["red","green","yellow","blue","magenta","cyan","white","gray","redBright","greenBright","yellowBright","blueBright","magentaBright","cyanBright","whiteBright"];
+const cor1 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];	
+const cor2 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];	
+const cor3 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];
+const cor4 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];	
+const cor5 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];
 
-const ceemde = JSON.parse(fs.readFileSync('./datab/data/totalcmd.json'))
+const ceemde = JSON.parse(fs.readFileSync('./datab/data/totalcmd.json'));
 
 const getpc = async function(totalchat){
-pc = []
-a = []
-b = []
-for (c of totalchat){
-a.push(c.id)
+pc = [];
+a = [];
+b = [];
+for (var c of totalchat){
+a.push(c.id);
 }
-for (d of a){
+for (var d of a){
 if (d && !d.includes('g.us')){
-b.push(d)
+b.push(d);
 }
 }
-return b
-}
+return b;
+};
 
 function upload (midia) {
 return new Promise(async (resolve, reject) => {
 try {
-let { ext } = await fromBuffer(midia)
-let form = new FormData()
-form.append('file', midia, 'tmp.' + ext)
+let { ext } = await fromBuffer(midia);
+let form = new FormData();
+form.append('file', midia, 'tmp.' + ext);
 await fetch('https://telegra.ph/upload', {
 method: 'POST',
 body: form
 })
 .then(html => html.json())
 .then(post => {
-resolve('https://telegra.ph' + post[0].src)
+resolve('https://telegra.ph' + post[0].src);
 })
-.catch(erro => reject(erro))
+.catch(erro => reject(erro));
 } catch (erro) {
-return console.log(erro)
+return console.log(erro);
 }
-})
+});
 }
 
 function convertSticker(base64, author, pack){
@@ -77,9 +77,9 @@ Accept: 'application/json, text/plain, */*',
 },
 data: `{"image": "${base64}","stickerMetadata":{"author":"${author}","pack":"${pack}","keepScale":true,"removebg":"HQ"},"sessionInfo":{"WA_VERSION":"2.2106.5","PAGE_UA":"WhatsApp/2.2037.6 Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36","WA_AUTOMATE_VERSION":"3.6.10 UPDATE AVAILABLE: 3.6.11","BROWSER_VERSION":"HeadlessChrome/88.0.4324.190","OS":"Windows Server 2016","START_TS":1614310326309,"NUM":"6247","LAUNCH_TIME_MS":7934,"PHONE_VERSION":"2.20.205.16"},"config":{"sessionId":"session","headless":true,"qrTimeout":20,"authTimeout":0,"cacheEnabled":false,"useChrome":true,"killProcessOnBrowserClose":true,"throwErrorOnTosBlock":false,"chromiumArgs":["--no-sandbox","--disable-setuid-sandbox","--aggressive-cache-discard","--disable-cache","--disable-application-cache","--disable-offline-load-stale-cache","--disk-cache-size=0"],"executablePath":"C:\\\\Program Files (x86)\\\\Google\\\\Chrome\\\\Application\\\\chrome.exe","skipBrokenMethodsCheck":true,"stickerServerEndpoint":true}}`
 }).then(({data}) => {
-resolve(data.webpBase64)
-}).catch(reject)
-}) 
+resolve(data.webpBase64);
+}).catch(reject);
+});
 }
 
 exports.fetchJson = fetchJson = (url, options) => new Promise(async (resolve, reject) => {

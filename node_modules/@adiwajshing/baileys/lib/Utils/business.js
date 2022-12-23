@@ -8,7 +8,13 @@ const messages_media_1 = require("./messages-media");
 const parseCatalogNode = (node) => {
     const catalogNode = (0, WABinary_1.getBinaryNodeChild)(node, 'product_catalog');
     const products = (0, WABinary_1.getBinaryNodeChildren)(catalogNode, 'product').map(exports.parseProductNode);
-    return { products };
+    const paging = (0, WABinary_1.getBinaryNodeChild)(catalogNode, 'paging');
+    return {
+        products,
+        nextPageCursor: paging
+            ? (0, WABinary_1.getBinaryNodeChildString)(paging, 'after')
+            : undefined
+    };
 };
 exports.parseCatalogNode = parseCatalogNode;
 const parseCollectionsNode = (node) => {
