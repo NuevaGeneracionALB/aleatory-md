@@ -9,7 +9,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ├───────────────
 │ Usuário: @${sender.split("@")[0]}
 ├───────────────┐
-│ COMANDOS TERMUX
+│ SAFIRA BOT
 ╞───────────────┘
 │✾▹ ${prefix}Comandos-termux
 │✾▹ ${prefix}Hospedar-heroku
