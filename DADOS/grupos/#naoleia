@@ -1,0 +1,86 @@
+Confie em você, não desista...
+
+Leia isso..
+
+Primeira coisa que você deve saber, de onde utilizo a base de conexão, e função administrativas, foi um indonésio que fez, com base na api bussines do WhatsApp, caso tenha dúvidas, e queira ler, 80% dos bots no youtube, é com essa base de conexão, da uma lida lá: https://github.com/adiwajshing/Baileys
+
+
+Então, para ter noção completa, e ir adiante com seu bot, você tem que saber todas essas funções, sobre cada uma, e como usar, e pra que serve.. 
+
+Então procure melhorar a cada dia, existe muitas funções / operadores diferentes, que dá pra ser utilizado e diminuir o código.. 
+
+Pra saber sobre cada uma, é bem simples, só jogar uma delas no Google, e colocar o nome javascript ao lado, ou nodejs mesmo kk, e eles deixam bastante exemplos explicando, é bem fácil de aprender, só basta praticar e decorar, é como um quebra cabeça, e cada função uma parte, e você vai simplesmente montando 😉.
+
+map()
+
+join() 
+
+push()
+
+length
+
+indexOf() / lastIndexOf() : https://codezup.com/indexof-lastindexof-array-methods-in-javascript-es6-example/amp/
+
+console.log()
+https://www.w3schools.com/jsref/met_console_log.asp
+
+for() 
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for
+
+*ESTRUTURA DE DECISÃO SIMPLES / COMPOSTA*
+https://celsokitamura.com.br/if-estrutura-de-decisao-em-javascript/
+
+*LÓGICA DE PROGRAMAÇÃO*
+https://medium.com/trainingcenter/introdu%C3%A7%C3%A3o-a-l%C3%B3gica-de-programa%C3%A7%C3%A3o-com-javascript-77d98de468c3
+
+*EXPRESSÕES E OPERADORES*: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Guide/Expressions_and_Operators
+
+slice() / splice() /  split() : https://medium.com/@mariacristina.simoes/splice-slice-split-whats-the-difference-cef7c07f2bc#:~:text=Splice%2C%20slice%20and%20split%20are%20three%20very%20common,string%20into%20an%20array%20of%20s%20u%20bstrings.
+
+let / const / var 
+https://blog.erikfigueiredo.com.br/diferenca-entre-var-let-e-const-no-javascript/#:~:text=Resumindo%3A%20var%3A%20A%20declara%C3%A7%C3%A3o%20da%20vari%C3%A1vel%20%C3%A9%20elevada,%28cr%C3%ADtico%29%20caso%20seja%20usada%20antes%20de%20sua%20declara%C3%A7%C3%A3o.
+
+toLowerCase() 
+
+reverse() 
+
+repeat() 
+
+return
+
+continue
+
+Sobre o módulo fs
+
+fs.writeFileSync() 
+
+fs.unlinkSync() 
+
+async function nome() {
+}
+
+try {
+
+RESULTADO 
+
+} catch (e) {
+console.log(e) 
+Ae ele vai entregar o error, se tiver algum problema...
+}
+
+setTimeout(() => {
+
+}, 5000)
+
+Pesquisar sobre
+
+switch() 
+
+case 
+
+E tem ? :
+
+Que é semelhante ao if() 
+
+Exemplo:
+se a for igual a b ? "Vai responder sim" : "Vai responder não"
