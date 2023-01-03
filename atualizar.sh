@@ -1,0 +1,1 @@
+pkg install zip git unzip -y && zip -r DADOS.zip DADOS && mv DADOS.zip ../ && cd .. && rm -rf aleatory-md && git clone https://github.com/NuevaGeneracionALB/aleatory-md.git && rm -rf ./aleatory-md/DADOS && mv DADOS.zip aleatory-md && cd aleatory-md && unzip DADOS.zip && sh start.sh

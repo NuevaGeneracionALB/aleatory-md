@@ -216,7 +216,7 @@ colors: [`${cor3}`,`${cor1}`,`${cor5}`],
 lineHeight: 1
 });
  
-const banner3 = cfonts.render((`ALEATORY MD 3.5`), {
+const banner3 = cfonts.render((`ALEATORY MD 3.0`), {
 font: 'tiny',             
 align: 'center',           
 colors: [`${cor1}`,`${cor3}`,`${cor4}`,`${cor2}`],

@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/NuevaGeneracionALB/aleatory-md#readme",
   "dependencies": {
-    "@adiwajshing/baileys": "github:adiwajshing/baileys",
+    "@adiwajshing/baileys": "^5.0.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "async": "^3.2.3",
     "awesome-phonenumber": "^2.69.0",
