@@ -90,7 +90,7 @@ const pino = require('pino')
 const transport = pino.transport({
   targets: [
     { target: '/absolute/path/to/my-transport.mjs', level: 'error' },
-    { target: 'some-file-transport', options: { destination: '/dev/null' }
+    { target: 'some-file-transport', options: { destination: '/dev/null' }}
   ]
 })
 pino(transport)
@@ -236,6 +236,22 @@ logger.info('hello world')
 __NOTE: there is no "default" destination for a pipeline but
 a terminating target, i.e. a `Writable` stream.__
 
+### TypeScript compatibility
+
+Pino provides basic support for transports written in TypeScript.
+
+Ideally, they should be transpiled to ensure maximum compatibility, but some
+times you might want to use tools such as TS-Node, to execute your TypeScript
+code without having to go through an explicit transpilation step.
+
+You can use your TypeScript code without explicit transpilation, but there are
+some known caveats:
+- For "pure" TypeScript code, ES imports are still not supported (ES imports are
+  supported once the code is transpiled).
+- Only TS-Node is supported for now, there's no TSM support.
+- Running transports TypeScript code on TS-Node seems to be problematic on
+  Windows systems, there's no official support for that yet.
+
 ### Notable transports
 
 #### `pino/file`
@@ -361,6 +377,7 @@ PR's to this document are welcome for any new transports!
 
 + [pino-elasticsearch](#pino-elasticsearch)
 + [pino-pretty](#pino-pretty)
++ [pino-loki](#pino-loki)
 
 ### Legacy
 
@@ -374,6 +391,7 @@ PR's to this document are welcome for any new transports!
 + [pino-kafka](#pino-kafka)
 + [pino-logdna](#pino-logdna)
 + [pino-logflare](#pino-logflare)
++ [pino-loki](#pino-loki)
 + [pino-mq](#pino-mq)
 + [pino-mysql](#pino-mysql)
 + [pino-papertrail](#pino-papertrail)
@@ -564,6 +582,28 @@ pino-mq -g
 ```
 
 For full documentation of command line switches and configuration see [the `pino-mq` readme](https://github.com/itavy/pino-mq#readme)
+
+<a id="pino-loki"></a>
+### pino-loki
+pino-loki is a transport that will forwards logs into [Grafana Loki](https://grafana.com/oss/loki/)
+Can be used in CLI version in a separate process or in a dedicated worker :
+
+CLI :
+```console
+node app.js | pino-loki --hostname localhost:3100 --labels='{ "application": "my-application"}' --user my-username --password my-password
+```
+
+Worker : 
+```js
+const pino = require('pino')
+const transport = pino.transport({
+  target: 'pino-loki',
+  options: { hostname: 'localhost:3100' }
+})
+pino(transport)
+```
+
+For full documentation and configuration, see the [readme](https://github.com/Julien-R44/pino-loki)
 
 <a id="pino-papertrail"></a>
 ### pino-papertrail

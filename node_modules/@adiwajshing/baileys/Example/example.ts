@@ -1,5 +1,6 @@
 import { Boom } from '@hapi/boom'
-import makeWASocket, { AnyMessageContent, delay, DisconnectReason, fetchLatestBaileysVersion, isJidBroadcast, makeCacheableSignalKeyStore, makeInMemoryStore, MessageRetryMap, useMultiFileAuthState } from '../src'
+import NodeCache from 'node-cache'
+import makeWASocket, { AnyMessageContent, delay, DisconnectReason, fetchLatestBaileysVersion, getAggregateVotesInPollMessage, makeCacheableSignalKeyStore, makeInMemoryStore, proto, useMultiFileAuthState, WAMessageContent, WAMessageKey } from '../src'
 import MAIN_LOGGER from '../src/Utils/logger'
 
 const logger = MAIN_LOGGER.child({ })
@@ -10,7 +11,7 @@ const doReplies = !process.argv.includes('--no-reply')
 
 // external map to store retry counts of messages when decryption/encryption fails
 // keep this out of the socket itself, so as to prevent a message decryption/encryption loop across socket restarts
-const msgRetryCounterMap: MessageRetryMap = { }
+const msgRetryCounterCache = new NodeCache()
 
 // the store maintains the data of the WA connection in memory
 // can be written out to a file & read from it
@@ -37,23 +38,13 @@ const startSock = async() => {
 			/** caching makes the store faster to send/recv messages */
 			keys: makeCacheableSignalKeyStore(state.keys, logger),
 		},
-		msgRetryCounterMap,
+		msgRetryCounterCache,
 		generateHighQualityLinkPreview: true,
 		// ignore all broadcast messages -- to receive the same
 		// comment the line below out
-		shouldIgnoreJid: jid => isJidBroadcast(jid),
-		// implement to handle retries
-		getMessage: async key => {
-			if(store) {
-				const msg = await store.loadMessage(key.remoteJid!, key.id!)
-				return msg?.message || undefined
-			}
-
-			// only if store is present
-			return {
-				conversation: 'hello'
-			}
-		}
+		// shouldIgnoreJid: jid => isJidBroadcast(jid),
+		// implement to handle retries & poll updates
+		getMessage,
 	})
 
 	store?.bind(sock.ev)
@@ -125,7 +116,24 @@ const startSock = async() => {
 
 			// messages updated like status delivered, message deleted etc.
 			if(events['messages.update']) {
-				console.log(events['messages.update'])
+				console.log(
+					JSON.stringify(events['messages.update'], undefined, 2)
+				)
+
+				for(const { key, update } of events['messages.update']) {
+					if(update.pollUpdates) {
+						const pollCreation = await getMessage(key)
+						if(pollCreation) {
+							console.log(
+								'got poll update, aggregation: ',
+								getAggregateVotesInPollMessage({
+									message: pollCreation,
+									pollUpdates: update.pollUpdates,
+								})
+							)
+						}
+					}
+				}
 			}
 
 			if(events['message-receipt.update']) {
@@ -164,6 +172,16 @@ const startSock = async() => {
 	)
 
 	return sock
+
+	async function getMessage(key: WAMessageKey): Promise<WAMessageContent | undefined> {
+		if(store) {
+			const msg = await store.loadMessage(key.remoteJid!, key.id!)
+			return msg?.message || undefined
+		}
+
+		// only if store is present
+		return proto.Message.fromObject({})
+	}
 }
 
 startSock()

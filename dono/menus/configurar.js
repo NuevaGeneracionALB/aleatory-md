@@ -41,6 +41,7 @@ return `
 
 ⏣➣  o número tem que ser junto, e não pode conter o símbolo de + nem - e não pode ter o 9 da operadora, tem que ser o número idêntico ao seu do whatsapp.
   
+lembre-se, que deve utilizar o próprio whatsapp e número do bot pra configurar o número de dono, porque só ele é dono dele mesmo enquanto não for configurado..
   
 ╰───────────────
 
@@ -53,6 +54,18 @@ return `
 ⏣➣  ${prefix}prefixo-bot #
 
 Pode por qualquer símbolo, se o seu símbolo for ${prefix} ele vai passar a ser # de acordo com o que você mudou.
+
+
+╰───────────────
+
+╭───────────────
+
+
+⏣➣  TROCAR FOTO DO MENU :
+
+⏣➣  ${prefix}fotomenu
+
+apenas marque a foto que queres que seja do menu, com o comando.
 
 
 ╰───────────────

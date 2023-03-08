@@ -1,0 +1,26 @@
+[
+  {
+    "fecharGP": [
+      {
+        "hora": "02:02",
+        "puxar": [
+          {
+            "idgp": "120363043392567405@g.us",
+            "fechou": true
+          }
+        ]
+      }
+    ],
+    "abrirGP": [
+      {
+        "hora": "20:44",
+        "puxar": [
+          {
+            "idgp": "120363043392567405@g.us",
+            "abriu": false
+          }
+        ]
+      }
+    ]
+  }
+]
