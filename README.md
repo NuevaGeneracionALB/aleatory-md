@@ -9,7 +9,7 @@
 
 Precisa de ajuda ? Entra em nosso Chat: 
 
-https://chat.whatsapp.com/CeJrLkr13W1I0KRcfu9mtZ
+https://chat.whatsapp.com/HPOBzu2P04y1m4ea7jARcz
 
 
 SÓ SERÁ NESCESSARIO DA OS COMANDOS BÁSICOS DO TERMUX, SE APÓS A INSTALAÇÃO DELE, NÃO FOI DADO ESSES COMANDOS LISTADOS. 
