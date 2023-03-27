@@ -1,5 +1,4 @@
 {
-  "crtt": "𝐉𝐎𝐆𝐎 𝐃𝐀 𝐕𝐄𝐋𝐇𝐀",
   "forwarding": false,
   "banChats": false,
   "menu_audio": false,
@@ -9,6 +8,10 @@
   "anticall": false,
   "visualizarmsg": false,
   "listanegraG": [],
+  "cmdpremium": [],
+  "msgantipv2": "Não pode mandar mensagem para o bot, ele está programado para não responder, tente falar com meu dono",
+  "botoes_": false,
+  "isRecolherLink": false,
   "dono1": ".",
   "dono2": ".",
   "dono3": ".",

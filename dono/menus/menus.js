@@ -19,6 +19,8 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────┴─┐
 │ INFO - DONO - ADM
 ├────────────
+│✾▹ ${prefix}infopremium
+│✾▹ ${prefix}infoforca
 │✾▹ ${prefix}Infoduelo
 │✾▹ ${prefix}Infotransmitir
 │✾▹ ${prefix}Infoaluguel
@@ -396,13 +398,7 @@ return `
 │ Usuário: @${sender.split("@")[0]}
 ╰──────────┐
 ╭──────────┴─┐
-│✾▹ ${prefix}Destrava
-│✾▹ ${prefix}Destrava2
-│✾▹ ${prefix}Ddd (DDD)
-│✾▹ ${prefix}Cep (NÚMERO)
-│✾▹ ${prefix}GerarCPF
-│✾▹ ${prefix}PremiumList
-│✾▹ ${prefix}EncurtaLink (LINK)
+│✾▹ ADICIONE SEUS COMANDOS PREMIUM / VEJA O ${prefix}infopremium
 ╰──────────┘
 `;
 };
