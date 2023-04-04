@@ -15,7 +15,7 @@ Comandos Básicos do termux, nescessario para inicialização do bot:
 
 termux-change-repo 
 
-Confirma, marca a terceira caixinha e confirma e prossegue > 
+Confirma, marca a caixinha que tem o nome Mirrors By grimler, e confirma > 
 
 -_2 COMANDO :
 
