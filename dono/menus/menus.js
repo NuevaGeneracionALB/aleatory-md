@@ -12,7 +12,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │ COMANDOS TERMUX
 ╞───────────────┘
 │✾▹ ${prefix}Comandos-termux
-│✾▹ ${prefix}Hospedar-heroku
 │✾▹ ${prefix}Configurar-bot
 │✾▹ ${prefix}Git-bot
 ╰──────────┐
@@ -77,6 +76,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Rankativo
 │✾▹ ${prefix}Checkativo (@MARCAR)
 │✾▹ ${prefix}Ranklevel (DE-TODOS) 
+│✾▹ ${prefix}moedas
 ╰──────────┐
 ╭──────────┴─┐
 │ JOGOS/QUIZ
@@ -117,72 +117,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 };
 
 exports.menu = menu;
-
-// NÃO APAGUE ESSE ${NickDono} nem 
-//${numerodn} nem ${NomeDoBot} nem ${prefix} só se quiser apagar completo, não coloque nada ${dentro assim} ISSO SÃO DEFINIÇÕES QUE ESTÁ PUXANDO DO settings.json, da pasta dono, só pode altera a base de tudo, menos as definições, só se quiser apagar a definição completa.
-
-const infotransmitir = (prefix, pushname) => {
-return`
-Olá ${pushname}, irei explicar como funciona os seguintes comando:
-
-${prefix}rgtm
-
-${prefix}tirardatm
-
-${prefix}fazertm
-
-${prefix}listatm
-
-O comando rgtm, você entra no grupo ou privado de alguém que deseja que ele receba transmissão, digita ${prefix}rgtm
-
-E caso queira tirar o grupo da transmissão, entra nele e digita 
-
-${prefix}tirardatm ou se já saiu dele, procura o id dele no comando ${prefix}listatm
-
-E caso queira fazer a transmissão para todos os grupos que foi registrado para transmissão, digita 
-
-${prefix}fazertm e digita o que quer enviar para todos os grupos que foi registrado ou marque uma imagem já com legenda, ou envie uma imagem com legenda, ou documento, ou vídeo, ou texto, então é isso..
-`;
-};
-
-exports.infotransmitir = infotransmitir;
-
-
-const anotacao = (prefix) => {
-return `
-
-Olá. Se você está lendo isso, provavelmente está curioso sobre o comando anotação. 
-
-Existe os seguintes comando:
-
-1 ${prefix}anotações
-
-2 ${prefix}anotar
-
-3 ${prefix}tirar_nota
-
-4 ${prefix}nota titulo
-
-
-O primeiro ele mostra todas as anotações do grupo, criada. 
-
-O segundo, ele é usado para criar a nota, tipo um bloco de notas, exemplo: ${prefix}anotar ABC|ABC são 3 letras do alfabeto, utilizada bastante
-
-Isso foi um exemplo, mas pode ser utilizado da fórma que quiser, mas lembre que antes do | é o título, depois é a anotação.
-
-Ja o terceiro, é pra tirar a nota, Exemplo como expliquei, ${prefix}tirar_nota ABC 
-
-Com isso a anotação que estava criada foi apagada. 
-
-Já o terceiro, ele é pra buscar a anotação que deseja, pelo título, exemplo: ${prefix}nota ABC
-
-É isso... 
-
-Boa sorte. 
-`;
-};
-
-exports.anotacao = anotacao;
 
 // MENU DE ADMINISTRADORES 
 
@@ -228,36 +162,6 @@ const adms = (prefix, sender) => {
 };
 
 exports.adms = adms;
-
-// NÃO APAGUE ESSE ${prefix}, não coloque nada ${dentro assim} ISSO SÃO DEFINIÇÕES QUE ESTÁ PUXANDO DO settings.json, da pasta dono, só pode altera a base de tudo, menos as definições, só se quiser apagar a definição completa. 
-
-
-const infoaluguel = (prefix, pushname) => {
-return`
-
-Olá ${pushname} Irei explicar como utilizar o comando 
-
-${prefix}rg_aluguel
-
-O exemplo é: ${prefix}rg_aluguel 01/01|coloca o número do dono aqui
-
-Você coloca o mês que vai expirar, ae ele vai enviar uma mensagem no seu privado no dia que expirar, e vai renovar sozinho pro próximo mês, na mesma data, só não coloque pro mês 12, pois senão ele vai renovar pro mês 13 kkkk, mas só tirar o registro do aluguel..
-
-Comando de tirar um aluguel do registro..
-
-${prefix}rm_aluguel iddogrupo 
-
-Em iddogrupo você tem que pegar o id do grupo, que está registrado o aluguel, use o comando ${prefix}iddogrupo 
-
-E contem também o comando ${prefix}lista_aluguel que visualiza todos aluguel já registrado... 
-
-Lá você pode pegar o id do grupo também, pra tirar do registro kkkk
-
-Boa sorte..
-`;
-};
-
-exports.infoaluguel = infoaluguel;
 
 // MENU DE DONO
 
@@ -379,6 +283,7 @@ return`
 │✾▹ ${prefix}Bass (marca)
 │✾▹ ${prefix}Bass2 (marca)
 │✾▹ ${prefix}Vozmenino (marca)
+│✾▹ ${prefix}Audioreverse (marca)
 ╰──────────┘
 `;
 };

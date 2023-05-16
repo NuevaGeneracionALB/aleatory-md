@@ -1,6 +1,6 @@
 {
-  "forwarding": false,
-  "banChats": false,
+  "antipv2": false,
+  "antipv3": false,
   "menu_audio": false,
   "verificado": false,
   "consoleoff": true,

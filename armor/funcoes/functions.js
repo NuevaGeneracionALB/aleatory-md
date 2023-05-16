@@ -189,7 +189,7 @@ const getRandom = (ext) => {
 return `${Math.floor(Math.random() * 10000)}${ext}`;
 };
 
-const banner2 = cfonts.render(('Canal: youtube.com/aleatoryconteudos'), {
+const banner2 = cfonts.render(('Canal: HTTPS://YOUTUBE.COM/@ALEATORYCONTEUDOS'), {
 font: 'console',
 align: 'center',
 gradrient: [`${cor4}`,`${cor2}`], 
@@ -197,8 +197,8 @@ colors: [`${cor3}`,`${cor1}`,`${cor5}`],
 lineHeight: 1
 });
  
-const banner3 = cfonts.render((`ALEATORY MD 3.5`), {
-font: 'tiny',             
+const banner3 = cfonts.render((`ALEATORY MD\n3.6`), {
+font: 'slick',             
 align: 'center',           
 colors: [`${cor1}`,`${cor3}`,`${cor4}`,`${cor2}`],
 background: 'transparent',  
