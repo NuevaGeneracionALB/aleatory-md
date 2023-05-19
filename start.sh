@@ -11,7 +11,7 @@ while true; do
     echo -e "${GREEN}Reconectando Aleatory 3.6 / Iniciando - $(date +'%d/%m/%Y %H:%M:%S')"
     
     # Executando o script Node.js
-    node conect.js
+    node iniciar.js
     
     # Verificando o código de saída
     if [[ $? -eq 0 ]]; then
