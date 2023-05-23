@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@whiskeysockets/baileys": "^6.0.0",
+    "@adiwajshing/keyed-db": "^0.2.4",  
     "axios": "^0.21.1",
     "cfonts": "^2.10.0",
     "cheerio": "^1.0.0-rc.12",
@@ -10,6 +11,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "fs-extra": "^11.1.0",
     "jsdom": "^19.0.0",
+    "libsignal": "^2.0.1",
     "linkifyjs": "^4.1.0",
     "moment-timezone": "^0.5.40",
     "multistream": "^4.1.0",
@@ -22,7 +24,6 @@
   "description": "<div align=\"center\"> <img src=\"https://telegra.ph/file/e6018110d95e1a9fc7efe.jpg\" alt=\"Aleatory MD - BOT\" width=\"300\" />",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "start": "sh start.sh",
     "test": "node iniciar.js"
