@@ -87,7 +87,7 @@ await anim.demux('directory/to/place/it', { frame: 4 });
 await anim.demux('directory/to/place/them', { start: 2, end: 5 });
 
 // Or for all the frames to disk
-await anim.demux('directory/to/place/then');
+await anim.demux('directory/to/place/them');
 
 // To export to a Buffer instead. Supports the three variants described for .demux() above
 await anim.demuxToBuffers({ start: 1, end: 3 });
@@ -95,3 +95,41 @@ await anim.demuxToBuffers({ start: 1, end: 3 });
 // To add metadata (here EXIF is shown, but XMP and ICCP is also supported)
 // Note that *no* validation is done on metadata. Make sure your source data is valid before adding it.
 img.exif = fs.readFileSync('metadata.exif');
+
+// For a quick-and-dirty way to set frame data via a Worker for a moderate speed-up from threaded saving. This example is using NodeJS Workers, but should also work via Web Workers in a browser.
+
+// saver.js
+const { Worker } = require('worker_threads');
+const WebP = require('node-webpmux');
+function spawnWorker(data) {
+  return new Promise((res, rej) => {
+    let worker = new Worker('saver.worker.js', { workerData: data });
+    worker.on('message', res);
+    worker.on('error', rej);
+    worker.on('exit', (code) => { if (code != 0) { rej(new Error(`Worker stopped with exit code ${code}`)); } });
+  });
+}
+async function go() {
+  let img = await WebP.Image.load('anim.webp'), newFrames = [], promises = [];
+  /* populate newFrames via getFrameData and make changes as desired */
+  for (let i = 0, { frames } = img.data, l = frames.length; i < l; i++) {
+    promises.push(spawnWorker({ webp: img, frame: i, data: newFrames[i] }).then((newdata) => { img.data.frames[i] = newdata; }));
+  }
+  await Promise.all(promises);
+  await img.save('newanim.webp');
+}
+go().then(/* ... */)'
+
+// saver.worker.js
+const { parentPort, workerData } = require('worker_threads');
+const WebP = require('node-webpmux');
+
+async function saveFrame(d) {
+  let { data, frame, webp } = d;
+  let img = WebP.Image.from(webp);
+  await WebP.Image.initLib();
+  await img.setFrameData(frame, data, { lossless: 9 });
+  return img.data.frames[frame];
+}
+
+parentPort.postMessage(await saveFrame(workerData));

@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "@whiskeysockets/baileys": "^6.0.0",
-    "@adiwajshing/keyed-db": "^0.2.4",  
+    "@whiskeysockets/baileys": "github:whiskeySockets/baileys",
+    "@adiwajshing/keyed-db": "github:adiwajshing/keyed-db",  
     "axios": "^0.21.1",
     "cfonts": "^2.10.0",
     "cheerio": "^1.0.0-rc.12",
@@ -20,9 +20,9 @@
     "qrcode-terminal": "^0.12.0",
     "request": "^2.88.2"
   },
-  "name": "aleatory_3.6",
+  "name": "ALEATORY - 3.6",
   "description": "<div align=\"center\"> <img src=\"https://telegra.ph/file/e6018110d95e1a9fc7efe.jpg\" alt=\"Aleatory MD - BOT\" width=\"300\" />",
-  "version": "1.0.0",
+  "version": "3.6.0",
   "main": "index.js",
   "scripts": {
     "start": "sh start.sh",
