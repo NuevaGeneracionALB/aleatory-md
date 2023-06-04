@@ -22,7 +22,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}infoforca
 │✾▹ ${prefix}Infoduelo
 │✾▹ ${prefix}Infotransmitir
-│✾▹ ${prefix}Infoaluguel
 │✾▹ ${prefix}InfoMultiPrefixo
 │✾▹ ${prefix}InfoBemvindo
 │✾▹ ${prefix}Infopalavrão
@@ -79,7 +78,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}moedas
 ╰──────────┐
 ╭──────────┴─┐
-│ JOGOS/QUIZ
+│ JOGOS
 ├────────────
 │✾▹ ${prefix}Iniciar_forca
 │✾▹ ${prefix}Ppt (PEDRA/PAPEL/TESOURA) 
@@ -150,7 +149,6 @@ const adms = (prefix, sender) => {
 │✾▹ ${prefix}Hidetag (txt) (marcação)
 │✾▹ ${prefix}Marcar (marca tds do gp)
 │✾▹ ${prefix}Marcar2 (Marca-tds-Wa.me/)
-│✾▹ ${prefix}Anagrama 1 / 0
 │✾▹ ${prefix}Antipalavra 1 / 0
 │✾▹ ${prefix}Descgp (TXT)
 │✾▹ ${prefix}Nomegp (Nome)

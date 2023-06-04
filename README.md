@@ -9,8 +9,7 @@
 
 Precisa de ajuda ? Entra em nosso Chat: 
 
-https://chat.whatsapp.com/CeJrLkr13W1I0KRcfu9mtZ
-
+https://chat.whatsapp.com/FT9Szs4fMom7nS2qFNMmye
 
 SÓ SERÁ NESCESSARIO DA OS COMANDOS BÁSICOS DO TERMUX, SE APÓS A INSTALAÇÃO DELE, NÃO FOI DADO ESSES COMANDOS LISTADOS. 
 
@@ -28,7 +27,7 @@ Comandos Básicos do termux, nescessario para inicialização do bot:
 
 termux-change-repo 
 
-Confirma, marca a terceira caixinha e confirma e prossegue > 
+Confirma, marca a caixinha by grimler, e confirma e prossegue > 
 
 -_2 COMANDO :
 
