@@ -65,7 +65,8 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Facebook (LINK) 
 │✾▹ ${prefix}Twitter (LINK) 
 │✾▹ ${prefix}Imgpralink (MARCAR)
-│✾▹ ${prefix}Videopralink (MARCAR-V) 
+│✾▹ ${prefix}Videopralink (MARCAR-V)
+│✾▹ ${prefix}Amazon (EXEMPLO: Celular A13)
 ╰──────────┐
 ╭──────────┴─┐
 │ INFORMAÇÕES 
