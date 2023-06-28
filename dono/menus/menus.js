@@ -103,6 +103,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │ COMANDOS/BÁSICOS
 ├────────────
 │✾▹ ${prefix}esporte_noticias
+│✾▹ ${prefix}celular ( Ex: Galaxy a9 )
 │✾▹ ${prefix}Gtts (LINGUAGEM + TEXTO)
 │✾▹ ${prefix}Tagme 
 │✾▹ ${prefix}Emoji 😏/whatsapp
