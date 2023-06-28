@@ -56,7 +56,8 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │ PESQUISAS/BAIXAR
 ├────────────
 │✾▹ ${prefix}Play (NOME) 
-│✾▹ ${prefix}Playmp4 (NOME) 
+│✾▹ ${prefix}Playmp4 (NOME)
+│✾▹ ${prefix}playstore ( NOME )
 │✾▹ ${prefix}Ytsearch (NOME)
 │✾▹ ${prefix}Ytmp4 (LINK) 
 │✾▹ ${prefix}Ytmp3 (LINK) 
@@ -101,6 +102,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────┴─┐
 │ COMANDOS/BÁSICOS
 ├────────────
+│✾▹ ${prefix}esporte_noticias
 │✾▹ ${prefix}Gtts (LINGUAGEM + TEXTO)
 │✾▹ ${prefix}Tagme 
 │✾▹ ${prefix}Emoji 😏/whatsapp
@@ -112,6 +114,9 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Calcular 1 + 1
 │✾▹ ${prefix}Fazernick (NICK)
 │✾▹ ${prefix}Bot
+│✾▹ ${prefix}signo ( EX: virgem)
+│✾▹ ${prefix}metadinha
+│✾▹ ${prefix}tomp3 ( VIDEO > PRA AUDIO)
 ╰──────────┘
 
 `;

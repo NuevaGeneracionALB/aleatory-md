@@ -594,15 +594,23 @@ _- SÓ BASTA COPIAR ELE TODO, E COLAR LÁ, NÃO É PRA COPIAR A METADE NEM UMA C
 
 const infoduelo = (prefix, sender) => {
 return`
-Olá @${sender.split("@")[0]}, irei informar sobre o comando duelo, ele é usado mais para grupos de figurinhas, alguns grupo de figurinhas, gosta de interagir através de figurinhas, ae o Adm grupo, da a oportunidade de 2 usuários que tem uma interação bem top no momento, ae eles 2 realiza o duelo, mas só eles pode enviar mensagens no grupo, ae vão trocando figurinhas.. Depois vai ter uma votação, e o pessoal do grupo que assistiu, vota no qual foi o melhor no duelo de figurinhas kkk, Mas vamos lá, irei mostrar o comando.. 
+Olá @${sender.split("@")[0]}, irei informar sobre o comando duelo, ele é usado mais para grupos de figurinhas, alguns grupo de figurinhas, gosta de interagir através de figurinhas, ae o Adm do grupo, da a oportunidade de 2 usuários que tem uma interação bem top no momento, ae eles 2 realiza o duelo, mas só eles pode enviar mensagens no grupo, ae vão trocando figurinhas.. Depois vai ter uma votação, e o pessoal do grupo que assistiu, vota no qual foi o melhor no duelo de figurinhas kkk, Mas vamos lá, irei mostrar o comando.. 
 
 O exemplo é o seguinte:
 
-${prefix}duelo @fulano1 @fulano2/12:30
+${prefix}duelo @fulano1 @fulano2
 
-Primeiro você marca os 2 que vão duelo, e a /, depois o horário que vai acabar o duelo, e vai iniciar a votação.. 
+Primeiro você marca os 2 que vão duelo, e quando for encerrar para começar a votação, o adm determina que parou o duelo, e digita: ${prefix}iniciar_votação
 
-Quando chegar no horário determinado, o bot vai enviar uma lista para os usuários do grupo decidir, votar em quem foi melhor no duelo, depois o Adm pode encerrar a votação, e ver quantidade de votos.. 
+as pessoas vão clicar no link que direciona para o privado do bot, e lá só confirmar para votar.
+
+se algum usuario quiser ver como votar, digitar: ${prefix}como_votar
+
+depois que acabar o tempo de votação, algum adm digita: ${prefix}terminar_votação
+
+e irei anunciar o ganhador com base nos votos.
+
+se algum adm deseja acabar com o duelo e zerar tudo, digite: ${prefix}zerar_duelo
 
 Então é isso, boa sorte.
 `;
