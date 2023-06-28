@@ -9,11 +9,8 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ├───────────────
 │ Usuário: @${sender.split("@")[0]}
 ├───────────────┐
-│ COMANDOS TERMUX
-╞───────────────┘
-│✾▹ ${prefix}Comandos-termux
-│✾▹ ${prefix}Configurar-bot
-│✾▹ ${prefix}Git-bot
+│ MENUS
+╞───────────────
 ╰──────────┐
 ╭──────────┴─┐
 │ INFO - DONO - ADM
