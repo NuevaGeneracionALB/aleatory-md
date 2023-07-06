@@ -15,7 +15,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────┴─┐
 │ INFO - DONO - ADM
 ├────────────
-│✾▹ ${prefix}infoAluguel
 │✾▹ ${prefix}infopremium
 │✾▹ ${prefix}infoforca
 │✾▹ ${prefix}Infoduelo
