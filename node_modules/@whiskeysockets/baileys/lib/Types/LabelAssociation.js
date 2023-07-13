@@ -6,4 +6,4 @@ var LabelAssociationType;
 (function (LabelAssociationType) {
     LabelAssociationType["Chat"] = "label_jid";
     LabelAssociationType["Message"] = "label_message";
-})(LabelAssociationType = exports.LabelAssociationType || (exports.LabelAssociationType = {}));
+})(LabelAssociationType || (exports.LabelAssociationType = LabelAssociationType = {}));

@@ -45,6 +45,9 @@ const getUrlInfo = async (text, opts = {
 }) => {
     var _a;
     try {
+        // retries
+        const retries = 0;
+        const maxRetry = 5;
         const { getLinkPreview } = await Promise.resolve().then(() => __importStar(require('link-preview-js')));
         let previewLink = text;
         if (!text.startsWith('https://') && !text.startsWith('http://')) {
@@ -52,6 +55,23 @@ const getUrlInfo = async (text, opts = {
         }
         const info = await getLinkPreview(previewLink, {
             ...opts.fetchOpts,
+            followRedirects: 'manual',
+            handleRedirects: (baseURL, forwardedURL) => {
+                const urlObj = new URL(baseURL);
+                const forwardedURLObj = new URL(forwardedURL);
+                if (retries >= maxRetry) {
+                    return false;
+                }
+                if (forwardedURLObj.hostname === urlObj.hostname
+                    || forwardedURLObj.hostname === 'www.' + urlObj.hostname
+                    || 'www.' + forwardedURLObj.hostname === urlObj.hostname) {
+                    retries + 1;
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            },
             headers: opts.fetchOpts
         });
         if (info && 'title' in info && info.title) {

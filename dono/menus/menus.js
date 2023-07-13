@@ -92,7 +92,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │ FIGURINHAS
 ├────────────
 │✾▹ ${prefix}Attp (TEXTO)
-│✾▹ ${prefix}Ttp (TEXTO)
+│✾▹ ${prefix}Attp2 (TEXTO)
 │✾▹ ${prefix}Fsticker (MARCAR-FOTO)
 │✾▹ ${prefix}Sticker (MARCAR-FOTO)
 │✾▹ ${prefix}Toimg (MARCAR-FIGU)
