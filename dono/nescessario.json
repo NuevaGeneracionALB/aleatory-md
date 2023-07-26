@@ -11,6 +11,7 @@
   "cmdpremium": [],
   "TOKEN_GPT": [],
   "msgantipv2": "Não pode mandar mensagem para o bot, ele está programado para não responder, tente falar com meu dono",
+  "TEMPO_DE_CMD": "Aguarde #tempo# Segundos ate executar outro comando, tempo a concluir: ⏳ #tempocmd#",
   "isRecolherLink": false,
   "dono1": ".",
   "dono2": ".",

@@ -18,6 +18,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 ╭──────────┴─┐
 │ INFO - DONO - ADM
 ├────────────
+│✾▹ ${prefix}infolimitarcomando
 │✾▹ ${prefix}infoAluguel
 │✾▹ ${prefix}infopremium
 │✾▹ ${prefix}infoforca
@@ -77,7 +78,6 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Atividade
 │✾▹ ${prefix}Rankativo
 │✾▹ ${prefix}Checkativo (@MARCAR)
-│✾▹ ${prefix}Ranklevel (DE-TODOS) 
 │✾▹ ${prefix}moedas
 ╰──────────┐
 ╭──────────┴─┐

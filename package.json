@@ -16,7 +16,7 @@
 "node-webpmux": "^3.1.1",
 "qrcode-terminal": "^0.12.0",
 "request": "^2.88.2",
-"@whiskeysockets/baileys": "^6.3.1"
+"@whiskeysockets/baileys": "^6.4.0"
 },
 "name": "Aleatory-MD",
 "description": "Sempre buscando melhorar, qualquer dúvida chama lá no WhatsApp: +55 81 9892-3680",
