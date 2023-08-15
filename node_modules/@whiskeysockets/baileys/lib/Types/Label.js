@@ -24,4 +24,4 @@ var LabelColor;
     LabelColor[LabelColor["Color18"] = 17] = "Color18";
     LabelColor[LabelColor["Color19"] = 18] = "Color19";
     LabelColor[LabelColor["Color20"] = 19] = "Color20";
-})(LabelColor = exports.LabelColor || (exports.LabelColor = {}));
+})(LabelColor || (exports.LabelColor = LabelColor = {}));
