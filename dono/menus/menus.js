@@ -33,6 +33,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}InfoBanghost
 │✾▹ ${prefix}Infosorteio 
 │✾▹ ${prefix}InfoAnotação
+│✾▹ ${prefix}infogold
 ╰──────────┐
 ╭──────────┴─┐
 │ DIVERSOS MENUS
@@ -43,6 +44,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Efeitosimg
 │✾▹ ${prefix}Logos
 │✾▹ ${prefix}Brincadeiras
+│✾▹ ${prefix}menugold
 ╰──────────┐
 ╭──────────┴─┐
 │ COMANDOS DE MEMBRO
@@ -98,6 +100,15 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Toimg (MARCAR-FIGU)
 │✾▹ ${prefix}Togif (MARCAR-FIGU)
 │✾▹ ${prefix}Roubar (TEXT/TEXT)
+│✾▹ ${prefix}fig
+│✾▹ ${prefix}figdesenho
+│✾▹ ${prefix}figengracada
+│✾▹ ${prefix}figraiva
+│✾▹ ${prefix}figcoreana
+│✾▹ ${prefix}figanime
+│✾▹ ${prefix}figmeme
+│✾▹ ${prefix}figroblox
+│✾▹ ${prefix}figemoji
 ╰──────────┐
 ╭──────────┴─┐
 │ COMANDOS/BÁSICOS
@@ -238,19 +249,6 @@ const menulogos = (prefix, sender) => {
 │ Logos De 1 Texto
 ├────────────
 │✾▹ ${prefix}logos1 (txt) 
-│
-╰──────────┐
-╭──────────┴─┐
-│ Logos De 2 Texto
-├────────────
-│✾▹ ${prefix}Comporn (txt/txt) 
-│✾▹ ${prefix}Glitch (txt/txt)
-│✾▹ ${prefix}Glitch3 (txt/txt)
-│✾▹ ${prefix}Grafity (txt-txt)
-│✾▹ ${prefix}Space (txt/txt)
-│✾▹ ${prefix}Marvel (txt/txt)
-│✾▹ ${prefix}Stone (txt/txt)
-│✾▹ ${prefix}Steel (txt/txt)
 │
 ╰──────────┘
 `;

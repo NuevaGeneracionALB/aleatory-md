@@ -16,13 +16,13 @@
 "node-webpmux": "^3.1.1",
 "qrcode-terminal": "^0.12.0",
 "request": "^2.88.2",
-"@whiskeysockets/baileys": "^6.4.0"
+"@whiskeysockets/baileys": "^6.4.1"
 },
 "name": "Aleatory-MD",
 "description": "Sempre buscando melhorar, qualquer dúvida chama lá no WhatsApp: +55 81 9892-3680",
-"version": "3.6.5",
+"version": "3.7",
 "scripts": {
-"start": "sh start.sh",
+"start": "bash start.sh",
 "test": "node iniciar.js"
 },
 "repository": {

@@ -26,8 +26,6 @@ const cor3 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];
 const cor4 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];	
 const cor5 = corzinhas[Math.floor(Math.random() * (corzinhas.length))];
 
-const ceemde = JSON.parse(fs.readFileSync('./datab/data/totalcmd.json'));
-
 const getpc = async function(totalchat){
 pc = [];
 a = [];
@@ -64,16 +62,15 @@ resolve(data.webpBase64);
 exports.fetchJson = fetchJson = (url, options) => new Promise(async (resolve, reject) => {
 fetch(url, options).then(response => response.json())
  .then(json => {
-//console.log(json)
 resolve(json)
 }).catch((err) => {
 reject(err)
 })
 })
 
+
 exports.fetchText = fetchText = (url, options) => new Promise(async (resolve, reject) => {
 fetch(url, options).then(response => response.text()).then(text => {
-// console.log(text)
 resolve(text)
 }).catch((err) => {
 reject(err)
@@ -106,15 +103,6 @@ if (err) return console.error(err)
 return `./armor/sticker/data.exif`
 })
 }
-
-/*exports.getBuffer = getBuffer = async (url) => {
-const res = await fetch(url, {headers: { 'User-Agent': 'okhttp/4.5.0'}, method: 'GET' })
-const anu = fs.readFileSync('./src/emror.jpg')
-if (!res.ok) return { type: 'image/jpeg', result: anu }
-const buff = await res.buffer()
-if(buff)
-return { type: res.headers.get('content-type'), result: buff }
-}*/
 
 const getBuffer = async (url, opcoes) => {
 try {
@@ -177,7 +165,7 @@ colors: [`${cor3}`,`${cor1}`,`${cor5}`],
 lineHeight: 1
 });
  
-const banner3 = cfonts.render((`ALEATORY MD\n3.6`), {
+const banner3 = cfonts.render((`ALEATORY MD\n3.7`), {
 font: 'slick',             
 align: 'center',           
 colors: [`${cor1}`,`${cor3}`,`${cor4}`,`${cor2}`],
