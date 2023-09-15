@@ -71,6 +71,7 @@ return `​​​​​​​​​​​​​​​​​​​​​​​​
 │✾▹ ${prefix}Imgpralink (MARCAR)
 │✾▹ ${prefix}Videopralink (MARCAR-V)
 │✾▹ ${prefix}Amazon (EXEMPLO: Celular A13)
+│✾▹ ${prefix}grupos ( Exemplo: Naruto )
 ╰──────────┐
 ╭──────────┴─┐
 │ INFORMAÇÕES 
