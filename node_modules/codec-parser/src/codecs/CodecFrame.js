@@ -40,7 +40,7 @@ export default class CodecFrame extends Frame {
     const headerValue = yield* Header[getHeader](
       codecParser,
       headerCache,
-      readOffset
+      readOffset,
     );
 
     if (headerValue) {
@@ -49,7 +49,7 @@ export default class CodecFrame extends Frame {
 
       const frame = (yield* codecParser[readRawData](
         frameLengthValue,
-        readOffset
+        readOffset,
       ))[subarray](0, frameLengthValue);
 
       return new Frame(headerValue, frame, samplesValue);

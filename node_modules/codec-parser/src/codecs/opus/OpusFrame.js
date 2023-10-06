@@ -24,7 +24,7 @@ export default class OpusFrame extends CodecFrame {
     super(
       header,
       data,
-      ((header[frameSize] * header[frameCount]) / 1000) * header[sampleRate]
+      ((header[frameSize] * header[frameCount]) / 1000) * header[sampleRate],
     );
   }
 }

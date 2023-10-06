@@ -144,7 +144,7 @@ export default class OggPageHeader {
     header[frameLength] = 0;
     header[pageSegmentTable] = [];
     header[pageSegmentBytes] = uint8Array.from(
-      data[subarray](27, header[length])
+      data[subarray](27, header[length]),
     );
 
     for (let i = 0, segmentLength = 0; i < pageSegmentTableLength; i++) {

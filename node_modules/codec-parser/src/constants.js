@@ -51,7 +51,7 @@ export const channelMappings = (() => {
       [left, center, right],
       [center, left, right],
       [center],
-    ].flatMap((y) => y.map((z) => x + z).join(mappingJoin))
+    ].flatMap((y) => y.map((z) => x + z).join(mappingJoin)),
   );
 })();
 

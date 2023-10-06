@@ -53,7 +53,7 @@ export default class HeaderCache {
 
       // only update if codec data is available
       const codecData = this._codecUpdateData.get(
-        this._headerCache.get(this._currentHeader)
+        this._headerCache.get(this._currentHeader),
       );
 
       if (this._codecShouldUpdate && codecData) {
@@ -62,7 +62,7 @@ export default class HeaderCache {
             bitrate,
             ...codecData,
           },
-          totalDuration
+          totalDuration,
         );
       }
 

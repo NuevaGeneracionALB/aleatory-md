@@ -69,7 +69,7 @@ class OggStream {
       this._parser = new Parser(
         this._codecParser,
         this._headerCache,
-        this._onCodec
+        this._onCodec,
       );
       this._codec = codec;
     }
@@ -105,7 +105,7 @@ class OggStream {
         "Unexpected gap in Ogg Page Sequence Number.",
         `Expected: ${this._pageSequenceNumber + 1}, Got: ${
           oggPage[pageSequenceNumber]
-        }`
+        }`,
       );
     }
 
@@ -125,14 +125,14 @@ class OggStream {
 
     let offset = 0;
     oggPageStore[segments] = headerData[pageSegmentTable].map((segmentLength) =>
-      oggPage[data][subarray](offset, (offset += segmentLength))
+      oggPage[data][subarray](offset, (offset += segmentLength)),
     );
 
     // prepend any existing continued packet data
     if (this._continuedPacket[length]) {
       oggPageStore[segments][0] = concatBuffers(
         this._continuedPacket,
-        oggPageStore[segments][0]
+        oggPageStore[segments][0],
       );
 
       this._continuedPacket = new uint8Array();
@@ -145,7 +145,7 @@ class OggStream {
     ) {
       this._continuedPacket = concatBuffers(
         this._continuedPacket,
-        oggPageStore[segments].pop()
+        oggPageStore[segments].pop(),
       );
     }
 
@@ -187,7 +187,7 @@ export default class OggParser extends Parser {
       oggStream = new OggStream(
         this._codecParser,
         this._headerCache,
-        this._onCodec
+        this._onCodec,
       );
       this._streams.set(this._currentSerialNumber, oggStream);
     }

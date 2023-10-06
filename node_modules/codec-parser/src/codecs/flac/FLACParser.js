@@ -81,7 +81,7 @@ export default class FLACParser extends Parser {
       const header = yield* FLACHeader[getHeader](
         this._codecParser,
         this._headerCache,
-        0
+        0,
       );
 
       if (header) {
@@ -96,12 +96,12 @@ export default class FLACParser extends Parser {
             (yield* FLACHeader[getHeader](
               this._codecParser,
               this._headerCache,
-              nextHeaderOffset
+              nextHeaderOffset,
             ))
           ) {
             // found a valid next frame header
             let frameData = yield* this._codecParser[readRawData](
-              nextHeaderOffset
+              nextHeaderOffset,
             );
 
             if (!this._codecParser._flushing)
@@ -121,18 +121,18 @@ export default class FLACParser extends Parser {
           }
 
           nextHeaderOffset = yield* this._getNextFrameSyncOffset(
-            nextHeaderOffset + 1
+            nextHeaderOffset + 1,
           );
         }
 
         this._codecParser[logWarning](
-          `Unable to sync FLAC frame after searching ${nextHeaderOffset} bytes.`
+          `Unable to sync FLAC frame after searching ${nextHeaderOffset} bytes.`,
         );
         this._codecParser[incrementRawData](nextHeaderOffset);
       } else {
         // not synced, increment data to continue syncing
         this._codecParser[incrementRawData](
-          yield* this._getNextFrameSyncOffset(1)
+          yield* this._getNextFrameSyncOffset(1),
         );
       }
     } while (true);
@@ -152,7 +152,7 @@ export default class FLACParser extends Parser {
         [segments].map((segment) => {
           const header = FLACHeader[getHeaderFromUint8Array](
             segment,
-            this._headerCache
+            this._headerCache,
           );
 
           if (header) {
@@ -160,7 +160,7 @@ export default class FLACParser extends Parser {
           } else {
             this._codecParser[logWarning](
               "Failed to parse Ogg FLAC frame",
-              "Skipping invalid FLAC frame"
+              "Skipping invalid FLAC frame",
             );
           }
         })

@@ -235,7 +235,7 @@ export default class MPEGHeader extends CodecHeader {
     const id3v2Header = yield* ID3v2.getID3v2Header(
       codecParser,
       headerCache,
-      readOffset
+      readOffset,
     );
 
     if (id3v2Header) {
@@ -298,7 +298,7 @@ export default class MPEGHeader extends CodecHeader {
 
     header[frameLength] = Math.floor(
       (125 * header[bitrate] * header[samples]) / header[sampleRate] +
-        header[framePadding]
+        header[framePadding],
     );
     if (!header[frameLength]) return null;
 

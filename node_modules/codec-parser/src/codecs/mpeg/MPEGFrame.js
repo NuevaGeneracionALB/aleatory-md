@@ -28,7 +28,7 @@ export default class MPEGFrame extends CodecFrame {
       MPEGFrame,
       codecParser,
       headerCache,
-      readOffset
+      readOffset,
     );
   }
 

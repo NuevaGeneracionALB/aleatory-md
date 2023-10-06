@@ -32,14 +32,14 @@ const getCrcTable = (crcTable, crcInitialValueFunction, crcFunction) => {
 const crc8Table = getCrcTable(
   new uint8Array(256),
   (b) => b,
-  (crc) => (crc & 0x80 ? 0x07 ^ (crc << 1) : crc << 1)
+  (crc) => (crc & 0x80 ? 0x07 ^ (crc << 1) : crc << 1),
 );
 
 const flacCrc16Table = [
   getCrcTable(
     new Uint16Array(256),
     (b) => b << 8,
-    (crc) => (crc << 1) ^ (crc & (1 << 15) ? 0x8005 : 0)
+    (crc) => (crc << 1) ^ (crc & (1 << 15) ? 0x8005 : 0),
   ),
 ];
 
@@ -47,7 +47,7 @@ const crc32Table = [
   getCrcTable(
     new Uint32Array(256),
     (b) => b,
-    (crc) => (crc >>> 1) ^ ((crc & 1) * 0xedb88320)
+    (crc) => (crc >>> 1) ^ ((crc & 1) * 0xedb88320),
   ),
 ];
 
@@ -141,7 +141,7 @@ const crc32Function = (data) => {
 
 const concatBuffers = (...buffers) => {
   const buffer = new uint8Array(
-    buffers.reduce((acc, buf) => acc + buf[length], 0)
+    buffers.reduce((acc, buf) => acc + buf[length], 0),
   );
 
   buffers.reduce((offset, buf) => {

@@ -8,53 +8,10 @@
   
 Precisa de ajuda? Entre em nosso chat: 
 
-https://chat.whatsapp.com/FT9Szs4fMom7nS2qFNMmye
+https://chat.whatsapp.com/CtOo3xGlaqlLnc6eiRp5u4
 
-SÓ SERÁ NECESSÁRIO EXECUTAR OS COMANDOS BÁSICOS DO TERMUX SE APÓS A INSTALAÇÃO DELE, NÃO FOREM DADOS ESSES COMANDOS LISTADOS.
+Veja o passo a passo lá no site: https://aleatory.vip/instalacao
 
-_-_-_-_-_-_-_-_-_
+De como instalar no termux, ou então use na http://bronxyshost.com.br é um valor consideravel a partir de 10 R$, meu canal com o passo a passo de instalação: https://youtu.be/Rc6Rtnqeh-c?si=cT_HICVP17mhrceJ
 
-SE PRECISAR, INSTALE A VERSÃO 119 DO TERMUX
-
-https://www.mediafire.com/file/0npdmv51pnttps0/com.termux_0.119.1-119_minAPI21(arm64-v8a,armeabi-v7a,x86,x86_64)(nodpi)_apkmirror.com.apk/file
-_-_-_-_-_-_-_-_-_-_
-
-Comandos básicos do Termux necessários para inicialização do bot:
-
--_1 COMANDO:
-
-termux-change-repo
-
-Confirme, marque a caixinha que contem o nome "by grimler" e prossiga.
-
--_2 COMANDO:
-
-apt-get upgrade
-
-Será necessário digitar 'y' e confirmar toda vez que for solicitado.
-
--_3 COMANDO:
-
-apt-get update
-
-Será necessário digitar 'y' e confirmar toda vez que for solicitado.
-
--_4 COMANDO:
-
-pkg install nodejs -y && pkg install nodejs-lts -y && pkg install ffmpeg -y && pkg install wget -y && pkg install git -y
-
--_5 COMANDO:
-
-termux-setup-storage
-
-Permita.
-
-__-_-_-_-_-
-
-COMANDO PARA INSTALAR A PASTA DO BOT, APÓS TODAS AS ETAPAS ANTERIORES OU CASO NÃO SEJA NECESSÁRIO AS ETAPAS:
-
-___-_-_-_-_-
-
-cd /sdcard && rm -rf aleatory-md && git clone https://github.com/NuevaGeneracionALB/aleatory-md.git && cd aleatory-md && sh start.sh
-
-_- BASTA COPIAR O COMANDO INTEIRO E COLAR LÁ, NÃO É NECESSÁRIO COPIAR APENAS METADE OU UMA PARTE, É O COMANDO COMPLETO.
+Boa sorte.

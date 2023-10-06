@@ -23,11 +23,10 @@ import {
   codec,
   blocksize0,
   blocksize1,
-  pageSequenceNumber,
   codecFrames,
   segments,
   vorbis,
-  logError,
+  logWarning,
   parseOggPage,
   enable,
   getHeaderFromUint8Array,
@@ -47,11 +46,7 @@ export default class VorbisParser extends Parser {
     this._identificationHeader = null;
     this._setupComplete = false;
 
-    this._mode = {
-      count: 0,
-    };
-    this._prevBlockSize = 0;
-    this._currBlockSize = 0;
+    this._prevBlockSize = null;
   }
 
   get [codec]() {
@@ -83,7 +78,7 @@ export default class VorbisParser extends Parser {
           this._identificationHeader,
           this._headerCache,
           this._vorbisComments,
-          this._vorbisSetup
+          this._vorbisSetup,
         );
 
         if (header) {
@@ -91,13 +86,13 @@ export default class VorbisParser extends Parser {
             new VorbisFrame(
               oggPageSegment,
               header,
-              this._getSamples(oggPageSegment, header)
-            )
+              this._getSamples(oggPageSegment, header),
+            ),
           );
         } else {
           this._codecParser[logError](
             "Failed to parse Ogg Vorbis Header",
-            "Not a valid Ogg Vorbis file"
+            "Not a valid Ogg Vorbis file",
           );
         }
       }
@@ -107,25 +102,26 @@ export default class VorbisParser extends Parser {
   }
 
   _getSamples(segment, header) {
-    const byte = segment[0] >> 1;
+    const blockFlag =
+      this._mode.blockFlags[(segment[0] >> 1) & this._mode.mask];
 
-    const blockFlag = this._mode[byte & this._mode.mask];
+    const currentBlockSize = blockFlag
+      ? header[blocksize1]
+      : header[blocksize0];
 
-    // is this a large window
-    if (blockFlag) {
-      this._prevBlockSize =
-        byte & this._mode.prevMask ? header[blocksize1] : header[blocksize0];
-    }
+    // data is not returned on the first frame, but is used to prime the decoder
+    // https://xiph.org/vorbis/doc/Vorbis_I_spec.html#x1-590004
+    const samplesValue =
+      this._prevBlockSize === null
+        ? 0
+        : (this._prevBlockSize + currentBlockSize) / 4;
 
-    this._currBlockSize = blockFlag ? header[blocksize1] : header[blocksize0];
-
-    const samplesValue = (this._prevBlockSize + this._currBlockSize) >> 2;
-    this._prevBlockSize = this._currBlockSize;
+    this._prevBlockSize = currentBlockSize;
 
     return samplesValue;
   }
 
-  // https://gitlab.xiph.org/xiph/liboggz/-/blob/master/src/liboggz/oggz_auto.c
+  // https://gitlab.xiph.org/xiph/liboggz/-/blob/master/src/liboggz/oggz_auto.c#L911
   // https://github.com/FFmpeg/FFmpeg/blob/master/libavcodec/vorbis_parser.c
   /*
    * This is the format of the mode data at the end of the packet for all
@@ -154,7 +150,7 @@ export default class VorbisParser extends Parser {
    * 0 0 0 0 0 0 0 0 V
    * 0 0 0|0 0 0 0 0
    * 0 0 0 0 0 0 0 0
-   * 0 0 1|0 0 0 0 0
+   * 0 0|1 0 0 0 0 0
    *
    * The simplest way to approach this is to start at the end
    * and read backwards to determine the mode configuration.
@@ -163,11 +159,9 @@ export default class VorbisParser extends Parser {
    */
   _parseSetupHeader(setup) {
     const bitReader = new BitReader(setup);
-    const failedToParseVorbisStream = "Failed to read " + vorbis + " stream";
-    const failedToParseVorbisModes = ", failed to parse " + vorbis + " modes";
-
-    let mode = {
+    const mode = {
       count: 0,
+      blockFlags: [],
     };
 
     // sync with the framing bit
@@ -177,45 +171,36 @@ export default class VorbisParser extends Parser {
     // search in reverse to parse out the mode entries
     // limit mode count to 63 so previous block flag will be in first packet byte
     while (mode.count < 64 && bitReader.position > 0) {
-      const mapping = reverse(bitReader.read(8));
-      if (
-        mapping in mode &&
-        !(mode.count === 1 && mapping === 0) // allows for the possibility of only one mode
-      ) {
-        this._codecParser[logError](
-          "received duplicate mode mapping" + failedToParseVorbisModes
-        );
-        throw new Error(failedToParseVorbisStream);
-      }
+      reverse(bitReader.read(8)); // read mapping
 
       // 16 bits transform type, 16 bits window type, all values must be zero
-      let i = 0;
-      while (bitReader.read(8) === 0x00 && i++ < 3) {} // a non-zero value may indicate the end of the mode entries, or invalid data
+      let currentByte = 0;
+      while (bitReader.read(8) === 0x00 && currentByte++ < 3) {} // a non-zero value may indicate the end of the mode entries, or invalid data
 
-      if (i === 4) {
+      if (currentByte === 4) {
         // transform type and window type were all zeros
         modeBits = bitReader.read(7); // modeBits may need to be used in the next iteration if this is the last mode entry
-        mode[mapping] = modeBits & 0x01; // read and store mode -> block flag mapping
+        mode.blockFlags.unshift(modeBits & 0x01); // read and store mode number -> block flag
         bitReader.position += 6; // go back 6 bits so next iteration starts right after the block flag
         mode.count++;
       } else {
         // transform type and window type were not all zeros
         // check for mode count using previous iteration modeBits
         if (((reverse(modeBits) & 0b01111110) >> 1) + 1 !== mode.count) {
-          this._codecParser[logError](
-            "mode count did not match actual modes" + failedToParseVorbisModes
+          this._codecParser[logWarning](
+            "vorbis derived mode count did not match actual mode count",
           );
-          throw new Error(failedToParseVorbisStream);
         }
 
         break;
       }
     }
 
-    // mode mask to read the mode from the first byte in the vorbis frame
+    // xxxxxxxa packet type
+    // xxxxxxbx mode count (number of mode count bits)
+    // xxxxxcxx previous window flag
+    // xxxxdxxx next window flag
     mode.mask = (1 << Math.log2(mode.count)) - 1;
-    // previous window flag is the next bit after the mode mask
-    mode.prevMask = (mode.mask | 0x1) + 1;
 
     return mode;
   }

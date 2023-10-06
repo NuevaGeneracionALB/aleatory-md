@@ -64,14 +64,14 @@ export default class OpusParser extends Parser {
           const header = OpusHeader[getHeaderFromUint8Array](
             this._identificationHeader,
             segment,
-            this._headerCache
+            this._headerCache,
           );
 
           if (header) return new OpusFrame(segment, header);
 
           this._codecParser[logError](
             "Failed to parse Ogg Opus Header",
-            "Not a valid Ogg Opus file"
+            "Not a valid Ogg Opus file",
           );
         });
     }

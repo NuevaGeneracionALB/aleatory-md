@@ -46,7 +46,7 @@ export default class OggPage extends Frame {
     const header = yield* OggPageHeader[getHeader](
       codecParser,
       headerCache,
-      readOffset
+      readOffset,
     );
 
     if (header) {

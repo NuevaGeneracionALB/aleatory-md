@@ -48,7 +48,7 @@ export default class Parser {
       frameData = yield* this.Frame[getFrame](
         this._codecParser,
         this._headerCache,
-        0
+        0,
       );
       if (frameData) return frameData;
       this._codecParser[incrementRawData](1); // increment to continue syncing
@@ -71,7 +71,7 @@ export default class Parser {
       (yield* this.Header[getHeader](
         this._codecParser,
         this._headerCache,
-        frameLength
+        frameLength,
       ))
     ) {
       this._headerCache[enable](); // start caching when synced
@@ -83,7 +83,7 @@ export default class Parser {
 
     this._codecParser[logWarning](
       `Missing ${frame} at ${frameLength} bytes from current position.`,
-      `Dropping current ${frame} and trying again.`
+      `Dropping current ${frame} and trying again.`,
     );
     this._headerCache[reset](); // frame is invalid and must re-sync and clear cache
     this._codecParser[incrementRawData](1); // increment to invalidate the current frame

@@ -28,7 +28,7 @@ export default class AACFrame extends CodecFrame {
       AACFrame,
       codecParser,
       headerCache,
-      readOffset
+      readOffset,
     );
   }
 

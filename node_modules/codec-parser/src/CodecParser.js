@@ -41,6 +41,7 @@ import {
   logError,
   parseFrame,
   checkCodecUpdate,
+  reset,
 } from "./constants.js";
 import HeaderCache from "./codecs/HeaderCache.js";
 import MPEGParser from "./codecs/mpeg/MPEGParser.js";
@@ -59,7 +60,7 @@ export default class CodecParser {
       onCodecUpdate,
       enableLogging = false,
       enableFrameCRC32 = true,
-    } = {}
+    } = {},
   ) {
     this._inputMimeType = mimeType;
     this._onCodec = onCodec || noOp;
@@ -68,8 +69,7 @@ export default class CodecParser {
     this._enableLogging = enableLogging;
     this._crc32 = enableFrameCRC32 ? crc32Function : noOp;
 
-    this._generator = this._getGenerator();
-    this._generator.next();
+    this[reset]();
   }
 
   /**
@@ -77,7 +77,17 @@ export default class CodecParser {
    * @returns The detected codec
    */
   get [codec]() {
-    return this._parser[codec];
+    return this._parser ? this._parser[codec] : "";
+  }
+
+  [reset]() {
+    this._headerCache = new HeaderCache(
+      this._onCodecHeader,
+      this._onCodecUpdate,
+    );
+
+    this._generator = this._getGenerator();
+    this._generator.next();
   }
 
   /**
@@ -95,8 +105,7 @@ export default class CodecParser {
 
     this._flushing = false;
 
-    this._generator = this._getGenerator();
-    this._generator.next();
+    this[reset]();
   }
 
   /**
@@ -130,11 +139,6 @@ export default class CodecParser {
    * @private
    */
   *_getGenerator() {
-    this._headerCache = new HeaderCache(
-      this._onCodecHeader,
-      this._onCodecUpdate
-    );
-
     if (this._inputMimeType.match(/aac/)) {
       this._parser = new AACParser(this, this._headerCache, this._onCodec);
     } else if (this._inputMimeType.match(/mpeg/)) {
@@ -201,7 +205,9 @@ export default class CodecParser {
     this._sampleRate = frame[header][sampleRate];
 
     frame[header][bitrate] =
-      Math.round(frame[data][length] / frame[duration]) * 8;
+      frame[duration] > 0
+        ? Math.round(frame[data][length] / frame[duration]) * 8
+        : 0;
     frame[frameNumber] = this._frameNumber++;
     frame[totalBytesOut] = this._totalBytesOut;
     frame[totalSamples] = this._totalSamples;
@@ -210,7 +216,7 @@ export default class CodecParser {
 
     this._headerCache[checkCodecUpdate](
       frame[header][bitrate],
-      frame[totalDuration]
+      frame[totalDuration],
     );
 
     this._totalBytesOut += frame[data][length];
@@ -256,12 +262,12 @@ export default class CodecParser {
       messages.push(
         `--stats--${"-".repeat(width - 9)}`,
         ...stats,
-        "-".repeat(width)
+        "-".repeat(width),
       );
 
       logger(
         "codec-parser",
-        messages.reduce((acc, message) => acc + "\n  " + message, "")
+        messages.reduce((acc, message) => acc + "\n  " + message, ""),
       );
     }
   }

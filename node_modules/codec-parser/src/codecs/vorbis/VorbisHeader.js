@@ -80,7 +80,7 @@ export default class VorbisHeader extends CodecHeader {
     dataValue,
     headerCache,
     vorbisCommentsData,
-    vorbisSetupData
+    vorbisSetupData,
   ) {
     // Must be at least 30 bytes.
     if (dataValue[length] < 30)
