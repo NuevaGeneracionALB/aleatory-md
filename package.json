@@ -20,7 +20,7 @@
   },
   "name": "aleatory-md",
   "description": "Sempre buscando melhorar, qualquer dúvida chama lá no WhatsApp: +55 81 9892-3680",
-  "version": "3.7",
+  "version": "4.0",
   "scripts": {
     "start": "bash start.sh",
     "test": "node iniciar.js"

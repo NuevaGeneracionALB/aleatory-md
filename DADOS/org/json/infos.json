@@ -1,0 +1,386 @@
+[
+  {
+    "comando": "play",
+    "info": "Este comando é usado para pedir música ou baixar vídeos/áudios através do nome ou do link, use: #prefixo#play e o nome da música ou o link do Youtube, já se for um vídeo, use: #prefixo#playmp4 e o nome do vídeo, e irei te entregar o resultado.\n\n( Obs: É apenas do Youtube, e nem todos vídeos/áudios baixará, muito grande principalmente. )"
+  },
+  {
+    "comando": "bemvindo",
+    "info": "Existe 2 bem vindos, o primeiro funciona com foto, e o outro é apenas texto, vamos para as explicações.\n\n( Obs: Para ativar é só usar uma vez, para desativar, só usar novamente. )\n\n1: #prefixo#bemvindo \n\n2: #prefixo#bemvindo2\n\nApenas ativando, ele não funcionará, pois é necessário determinar a legenda, após o usuário entrar no grupo ou sair, não aconselho determinar a legendasaiu, porque a mensagem de saiu é inútil, então só causaria spam. \n\nDica principal, saiba que o bem vindo não é recomendado para grupos com grande quantidade gente entrando em massa, pois pode causar o banimento do número do Bot, por spam, ou traduzindo: Excesso de mensagem..\n\nComo determinar a legenda? \n\nPrimeiro bem vindo: \n\n#prefixo#legendabv \n\nDeterminar a legenda saiu: \n\n#prefixo#legandasaiu\n\nSegundo bem vindo: \n\n#prefixo#legandabv2\n\nDeterminar a legenda saiu: \n\n#prefixo#legandasaiu\n\n\nOk, informei os comandos principais. \n\nAgora iremos usar: \n\nContém varias formas de definir algo. \n\nPara o Bot mostrar o nome do grupo: #nomedogp#\n\nPara marcar o usuário: #numerodele#\n\nPara mostrar o número do Bot: #numerobot#\n\nPara mostrar o prefixo do Bot: #prefix#\n\nPara enviar a descrição do grupo: #descrição#\n\nAgora vou para um exemplo, mostrar como fazer ele marcar o usuário, falar o nome do grupo e enviar a descrição, escolha entre o bem vindo que envia com foto ou sem foto, um ou outro. \n\n#prefixo#legendabv Olá #numerodele# bem vindo ao grupo: #nomedogp#, leia as regras da descrição: #descrição#\n\nOu se for usar no bemvindo2\n\n#prefixo#legendabv2 Olá #numerodele# bem vindo ao grupo: #nomedogp#, leia as regras da descrição: #descrição#\n\nE outra coisa, se deseja trocar a foto de fundo do bem vindo, você envia um fundo de imagem no WhatsApp, qualquer imagem, e marque com o comando: #prefixo#fundobv \n\n A imagem de fundo do bem vindo, será trocada, já se quiser trocar a imagem de fundo do saiu, use: #prefixo#fundosaiu \n\né isso, boa sorte..."
+  },
+  {
+    "comando": "limitarcomando",
+    "info": "Este comando é composto por 2:\n\n1: #prefixo#tempocmd\n\n2: #prefixo#limitarcomando\n\nApós ativar o #prefixo#limitarcomando qualquer usuário sem ser Adm, vip ou dono usar algum comando, só poderá ser executado depois de 1 minuto, se quiser aumentar o tempo ou diminuir, use:\n\n#prefixo#tempocmd 120\n\ncoloquei 120 = 2 minutos de tempo, se colocar 20, será igual a 20 segundos por comando, então boa sorte no que quiser colocar, lembrando que tem 1 minuto por padrão após ativar, sem precisar ser determinado;"
+  },
+  {
+    "comando": "rg_aluguel",
+    "info": "Comandos:\n\n1: #prefixo#aluguel\n\n2: #prefixo#aluguel_global\n\n3: #prefixo#rg_aluguel\n\n4: #prefixo#rm_aluguel\n\n5: #prefixo#renovar_aluguel\n\n6: #prefixo#listaaluguel\n\n_1: O primeiro comando: ( #prefixo#aluguel ) serve para ativar que aquele grupo/usuário só funcionará quando for renovado o aluguel ou determinado o tempo que vai expirar o uso naquele grupo/usuário, Para desativar é só usar o comando novamente.\n\n_2: O segundo comando: ( #prefixo#aluguel_global ) serve para ativar que todos grupo/usuário só funcionará quando for renovado o aluguel ou determinado o tempo que vai expirar o uso naquele grupo/usuário, Para desativar é só usar o comando novamente.\n\n_3: O terceiro comando: ( #prefixo#rg_aluguel ) serve para registrar quando o aluguel vai expirar, Exemplos:\n\n#prefixo#rg_aluguel /30d\n\n#prefixo#rg_aluguel /24h\n\nd é dias e h é horas, pode por o tempo que quiser.\n\n_4: O quarto comando: ( #prefixo#rm_aluguel ) serve para tirar o grupo da lista de aluguel, e não funcionarei mais nele.\n\n_5: O quinto comando: ( #prefixo#renovar_aluguel ) serve para você renovar o novo tempo do grupo, para o funcionamento do Bot 100%.\n\n_6: O sexto comando: ( #prefixo#listaaluguel ) serve para ver todos os usuários/grupos que estão com tempo de vencimento, e etc..\n\nBoa sorte."
+  },
+  {
+    "comando": "cmdpremium",
+    "info": "Informação sobre o novo recurso de escolher qual comando vai ser,\npremium.\n\n- Comando: #prefixo#cmdpremium \neste comando vai mostrar quais comandos está premium.\n\n- Comando: #prefixo#addcmdpremium\neste comando você vai usar pra adicionar o comando de premium, por exemplo:\n#prefixo#addcmdpremium play_audio e então o comando play_audio, só vai poder ser\nutilizado por premium.\n\n- Comando: #prefixo#tirarcmdpremium\njá este comando, ele vai tirar o comando da lista premium, que você adicionou,\nexemplo: #prefixo#tirarcmdpremium play_audio\n\nBoa sorte."
+  },
+  {
+    "comando": "iniciar_forca",
+    "info": "Este jogo é literalmente o jogo de forca tradicional, que o corpo é completado com base nos erros, e após ganhar, ganhou..\n\nSe você é um jogador, iremos para os exemplos.\n\nCada palavra para responder terá a quantidade de caracteres da palavra/frase, tema, dica e as _ das letras que falta ser descoberta.\n\nPrimeiro comando: \n\n#prefixo#iniciar_forca \n\nPara a palavra aparecer, e o jogo ser iniciado.\n\nE #prefixo#r-f para responder uma letra ou a palavra toda.\n\nExemplo: #prefixo#r-f a\n\nSe a letra A for visível na palavra ou frase, você acertará a primeira letra.\n\nJá se souber o que a palavra ou frase é, responda: #prefixo#r-f e a palavra toda\n\nExemplo: #prefixo#r-f gato\n\nSe for gato, claro.\n\nJá se você errar uma letra, será colocado +1 membro do corpo do boneco da forca, já se errar a palavra toda, perderá completamente..\n\nJá se você for dono, e quiser adicionar mais uma palavra na forca com dicas e temas, veja esses exemplos:\n\nComando 1: #prefixo#addpalavras_forca\n\nComando 2: #prefixo#rmpalavra_forca\n\nUse um dos 2 comandos, sem digitar nada na frente, para ele te dá o exemplo de como utilizar, Para adicionar mais palavras, e tirar, caso queira.\n\nBoa sorte."
+  },
+  {
+    "comando": "duelo",
+    "info": "Olá, irei informar sobre o comando duelo, ele é usado para grupos de figurinhas, alguns grupo de figurinhas, gostam de interagir através de figurinhas, E então o Administrador do grupo, Entrega a oportunidade de 2 usuários que contém uma interação bem interessante no momento, e eles 2 realiza o duelo, mas só eles pode enviar mensagens no grupo, e vão trocando figurinhas.. Depois vai ter uma votação, e o pessoal do grupo que assistiu, vota no qual foi o melhor no duelo de figurinhas, Mas vamos lá, irei mostrar o comando:\n\nO exemplo é o seguinte:\n\n*duelo @fulano1 @fulano2\n\nPrimeiro você marca os 2 que vão duelo, e quando for encerrar para começar a votação, o administrador determina que parou o duelo, e digita: #prefixo#iniciar_votação\n\nas pessoas vão clicar no link que direciona para o privado do Bot, e lá só confirmar para votar.\n\nse algum usuário quiser ver como votar, digitar: #prefixo#como_votar\n\ndepois que acabar o tempo de votação, algum administrador digita: #prefixo#terminar_votação\n\ne irei anunciar o ganhador com base nos votos.\n\nse algum administrador desejar acabar com o duelo e zerar tudo, digite: #prefixo#zerar_duelo\n\nEntão é isso, boa sorte."
+  },
+  {
+    "comando": "rgtm",
+    "info": "Olá, irei explicar como funciona os seguintes comando:\n\n#prefixo#rgtm\n\n#prefixo#tirardatm\n\n#prefixo#fazertm\n\n#prefixo#listatm\n\nO comando rgtm, você entra no grupo ou privado de alguém que deseja que ele receba transmissão, digita #prefixo#rgtm\n\nE caso queira tirar o grupo da transmissão, entra nele e digita \n\n#prefixo#tirardatm ou se já saiu dele, procura o id dele no comando #prefixo#listatm\n\nE caso queira fazer a transmissão para todos os grupos que foi registrado para transmissão, digita \n\n#prefixo#fazertm e digita o que quer enviar para todos os grupos que foi registrado ou marque uma imagem já com legenda, ou envie uma imagem com legenda, ou documento, ou vídeo, ou texto, então é isso...\n\nBoa sorte."
+  },
+  {
+    "comando": "multiprefixo",
+    "info": "Olá, Irei informar como funciona a função de multiplos prefixo.\n\nEssa função é por grupo, se ativar em um grupo, não afetará os outros.\n\nPrimeiramente, ativar ele com \n\n#prefixo#multiprefixo \n\nUsando primeira vez ele ativa, usando novamente ele desativa... E assim vai em diante..\n\nContém os seguintes comandos:\n\n#prefixo#add_prefixo\n\n#prefixo#tirar_prefixo\n\n#prefixo#prefixos\n\nExemplo do primeiro comando >\n\n#prefixo#add_prefixo &\n\nO & que usei como exemplo, vai passar a ser um prefixo oficial do grupo, então se usar #prefixo# ou & funcionará, pode adicionar quantos quiser.. \n\nE pra tirar vai fazer o seguinte\n#prefixo#tirar_prefixo &\n\nE pra verificar os prefixos que foi adicionado ou há incluso\n\n#prefixo#prefixos\n\nSe quiser, pode adicionar um novo, e tirar o prefixo oficial, por exemplo: &tirar_prefixo #prefixo#\n\nÉ isso, boa sorte..."
+  },
+  {
+    "comando": "antipalavra",
+    "info": "Olá, Irei informar como funciona o antipalavra\n\nO antipalavra é melhorado por você mesmo(a), \"Como assim?\", existe os seguintes comandos:\n\n#prefixo#addpalavra\n\n#prefixo#delpalavra\n\n#prefixo#antipalavra\n\n-------------------------------\n\nPrimeiro, irei dá um exemplo: \n\n#prefixo#addpalavra lixo\n\nisso será incluído como um palavrão, \"mas como faço isso funcionar agora?\" \n\nVocê deve ativar a função por grupo, exemplo:\n\n#prefixo#antipalavra\n\nPara ativar, só usar o comando 1 vez, e para desativar, só usar novamente.\n\nE se você quer tirar a palavra dos palavrões, é só digitar :\n\n#prefixo#delpalavra lixo\n\n\"lixo\" é apenas a palavra que utilizei como exemplo, mas você que deve decidir qual palavra você adicionou ou quer tirar, literalmente escolher quais frases não deseja que seja falada no seu grupo.\n\né isso aí, Boa sorte.."
+  },
+  {
+    "comando": "listanegra",
+    "info": "Olá, deseja saber como funciona o comando listanegra?, vamos lá. \n\nExiste esses 3 comandos:\n\n#prefixo#listanegra\n\n#prefixo#tirardalista\n\n#prefixo#legenda_listanegra\n--------------------------------\n\nComo isso funciona? \n\nEsse comando, por exemplo: se alguém envia algo no seu grupo, vamos supor, um link, e sai rápido, você vai digitar o seguinte \n\n#prefixo#listanegra numero-junto-da-pessoa\n\nVai colocar o número junto da pessoa que saiu, sem o + lembrando, e sem o -, e também não colocar nenhum número a mais, ou menos, pois um detalhe faz diferença na verificação para a remoção.\n\npra remover ele da lista é simples:\n\n#prefixo#tirardalista numero-junto-da-pessoa\n\nmesmos detalhes de adicionar.\n\nSe deseja mudar a legenda de quando o usuário que foi removido que se econtrava na listanegra, use o comando: #prefixo#legenda_listanegra e digite algo, por exemplo: Você está na lista negra, e então irei remover você.Boa\n\nJá se você quer desativar a legenda, use: #prefixo#legenda_listanegra 0\n\n--------------------------------\n\né isso aí, Boa sorte."
+  },
+  {
+    "comando": "listanegrag",
+    "info": "Olá, deseja saber como funciona o comando listanegrag?, vamos lá. \n\nExiste esses 2 comandos:\n\n#prefixo#listanegrag\n\n#prefixo#tirardalistag\n\n--------------------------------\n\nComo isso funciona? \n\nEsse comando, é diferente do listanegra normal, pois esse funcionará da seguinte forma, após você que é dono, usar:\n\n#prefixo#listanegrag 558198923688\n\nNesse estilo de exemplo, o usuário que foi adicionado na listanegrag, não poderá entrar em nenhum grupo que o bot estiver, pois será removido.\n\n#prefixo#listanegrag numero-junto-da-pessoa\n\nVai colocar o número junto da pessoa que saiu, sem o + lembrando, e sem o -, e também não colocar nenhum número a mais, ou menos, pois um detalhe faz diferença na verificação para a remoção.\n\npra remover ele da lista é simples:\n\n#prefixo#tirardalistag numero-junto-da-pessoa\n\nmesmos detalhes de adicionar.\n\n--------------------------------\n\né isso aí, Boa sorte."
+  },
+  {
+    "comando": "limitecaracteres",
+    "info": "Olá, Um comando que criei, é exatamente assim:\n\nCom o comando: #prefixo#limitec\n\nVocê coloca o limite de caracteres que uma pessoa pode enviar no grupo, por exemplo um texto, se passar da quantidade que colocou, por exemplo, 3000, o Bot vai remover, mas pra isso, depois de distinguir o limite, tem que ativar o comando por grupo que é :\n\n#prefixo#limitecaracteres\n\nUsando a primeira vez, ele ativará, usando novamente, ele desativará. \n\nesse comando evitará que enviem trava de texto no seu grupo, pra o Bot remover automaticamente, é isso aí.. \n\nBoa sorte.."
+  },
+  {
+    "comando": "atividades",
+    "info": "Olá, Se você está lendo isso é porque está curioso(a) sobre o contador de mensagens do grupo. \n\nContém alguns comandos:\n\n( 1 ) #prefixo#rankativos\n\n( Descrição: Ele mostrará os tops 5 com mais mensagens e comandos executados no Bot, do grupo, mas essas mensagens, apenas serão contadas se o Bot estiver ativo 100%, ele vai armazenar os dados de cada um que enviar mensagem. )\n \n( 2 ) #prefixo#atividades\n\n( Descrição: Este comando, ele mostra as atividades de todos os membros do grupo, mas devo lembrar novamente que só armazena os dados em um lugar fixo, que não é necessário 100% o uso de banco de dados. )\n\n( 3 ) #prefixo#checkativo \n\n( Descrição: Este comando, você deve marcar a pessoa, Exemplo: #prefixo#checkativo @marca-a-pessoa-do-gp, ou a mensagem, ele mostrará as atividades do usuário. )\n\n( 4 ) #prefixo#banghost\n\n( Descrição: Preste muita atenção, este comando, você deve digitar ele, mais a quantidade de mensagem que é pra banir as pessoas que tiver abaixo daquela quantidade.\n\nExemplo: *banghost 0 \n\nEle vai banir todos aqueles que tiver com 0 mensagens, mas não digite este comando fora de um lugar que não tenha armazenamento de mensagens constantes, ( Exemplo: hospedado em lugares que é 100% obrigatório o uso de banco de dados ou conhecido como DB. ) , pois ele vai remover todos sem parar, que tiver 0 mensagem, já no Termux/Site de hospedagem, ele bane todos com 0 mensagem com mais segurança, mas saiba após ativar o Bot em seu grupo, use este comando depois de 2 semanas pelo menos. Leia com atenção isso, pois não irei ser responsável por remover todos do seu grupo, por seus erros, recomendo deixar o Bot on por 2 semana no grupo, pra usar esse comando, e banir aqueles que nunca enviou mensagem no grupo. )\n\n\n( 5 ) #prefixo#inativos \n\nEsse, ele vai te entregar os membros que estão com x mensagens definida por você, ou abaixo daquilo, exemplo: #prefixo#inativos 2\nTodos com 2 mensagens ou menos, serão mostrado na lista... \n\nMas lembre, se colocou o Bot agora, todos estarão zerado, pois não armazenou informações o suficiente, então poderá causar a perca de todos os membros do seu grupo se for usado o banghost."
+  },
+  {
+    "comando": "sorteionumero",
+    "info": "Olá, Deseja saber como funciona os comandos de Sorteio? \n\nExiste 2 tipos de comando de sorteio. \n\n[ 1 ] #prefixo#sorteio\n\n[ 2 ] #prefixo#sorteionumero\n\n------------------------------\n\nO comando #prefixo#sorteio ele sorteia uma pessoa aleatória do grupo e fala quem foi o(a) sortudo(a)\n\nColoque algo após o comando sorteio, por exemplo, #prefixo#sorteio de 100 R$\n\n-------------------------------\n\nO comando #prefixo#sorteionumero ele envia números aleatórios de acordo com a quantidade de membros, por exemplo, se tiver 250 membros em um grupo, pode cair do número 1 até 250.\n\nColoque algo após o comando sorteio, por exemplo, #prefixo#sorteionumero de 100 R$\n\n--------------------------------\n\nIdeias desses 2 comandos, utilizar para sorteios em seu grupo, vamos supor que 257 pessoas do seu grupo faz uma lista de 1 a 257, e quer realizar um sorteio então vai ser utilizado em esses comando, sorteio por número de telefone ou por números."
+  },
+  {
+    "comando": "sorteio",
+    "info": "Olá, Deseja saber como funciona os comandos de Sorteio? \n\nExiste 2 tipos de comando de sorteio. \n\n[ 1 ] #prefixo#sorteio\n\n[ 2 ] #prefixo#sorteionumero\n\n------------------------------\n\nO comando #prefixo#sorteio ele sorteia uma pessoa aleatória do grupo e fala quem foi o(a) sortudo(a)\n\nColoque algo após o comando sorteio, por exemplo, #prefixo#sorteio de 100 R$\n\n-------------------------------\n\nO comando #prefixo#sorteionumero ele envia números aleatórios de acordo com a quantidade de membros, por exemplo, se tiver 250 membros em um grupo, pode cair do número 1 até 250.\n\nColoque algo após o comando sorteio, por exemplo, #prefixo#sorteionumero de 100 R$\n\n--------------------------------\n\nIdeias desses 2 comandos, utilizar para sorteios em seu grupo, vamos supor que 257 pessoas do seu grupo faz uma lista de 1 a 257, e quer realizar um sorteio então vai ser utilizado em esses comando, sorteio por número de telefone ou por números."
+  },
+  {
+    "comando": "anotacoes",
+    "info": "Olá, Se você está lendo isso, provavelmente está curioso sobre o comando anotação.\n\nExiste os seguintes comando:\n\n1 #prefixo#anotações\n\n2 #prefixo#anotar\n\n3 #prefixo#tirar_nota\n\n4 #prefixo#nota titulo\n\nO primeiro ele mostra todas as anotações do grupo, criada. \n\nO segundo, ele é usado para criar a nota, tipo um bloco de notas, exemplo: #prefixo#anotar ABC|ABC são 3 letras do alfabeto, utilizada bastante\n\nIsso foi um exemplo, mas pode ser utilizado da forma que quiser, mas lembre que antes do | é o título, depois é a anotação.\n\nJá o terceiro, é pra tirar a nota, Exemplo como expliquei, #prefixo#tirar_nota ABC \n\nCom isso a anotação que estava criada foi apagada. \n\nJá o terceiro, ele é pra buscar a anotação que deseja, pelo título, exemplo: #prefixo#nota ABC\n\nÉ isso... \n\nBoa sorte. "
+  },
+  {
+    "comando": "addgold",
+    "info": "Olá, os comandos de Gold funcionam da seguinte maneira:\n\nPrimeiro comando, utilizado por algum administrador, é configurar quais comandos do Bot terá consumo de Gold, comando: #prefixo#addcmdgold \n\nPara passar um comando a consumir Gold, use: #prefixo#addcmdgold play/3\n\nEste foi um exemplo, porque o 3 é quanto de Gold vai consumir após cada vez que for utilizado o play, pode ser qualquer comando.\n\nSegundo comando é pra remover o comando da lista de consumo de Gold após ser usado, Exemplo: #prefixo#rmcmdgold play\n\nJá o terceiro comando é pra você adicionar ou tirar Gold\n\nExemplo 1: #prefixo#addgold /5\n\nEu marquei a mensagem do usuário, usando este comando, e será concedido ao usuário 5 Golds, a quantidade você escolhe.\n\nExemplo 2: #prefixo#tirargold @marcaalguem/5\n\nEste exemplo, você marca alguém do grupo que deseja mandar 5 Golds, mas é um exemplo, você pode mandar quantos Golds quiser.\n\n#prefixo#sorteiogold 10\n\nEste comando é para o Bot sortear um aleatório do grupo e dar a quantidade de Gold que você colocar.\n\nTudo alterado pelo administrador do grupo, boa sorte."
+  },
+  {
+    "comando": "gtts",
+    "info": "idiomas do gtts, Exemplo:\n\n>> #prefixo#gtts pt (texto)\n\no pt que coloquei, é a linguagem, então pode por no lugar as 2 letras que define a linguagem, igual o exemplo e os idiomas abaixo.\n\n- Afrikaans: af\n- Albanian: sq\n- Arabic: ar\n- Armenian: hy\n- Catalan: ca\n- Croatian: hr\n- Czech: cs\n- Danish: da\n- Dutch: nl\n- English: en\n- Esperanto: eo\n- Finnish: fi\n- French: fr\n- German: de\n- Greek: el\n- Haitian Creole: ht\n- Hindi: hi\n- Hungarian: hu\n- Icelandic: is\n- Indonesian: id\n- Italian: it\n- Japanese: ja\n- Korean: ko\n- Latin: la\n- Latvian: lv\n- Macedonian: mk\n- Norwegian: no\n- Polish: pl\n- Portugues: pt\n- Romanian: ro\n- Russian: ru\n- Serbian: sr\n- Slovak: sk\n- Espanhol: es\n- Swahili: sw\n- Swedish: sv\n- Tamil: ta\n- Thai: th\n- Turkish: tr\n- Vietnamese: vi\n- Welsh: cy"
+  },
+  {
+    "comando": "playstore",
+    "info": "Este comando é de pesquisa, aplicativos da play store são mostrados, de acordo com o nome que você pesquisou, por exemplo: #prefixo#playstore WhatsApp, e então o aplicativo WhatsApp e mais outros semelhantes serão mostrado a direção url.\n\nBoa sorte."
+  },
+  {
+    "comando": "ytsearch",
+    "info": "Comando usado para fazer pesquisas no Youtube, irei mostrar link dos vídeos, com base no nome que você colocou.\n\nExemplo: #prefixo#ytsearch sad\n\nE então irei mostrar os link de vídeo do Youtube, que tenha o titulo sad"
+  },
+  {
+    "comando": "tiktok",
+    "info": "Este comando é para baixar vídeos do tiktok, você vai usar #prefixo#tiktok link do tiktok\n\nE irei baixar um vídeo sem marca d'água do tiktok, Boa sorte."
+  },
+  {
+    "comando": "instagram",
+    "info": "Este comando serve para baixar vídeos do Instagram, mas saiba que não baixo story, apenas vídeos e reels\n\nExemplo: #prefixo#instagram link do Instagram \n\nBoa sorte."
+  },
+  {
+    "comando": "facebook",
+    "info": "Este comando serve para baixar vídeos do Facebook, mas saiba que nem todos vídeos posso baixar, alguns são privados, então observe bem quando tentar baixar e não for, não insista.\n\nExemplo de uso: #prefixo#facebook link de vídeo do Facebook\n\nBoa sorte."
+  },
+  {
+    "comando": "twitter",
+    "info": "Este comando é para baixar vídeos do twitter, só usar #prefixo#twitter e o link do vídeo.\n\nMas saiba que nem todos vídeos é possível baixar, pois alguns é privado, Boa sorte."
+  },
+  {
+    "comando": "imgpralink",
+    "info": "Comando usado para transformar imagens e vídeos em link, mas só dá para transformar um vídeo de no máximo +/- 20 Segundos.\n\nSó marcar a foto ou o vídeo com #prefixo#imgpralink\n\nBoa sorte."
+  },
+  {
+    "comando": "gerarlink",
+    "info": "Comando usado para transformar imagens e vídeos em link, mas só dá para transformar um vídeo de no máximo +/- 20 Segundos.\n\nSó marcar a foto ou o vídeo com #prefixo#imgpralink\n\nBoa sorte."
+  },
+  {
+    "comando": "amazon",
+    "info": "Comando usado para pesquisar na loja Amazon, Exemplo: #prefixo#amazon celular\n\nE então será pesquisado os celulares, mas se quiser pode especificar a marca, e verá os preços e resultados baseados no que pesquisou.\n\nBoa sorte."
+  },
+  {
+    "comando": "grupos",
+    "info": "Comando grupos é um comando que pesquisa grupos do WhatsApp, em um site, e informar os grupos com base no que você pesquisou, Exemplo: #prefixo#grupos Naruto\n\nE então aparecerá grupos com o titulo, ou focado em Naruto, animes e etc.. \n\nPode usar para pesquisar grupo de divulgação, nem todos os grupos vai achar, mas pode achar bastante, grupos de amizade.\n\nBoa sorte."
+  },
+  {
+    "comando": "ping",
+    "info": "Comando para saber o tempo que o Bot se encontra online, e a velocidade de resposta..."
+  },
+  {
+    "comando": "rankativo",
+    "info": "Olá, Se você está lendo isso é porque está curioso(a) sobre o contador de mensagens do grupo. \n\nContém alguns comandos:\n\n( 1 ) #prefixo#rankativos\n\n( Descrição: Ele mostrará os tops 5 com mais mensagens e comandos executados no Bot, do grupo, mas essas mensagens, apenas serão contadas se o Bot estiver ativo 100%, ele vai armazenar os dados de cada um que enviar mensagem. )\n \n( 2 ) #prefixo#atividades\n\n( Descrição: Este comando, ele mostra as atividades de todos os membros do grupo, mas devo lembrar novamente que só armazena os dados em um lugar fixo, que não é necessário 100% o uso de banco de dados. )\n\n( 3 ) #prefixo#checkativo \n\n( Descrição: Este comando, você deve marcar a pessoa, Exemplo: #prefixo#checkativo @marca-a-pessoa-do-gp, ou a mensagem, ele mostrará as atividades do usuário. )\n\n( 4 ) #prefixo#banghost\n\n( Descrição: Preste muita atenção, este comando, você deve digitar ele, mais a quantidade de mensagem que é pra banir as pessoas que tiver abaixo daquela quantidade.\n\nExemplo: #prefixo#banghost 0 \n\nEle vai banir todos aqueles que tiver com 0 mensagens, mas não digite este comando fora de um lugar que não tenha armazenamento de mensagens constantes, ( Exemplo: hospedado em lugares que é 100% obrigatório o uso de banco de dados ou conhecido como DB. ) , pois ele vai remover todos sem parar, que tiver 0 mensagem, já no Termux/Site de hospedagem, ele bane todos com 0 mensagem com mais segurança, mas saiba após ativar o Bot em seu grupo, use este comando depois de 2 semanas pelo menos. Leia com atenção isso, pois não irei ser responsável por remover todos do seu grupo, por seus erros, recomendo deixar o Bot on por 2 semana no grupo, pra usar esse comando, e banir aqueles que nunca enviou mensagem no grupo. )\n\n\n( 5 ) #prefixo#inativos \n\nEsse, ele vai te entregar os membros que estão com x mensagens definida por você, ou abaixo daquilo, exemplo: #prefixo#inativos 2\nTodos com 2 mensagens ou menos, serão mostrado na lista... \n\nMas lembre, se colocou o Bot agora, todos estarão zerado, pois não armazenou informações o suficiente, então poderá causar a perca de todos os membros do seu grupo se for usado o banghost."
+  },
+  {
+    "comando": "moedas",
+    "info": "Comando para informar valores de moedas, do tipo Dolar, convertido em real."
+  },
+  {
+    "comando": "esporte_noticias",
+    "info": "Comando para informar usuários sobre futebol, o que acontece durante a semana, e etc..\n\nUse e você vai entender como funciona."
+  },
+  {
+    "comando": "celular",
+    "info": "Comando usado para saber qualidade e especificações de um celular, por exemplo: #prefixo#celular galaxy a9 \n\nE então será dado as informações sobre o Samsung Galaxy A9, Nem todos celulares será possível achar, então boa sorte."
+  },
+  {
+    "comando": "attp",
+    "info": "Comando que envia uma figurinha com o texto que você colocou, com efeito de piscar em varias cores, Exemplo: #prefixo#attp sad \n\nE também contém o outro attp, chamado: #prefixo#attp2 \n\nCom uma fonte de texto, um pouco diferente.\n\nBoa sorte."
+  },
+  {
+    "comando": "sticker",
+    "info": "Comando usado para fazer figurinhas, marcando um vídeo de até 9.9 segundos, ou então uma foto, e irei fazer a figurinha.\n\nSe não se conformar com o formato enviado, use #prefixo#fsticker ao invés de #prefixo#sticker\n\nSó marcar o vídeo ou a foto.\n\nBoa sorte."
+  },
+  {
+    "comando": "toimg",
+    "info": "Comando usado para converter uma figurinha que não se tem movimentos em imagem, já se deseja converter uma figurinha que se movimenta em Gif, use o comando #prefixo#togif ou lembrando novamente, se não se movimenta, use #prefixo#toimg\n\nSó marcar a figurinha."
+  },
+  {
+    "comando": "togif",
+    "info": "Comando usado para converter uma figurinha que se movimenta em Gif, já se deseja converter uma figurinha que não se movimenta em imagem, use o comando #prefixo#toimg ou lembrando novamente, se ela se movimenta, use #prefixo#togif\n\nSó marcar a figurinha."
+  },
+  {
+    "comando": "rename",
+    "info": "Comando usado para trocar o nome do pacote da figurinha, marque uma figurinha e use o comando: #prefixo#rename primeiro nome/segundo nome\n\nisso trocará o nome que aparece quando você clica na figurinha, pode colocar qualquer coisa, mas saiba que algumas figurinhas com erros, não funciona esse comando, então fique ciente."
+  },
+  {
+    "comando": "sistemgold",
+    "info": "Comando de ativação para o funcionamento de brincadeiras de Gold, fale com um administrador do grupo ou se você for um, usar o comando #prefixo#sistemgold \n\nUma vez usado será ativado, usado novamente será desativado.\n\nOs comandos de brincadeiras, a primeira mensagem de qualquer usuário, será resultado em um ganho de Golds, para poder iniciar.\n\nQuiser ver as brincadeiras, use o comando #prefixo#menugold\n\nBoa sorte guerreiro(a), há bastante aventuras.."
+  },
+  {
+    "comando": "jogodavelha",
+    "info": "Este jogo funciona da seguinte maneira.\n\nUsando #prefixo#jogodavelha @numerodapessoa\n\nVocê estará desafiando uma pessoa para jogar com você, e a pessoa vai decidir, em aceitar ou não.\n\nEla apenas manda a mensagem s\n\nSe deseja aceitar. \n\nCaso contrário, apenas digita n\n\nPara recusar.\n\nO jogo será iniciado, e aparecerá todas posições disponíveis para você quando for sua vez.\n\nE então só digitar o número da posição que deseja ocupar, por exemplo enviar no chat o número \n\n3\n\nBoa sorte."
+  },
+  {
+    "comando": "tagme",
+    "info": "Comando para pegar sua marcação do @"
+  },
+  {
+    "comando": "emoji",
+    "info": "Exemplo: #prefixo#emoji 🥺#prefixo#whatsapp\nou\n#prefixo#emoji 🥺\n\nmas a opção #prefixo#whatsapp vai vim como padrão se não for colocado, é fórmas diferentes que irei por a baixo, são formatos de emoji diferentes.\n\nLista:\n\n#prefixo#apple\n\n#prefixo#google\n\n#prefixo#samsung\n\n#prefixo#microsoft\n\n#prefixo#whatsapp\n\n#prefixo#twitter\n\n#prefixo#facebook\n\n#prefixo#joypixels\n\n#prefixo#openmoji\n\n#prefixo#emojidex\n\n#prefixo#lg\n\n#prefixo#htc\n\n#prefixo#softbank\n\n#prefixo#mozilla\n\n#prefixo#au_kddi\n\n#prefixo#mesengger\n\nBoa sorte."
+  },
+  {
+    "comando": "emojimix",
+    "info": "Comando que faz fusão de emojis, e cria um totalmente diferente, e convertido para figurinha.\n\nExemplo: #prefixo#emojimix 😭+🤡\n\nE então você vai tentando os emojis que são compatíveis, o que não tiver, você vai ver que não existe.\n\nBoa sorte."
+  },
+  {
+    "comando": "tabela",
+    "info": "Comando com tabela de símbolos para nicks, nomes personalizados."
+  },
+  {
+    "comando": "conselhobiblico",
+    "info": "Comando que te envia um conselho da bíblia aleatório 👍."
+  },
+  {
+    "comando": "simi",
+    "info": "Comando que faz você obter uma resposta, mas são respostas aleatórias, que pode ser algo carinhosa ou até algo te xingando, mas é isso, é respostas bobas mesmo..\n\nExemplo: #prefixo#simi Tudo bem?"
+  },
+  {
+    "comando": "fazernick",
+    "info": "O comando: #prefixo#fazernick serve para criar nomes de acordo com o que você digitar, e ele entregará o texto personalizado, você escolhe qual achar mais bonito, para seu nick ou algo do tipo. \n\nExemplo: #prefixo#fazernick Aleatory\n\nBoa sorte."
+  },
+  {
+    "comando": "perfil",
+    "info": "Comando que mostra seu perfil, com bobagem tipo porcentagem de ser puta, foto, e etc.."
+  },
+  {
+    "comando": "bot",
+    "info": "Comando bobo, que envia um audio perguntando o que você quer."
+  },
+  {
+    "comando": "signo",
+    "info": "Comando de signo = Horóscopo, com base no dia e etc.. o que vai acontecer..\n\nExemplo: #prefixo#signo virgem\n\nExiste vários signos, se você errar, uma foto com todos signos será mostrado."
+  },
+  {
+    "comando": "metadinha",
+    "info": "Executando o comando #prefixo#metadinha, eu enviarei 2 fotos, uma feminina e outra masculina, e então dá para usar com seu parceiro ou seu web namorado(a), no WhatsApp ou qualquer outra plataforma."
+  },
+  {
+    "comando": "tomp3",
+    "info": "Comando para converter um vídeo para áudio.\n\nVocê marcará um vídeo com o comando: #prefixo#tomp3 \n\nE será enviado o áudio do vídeo para você, dependendo do vídeo, o tamanho, e etc.. \n\nPode demorar bastante, Boa sorte."
+  },
+  {
+    "comando": "tabelagp",
+    "info": "Este comando funciona da seguinte maneira, você criará uma tabela, e quando usar o comando #prefixo#tabelagp, será mostrado o que você salvou ali.\n\nExemplo: #prefixo#criartabela O Gustavo curte carros, o Gabriel bonecas.\n\nE então quando você usar o comando #prefixo#tabelagp\n\nSerá mostrado a data que você criou a tabela e a seguinte mensagem que você registrou\n\n\"O Gustavo curte carros, o Gabriel bonecas.\"\n\nÉ isso, Boa sorte."
+  },
+  {
+    "comando": "ban",
+    "info": "Comando usado para remover um membro do grupo, marcando a mensagem com #prefixo#ban\n\nOu então pode usar #prefixo#ban @númerodomembro\n\nE então irei remover a criatura do grupo, só adms pode usar este comando, Boa sorte."
+  },
+  {
+    "comando": "promover",
+    "info": "Há 2 comandos.\n\n1: Promover\n\n2: Rebaixar\n\nPara promover um membro a administrador do grupo, use #prefixo#promover \n\nMarcando a mensagem do usuário ou marcando o @dele\n\nJá se deseja rebaixar um administrador para membro comum, use o comando: #prefixo#rebaixar @numerodele ou marque a mensagem dele."
+  },
+  {
+    "comando": "grupo",
+    "info": "Usando o comando #prefixo#grupo f \n\nVocê fechará o grupo só para administradores.\n\nPara abrir o grupo, só usar #prefixo#grupo a\n\nBoa sorte."
+  },
+  {
+    "comando": "status",
+    "info": "Comando para ver os status de atividades dos comandos de ativações, como antilink e etc.."
+  },
+  {
+    "comando": "linkgp",
+    "info": "Comando para um administrador usar, e irei enviar o link do grupo.\n\nExemplo: #prefixo#linkgp"
+  },
+  {
+    "comando": "grupoinfo",
+    "info": "Comando para saber as informações do grupo, como descrição, foto, quantidade de membros, e informações básicas."
+  },
+  {
+    "comando": "descgp",
+    "info": "Comando usado para mudar a descrição do grupo, de atual para uma nova.\n\nExemplo: #prefixo#descgp Respeite as regras, não divulgue links, proibido pornografias, e etc..\n\nFica a seu critério."
+  },
+  {
+    "comando": "nomegp",
+    "info": "Comando usado para mudar o nome do grupo. \n\nExemplo: #prefixo#nomegp Aleatory\n\nE então o nome do grupo para a ser Aleatory.\n\nBoa sorte."
+  },
+  {
+    "comando": "marcar",
+    "info": "Este comando serve para marcar todos os usuários do grupo, Exceto administradores, mas mostrará o @+número do usuários.\n\nExemplo: #prefixo#marcar Olá pessoal, leia as regras."
+  },
+  {
+    "comando": "marcar2",
+    "info": "Este comando serve para ver o wa.me de todos os usuários do grupo, para facilitar em ir no privado de cada um.\n\nQuando você usar: #prefixo#marcar2\n\nAparecerá o número de cada usuário com \n\nwa.me/numerodele na frente.\n\nBoa sorte para usar quando quiser."
+  },
+  {
+    "comando": "hidetag",
+    "info": "Comando para marcar todos do grupo, sem mostrar o @numero das pessoas, o bot reenviará um texto que marca todos membros do grupo, como forma de aviso, você pode marcar uma imagem com legenda, documento, áudio, vídeo, e reenviarei marcando todos do grupo.\n\nExemplo: #prefixo#hidetag Atenção pessoal, as 07:00 da noite será o jantar, tenham uma boa refeição.\n\né isso, boa sorte no uso."
+  },
+  {
+    "comando": "limpar",
+    "info": "Um texto invisível é enviado, que faz descer a tela dos membros, bom para o chat não mostrar as conversar anterior, mas use como quiser, Boa sorte."
+  },
+  {
+    "comando": "ativacoes_dono",
+    "info": "Comando que informa sobre os comandos que é para dono, funcionamento global."
+  },
+  {
+    "comando": "bangp",
+    "info": "Este comando após você usar, por exemplo: \n\n#prefixo#bangp \n\nSó funcionará os comandos para o dono, nenhuma outra criatura existente do grupo, não poderá usar os comandos do bot, sem ser dono, só se ele(a) usar em outro grupo, os comandos.\n\nAgora para desabilitar essa função, você pode usar #prefixo#unbangp\n\nBoa sorte."
+  },
+  {
+    "comando": "fotomenu",
+    "info": "Este comando serve para você trocar a foto do menu, que é onde mostra os comandos.\n\nVocê enviará uma foto no seu grupo ou no privado do bot, e marcar com #prefixo#fotomenu \n\nE a foto do grupo será trocada."
+  },
+  {
+    "comando": "bloqcmd",
+    "info": "Este comando serve para bloquear comandos, para ninguém do grupo utilizar algum comando especifico que você não gosta do Bot, irei dá um exemplo:\n\n#prefixo#bloqcmd play\n\nCom este exemplo que dei, você pode fazer para outros comando, ninguém do grupo poderá usar o comando que você bloqueou, só o dono.\n\nDeseja saber como desbloquear o comando que você bloqueou? \n\nExemplo: #prefixo#desbloqcmd play\n\nRealizei o bloqueio do comando play, e depois desbloqueei.\n\nAssim poderá fazer com qualquer outro comando, Boa sorte."
+  },
+  {
+    "comando": "bloqcmdg",
+    "info": "Este comando serve para bloquear comandos, para ninguém em nenhum grupo utilizar, irei dá um exemplo:\n\n#prefixo#bloqcmdg play\n\nCom este exemplo que dei, você pode fazer com outros comando, ninguém de nenhum grupo ou privado poderá usar o comando que você bloqueou, só o dono.\n\nDeseja saber como desbloquear o comando que você bloqueou? \n\nExemplo: #prefixo#desbloqcmdg play\n\nRealizei o bloqueio do comando play, e depois desbloqueei.\n\nAssim poderá fazer com qualquer outro comando, Boa sorte."
+  },
+  {
+    "comando": "legenda_estrangeiro",
+    "info": "Este comando serve para determinar a legenda do comando de remoção de estrangeiros.\n\nExemplo: #prefixo#legenda_estrangeiro Adeus fake safado\n\nOu se você quiser desligar a legenda depois, só colocar a legenda 0.\n\nExemplo: #prefixo#legenda_estrangeiro 0\n\nBoa sorte."
+  },
+  {
+    "comando": "listagp",
+    "info": "Comando para ver os grupos, id, nome, e quantidade de grupos que está."
+  },
+  {
+    "comando": "ausente",
+    "info": "Comando para quando ficar longe de casa ou indisponível, se um administrador usar este comando, quando alguém marcar ele, eu o avisarei que você está indisponível, você usará o comando com a mensagem que deseja deixar, mas isso não serve apenas para administrador do grupo, se o dono do bot usar este comando, eu o avisarei quando alguém marcar ele em qualquer grupo.\n\nExemplo: #prefixo#ausente Eu sair de casa, fui comprar salgadinho.\n\nSe deseja desabilitar a mensagem, você usa: \n\n#prefixo#ativo\n\nBoa sorte."
+  },
+  {
+    "comando": "bcgp",
+    "info": "Este comando faz o bot mandar mensagem para todos do grupo, quando você usar ele em algum grupo, mas saiba que o número do bot pode ser banido por spam, ou coisas do tipo.\n\nExemplo: #prefixo#bcgp Bom dia a todos, trabalho vendendo água.\n\nE então a mensagem vai ser enviada para todos os membros do grupo."
+  },
+  {
+    "comando": "antivp",
+    "info": "Este comando é composto por 3: \n\n(Obs: Usando uma vez o comando, ele habilita, se quiser desabilitar só usar o comando novamente.)\n\n#prefixo#antipv \n\nEste primeiro Antipv, após habilitar ele e alguém mandar mensagem no privado do bot, receberá uma mensagem e será bloqueado.\n\nComo mudar a mensagem de bloqueio? só usar o comando: #prefixo#msgantipv e escrever o que quer, tipo, apenas funciono em grupos, esse é meu link: X, ou então esse é meu número: Y.\n\n------------------------------\n\n#prefixo#antipv2\n\nEste segundo antipv, ele funciona de uma forma diferente do primeiro, esse não bloqueia ninguém, mas sim manda uma mensagem pro usuário apenas.\n\nComando para editar a mensagem: #prefixo#msgantipv2 e escreve algo, o que quiser.\n\n------------------------------\n\n#prefixo#antipv3\n\nJá este terceiro antipv, ele apenas ignora qualquer coisa enviada no privado do bot, e também ignora comandos pedido.\n\nBoa sorte."
+  },
+  {
+    "comando": "addpremium",
+    "info": "Este comando é composto por: \n\n#prefixo#addpremium\n\n#prefixo#rmpremium\n\n#prefixo#premiumlist\n\nO primeiro exemplo, é como você dá premium para alguém.\n\n#prefixo#addpremium @dele/30d\n\n#prefixo#addpremium @dele/24h\n\n#prefixo#addpremium @dele/30m\n\nColoquei o exemplo de 3 formas, para colocar premium por 30 dias, 24 horas ou 30 minutos.\n\nJá se você quiser tirar o premium do usuário, antes de vencer, use: \n\n#prefixo#rmpremium @dele\n\nJá se você quer ver os usuarios premium que estão registrado, use o comando: #prefixo#premiumlist\n\nBoa sorte."
+  },
+  {
+    "comando": "bloquear",
+    "info": "Comando usado para bloquear pessoas de usar comandos, e também o Bot bloqueara ele privado.\n\nComo usar? #prefixo#bloquear @numerodapessoa\n\nPara desbloquear, só usar: #prefixo#desbloquear @numerodapessoa\n\nBoa sorte, esse foi o exemplo."
+  },
+  {
+    "comando": "prefixo-bot",
+    "info": "Este comando serve para mudar o prefixo de todos os grupos, por exemplo:\n\nAquele símbolo que usamos para executar um comando: #prefixo#\n\nIsso é um prefixo, se você quiser mudar ele como padrão de todos os grupos, só vai usar por exemplo:\n\n#prefixo#prefixo-bot %\n\nDei exemplo de trocar por um símbolo de porcento, as pessoas irão usar %menu\n\nMas é isso, Boa sorte."
+  },
+  {
+    "comando": "antilink",
+    "info": "Este comando #prefixo#antilink usando uma vez ele habilita, usando novamente ele desabilita. \n\nEste comando serve para habilitar a função de remover membros que enviar link no grupo, mas não removerá administradores.\n\nSe deseja remover apenas links de grupos, não outros links, use o comando #prefixo#antilinkgp\n\nBoa sorte."
+  },
+  {
+    "comando": "antifake",
+    "info": "Este comando serve para habilitar a remoção de usuários que entra no grupo que não usa números brasileiros, não vai remover pessoas com números brasileiros que já se encontra no grupo.\n\nSe deseja habilitar, use uma vez, se deseja desabilitar, use novamente.\n\nSe precisar mudar a legenda de quando remove o gringo, use: #prefixo#legenda_estrangeiro e escreva algo, como: Adeus gringo safado.\n\nBoa sorte."
+  },
+  {
+    "comando": "anticatalogo",
+    "info": "Este comando serve para remover catalogos enviado no grupo, muitos usam travas como catalogo."
+  },
+  {
+    "comando": "antiloc",
+    "info": "Este comando serve para habilitar a função de remover usuários que enviar localização no grupo, muitos usam travas como localização."
+  },
+  {
+    "comando": "x9",
+    "info": "Este comando serve para falar se algum administrador rebaixou alguém ou promoveu, bom para saber as ações dos administradores.\n\nSe quiser habilitar, use o comando #prefixo#x9 uma vez, e use novamente caso queira desabilitar."
+  },
+  {
+    "comando": "x9visuunica",
+    "info": "Este comando serve para revelar quem enviar vídeo, Imagem ou Áudio em visualização única.\n\nEle reenvia no formato comum, boa sorte."
+  },
+  {
+    "comando": "modobrincadeira",
+    "info": "Este comando serve para habilitar e as brincadeiras funcionar, use #prefixo#brincadeiras para ver as brincadeiras.\n\nSe deseja habilitar o modo brincadeira, use #prefixo#modobrincadeira uma vez para habilitar, e use novamente para desabilitar."
+  },
+  {
+    "comando": "antivideo",
+    "info": "Este comando serve para remover pessoas que enviar vídeos no grupo, é mais para grupos que é proibido enviar vídeos."
+  },
+  {
+    "comando": "antiimg",
+    "info": "Este comando serve para remover usuários que enviar imagem no grupo, alguns grupos é proibido de enviar imagem, então é isso.."
+  },
+  {
+    "comando": "antiaudio",
+    "info": "Este comando serve para remover usuários que enviar áudio no grupo, alguns grupos são proibidos."
+  },
+  {
+    "comando": "antidoc",
+    "info": "Este comando serve para remover usuários que enviar documento no grupo, alguns grupos são poibido."
+  },
+  {
+    "comando": "antictt",
+    "info": "Este comando serve para remover quem enviar contato, vcard, aqueles de adicionar aos contatos.\n\nAlguns usam com travas."
+  },
+  {
+    "comando": "antisticker",
+    "info": "Este comando serve para remover aqueles usuários que envia figurinhas no grupo, alguns grupos é proibido, vai da sua escolha."
+  },
+  {
+    "comando": "autofigu",
+    "info": "Este comando serve para fazer figurinhas automáticas, você após habilitar, envie uma foto no grupo.\n\nE o bot enviará a figurinha feita."
+  },
+  {
+    "comando": "simih",
+    "info": "Este comando serve para habilitar uma auto resposta, que você escreve algo, e ele vai interagindo com você.\n\nPara desabilitar só usar o comando novamente."
+  },
+  {
+    "comando": "figurinhas",
+    "info": "Exemplo: #prefixo#figurinhas 5\n\nMáximo é de 5 figurinhas para o Bot enviar, pacotes diferentes disponível:\n\n◈• #prefixo#figdesenho\n◈• #prefixo#figengracada\n◈• #prefixo#figraiva\n◈• ${prefix}figcoreana\n◈• #prefixo#figanime\n◈• #prefixo#figmeme\n◈• #prefixo#figroblox\n◈• #prefixo#figemoji"
+  },
+  {
+    "comando": "casal",
+    "info": "Este comando funciona da seguinte forma:\n\n#prefixo#casal marcando uma pessoa @xpessoa\n\nVai achar uma pessoa que seja compatível para ela no grupo, e dizer a chance de dá certo, já se eu usar: #prefixo#casal @xpessoa @ypessoa \n\nVai marcar as 2 pessoas e a chance de dá certo, já se eu usar apenas #prefixo#casal \n\nVai achar 2 pessoas aleatórias para ser casal, e a chance de dar certo.\n\nBoa sorte."
+  }
+]
