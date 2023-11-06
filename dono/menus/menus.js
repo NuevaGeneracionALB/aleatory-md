@@ -72,7 +72,7 @@ Usuário: @${sender.split("@")[0]}
 
 🎮 JOGOS 🎮
 
-◈• ${prefix}sitemgold
+◈• ${prefix}sistemgold
 ◈• ${prefix}iniciar_forca
 ◈• ${prefix}jogodavelha (@marcar)
 
