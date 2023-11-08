@@ -382,5 +382,9 @@
   {
     "comando": "casal",
     "info": "Este comando funciona da seguinte forma:\n\n#prefixo#casal marcando uma pessoa @xpessoa\n\nVai achar uma pessoa que seja compatível para ela no grupo, e dizer a chance de dá certo, já se eu usar: #prefixo#casal @xpessoa @ypessoa \n\nVai marcar as 2 pessoas e a chance de dá certo, já se eu usar apenas #prefixo#casal \n\nVai achar 2 pessoas aleatórias para ser casal, e a chance de dar certo.\n\nBoa sorte."
+  },
+  {
+    "comando": "letramusica",
+    "info": "Este comando serve para buscar letra de alguma música, por exemplo: #prefixo#letramusica Ela me traiu\n\nE assim irei entregar o resultado, Boa sorte."
   }
 ]

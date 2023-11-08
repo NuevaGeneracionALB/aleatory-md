@@ -67,6 +67,7 @@ Usuário: @${sender.split("@")[0]}
 ◈• ${prefix}moedas
 ◈• ${prefix}esporte_noticias
 ◈• ${prefix}celular (ex: Galaxy a9)
+◈• ${prefix}letramusica (ex: Ela me traiu)
 
 ──────────────────────────────
 
