@@ -32,6 +32,7 @@ Usuário: @${sender.split("@")[0]}
 ◈• ${prefix}logos
 ◈• ${prefix}brincadeiras
 ◈• ${prefix}menugold
+◈• ${prefix}alteradores
 
 ──────────────────────────────
 
