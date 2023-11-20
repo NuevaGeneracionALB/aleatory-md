@@ -32,7 +32,6 @@ Usuário: @${sender.split("@")[0]}
 ◈• ${prefix}logos
 ◈• ${prefix}brincadeiras
 ◈• ${prefix}menugold
-◈• ${prefix}alteradores
 
 ──────────────────────────────
 
@@ -211,6 +210,7 @@ Usuário: @${sender.split("@")[0]}
 
 **Comandos de Configuração:**
 
+◈• ${prefix}Dononogrupo
 ◈• ${prefix}Addgold
 ◈• ${prefix}Limitecaracteres
 ◈• ${prefix}Rgtm

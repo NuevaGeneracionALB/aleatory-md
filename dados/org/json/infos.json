@@ -386,5 +386,9 @@
   {
     "comando": "letramusica",
     "info": "Este comando serve para buscar letra de alguma música, por exemplo: #prefixo#letramusica Ela me traiu\n\nE assim irei entregar o resultado, Boa sorte."
+  },
+  {
+    "comando": "dononogrupo",
+    "info": "Após ativar esse comando, o bot só funcionará no grupo que você estiver presente."
   }
 ]
