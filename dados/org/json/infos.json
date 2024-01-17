@@ -300,7 +300,7 @@
     "info": "Este comando faz o bot mandar mensagem para todos do grupo, quando você usar ele em algum grupo, mas saiba que o número do bot pode ser banido por spam, ou coisas do tipo.\n\nExemplo: #prefixo#bcgp Bom dia a todos, trabalho vendendo água.\n\nE então a mensagem vai ser enviada para todos os membros do grupo."
   },
   {
-    "comando": "antivp",
+    "comando": "antipv",
     "info": "Este comando é composto por 3: \n\n(Obs: Usando uma vez o comando, ele habilita, se quiser desabilitar só usar o comando novamente.)\n\n#prefixo#antipv \n\nEste primeiro Antipv, após habilitar ele e alguém mandar mensagem no privado do bot, receberá uma mensagem e será bloqueado.\n\nComo mudar a mensagem de bloqueio? só usar o comando: #prefixo#msgantipv e escrever o que quer, tipo, apenas funciono em grupos, esse é meu link: X, ou então esse é meu número: Y.\n\n------------------------------\n\n#prefixo#antipv2\n\nEste segundo antipv, ele funciona de uma forma diferente do primeiro, esse não bloqueia ninguém, mas sim manda uma mensagem pro usuário apenas.\n\nComando para editar a mensagem: #prefixo#msgantipv2 e escreve algo, o que quiser.\n\n------------------------------\n\n#prefixo#antipv3\n\nJá este terceiro antipv, ele apenas ignora qualquer coisa enviada no privado do bot, e também ignora comandos pedido.\n\nBoa sorte."
   },
   {
