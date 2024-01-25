@@ -135,6 +135,7 @@ Usuário: @${sender.split("@")[0]}
 ◈• ${prefix}multiprefixo
 ◈• ${prefix}duelo
 ◈• ${prefix}Bloqcmd (comando)
+◈• ${prefix}so_adm
 
 ──────────────────────────────
 

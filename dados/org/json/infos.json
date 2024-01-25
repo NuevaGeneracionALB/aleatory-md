@@ -390,5 +390,9 @@
   {
     "comando": "dononogrupo",
     "info": "Após ativar esse comando, o bot só funcionará no grupo que você estiver presente."
+  },
+  {
+    "comando": "so_adm",
+    "info": "Após ativar este comando, só administradores conseguirar utilizar os comandos do Bot (OBS: Após usar o comando, ele ativa. para desativar, só usar o comando novamente.)"
   }
 ]
