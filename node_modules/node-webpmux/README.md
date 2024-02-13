@@ -316,10 +316,10 @@ Note that, at the moment, only *static* images are supported in this function.
 ### Information about the internal library
 
 [get/set]ImageData and [get/set]FrameData are powered by Google's official libwebp library obtained from the [GitHub mirror](https://github.com/webmproject/libwebp).<br />
-Commit 05c46984 was the latest at the time of compilation.<br />
+Commit 89c5b91 was the latest at the time of compilation.<br />
 This library was compiled with Emscripten with the command `emcc -O3 -s WASM=1 -s MODULARIZE -s EXPORTED_RUNTIME_METHODS='[cwrap]' -s ALLOW_MEMORY_GROWTH=1 -s EXPORT_NAME=LibWebP -DHAVE_CONFIG_H -I libwebp binding.cpp libwebp/src/{dec,dsp,demux,enc,mux,utils}/*.c libwebp/sharpyuv/*.c --bind -o libwebp.js`.<br />
 binding.cpp is a shim I wrote to bridge the needed parts together and can be found in the libwebp/ directory.
-libwebp.mjs, found in the root, is the Javascript interface to it.
+libwebp.js, found in the root, is the Javascript interface to it.
 
 At present, the only options for encoding are setting the lossless preset, quality, method, and exact flag.<br />
 If access to other options is desired (see upstream libwebp/src/webp/encode.h, struct WebPConfig for settings), leave a feature request and I'll add it.<br />

@@ -1,3 +1,19 @@
+/*
+    node-webpmux - NodeJS module for interacting with WebP images
+    Copyright (C) 2023  ApeironTsuka
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+*/
+
+
 // For more information on the WebP format, see https://developers.google.com/speed/webp/docs/riff_container
 const { WebPReader, WebPWriter } = require('./parser.js');
 const IO = require('./io.js');
