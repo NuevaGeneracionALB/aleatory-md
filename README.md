@@ -8,7 +8,7 @@
   
 Precisa de ajuda? Entre em nosso chat: 
 
-https://chat.whatsapp.com/CtOo3xGlaqlLnc6eiRp5u4
+https://chat.whatsapp.com/DLOKQvmdRQIBGehBVZIADJ
 
 Veja o passo a passo lá no site: https://aleatory.vip/instalacao
 
