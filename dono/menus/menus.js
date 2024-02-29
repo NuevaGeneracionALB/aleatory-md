@@ -130,6 +130,7 @@ Usuário: @${sender.split("@")[0]}
 
 **Configurações Gerais:**
 
+◈• ${prefix}ativacoes
 ◈• ${prefix}sorteio
 ◈• ${prefix}atividades
 ◈• ${prefix}multiprefixo
@@ -211,6 +212,8 @@ Usuário: @${sender.split("@")[0]}
 
 **Comandos de Configuração:**
 
+◈• ${prefix}Ativacoes_dono
+◈• ${prefix}Botoff
 ◈• ${prefix}Dononogrupo
 ◈• ${prefix}Addgold
 ◈• ${prefix}Limitecaracteres
@@ -219,7 +222,6 @@ Usuário: @${sender.split("@")[0]}
 ◈• ${prefix}Rg_aluguel
 ◈• ${prefix}ListanegraG (número que saiu)
 ◈• ${prefix}Bemvindo
-◈• ${prefix}Ativacoes_dono
 ◈• ${prefix}Bangp
 ◈• ${prefix}Fotomenu (marcar imagem) 
 ◈• ${prefix}Bloqcmdg (comando)

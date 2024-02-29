@@ -394,5 +394,9 @@
   {
     "comando": "so_adm",
     "info": "Após ativar este comando, só administradores conseguirar utilizar os comandos do Bot (OBS: Após usar o comando, ele ativa. para desativar, só usar o comando novamente.)"
+  },
+  {
+    "comando": "botoff",
+    "info": "Após ativar esse comando, o bot não funcionará em nenhum grupo ( Para voltar ao normal, só deve usar o comando #prefixo#boton )"
   }
 ]
