@@ -13,6 +13,7 @@
     "linkifyjs": "^4.1.0",
     "moment-timezone": "^0.5.40",
     "multistream": "^4.1.0",
+    "natural": "^6.10.4",
     "node-fetch": "^2.6.7",
     "node-webpmux": "^3.1.1",
     "qrcode-terminal": "^0.12.0",

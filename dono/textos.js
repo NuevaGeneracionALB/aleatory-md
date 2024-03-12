@@ -25,7 +25,13 @@ LINK_COMANDO_CASAL: "https://xatimg.com/image/K88c2BkQwlcF.jpg",
 TEXTO_COMANDO_CASAL: `🌟 Casal do grupo com ॐ #porcentagem# ✨ de chance pra da certo 😏:`,
 
 // PALAVRAS QUE SÃO PROIBIDAS DO SIMIH2 FALAR.
-PALAVRAS_PROIBIDA_DE_O_SIMI_2_FALAR: ["porra", "carai", "caralho", "buceta", "bct", "teu cu","meu pau", "minha chibata", "pika", "seu cu", "sexo", "gozar", "gozei"]
+PALAVRAS_PROIBIDA_DE_O_SIMI_FALAR: ["porra", "carai", "caralho", "buceta", "bct", "teu cu","meu pau", "minha chibata", "pika", "seu cu", "sexo", "gozar", "gozei"],
+
+COMANDO_BAN_MENSAGEM: `#usuario# Foi [ REMOVIDO(A) COM SUCESSO ] - (Por motivos justos.) -`,
+
+COMANDO_PROMOVEU_MENSAGEM:`#usuario# Foi promovido(a) para adm com sucesso.`,
+
+COMANDO_REBAIXOU_MENSAGEM: `#usuario# Foi Rebaixado para [ MEMBRO COMUM ] com sucesso.`
 
 }
 

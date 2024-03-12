@@ -128,9 +128,12 @@ Usuário: @${sender.split("@")[0]}
 
 ──────────────────────────────
 
+** Quiser saber os comandos, tipo antilink, antifake e etc.. : use o comando ${prefix}ativações **
+
+──────────────────────────────
+
 **Configurações Gerais:**
 
-◈• ${prefix}ativacoes
 ◈• ${prefix}sorteio
 ◈• ${prefix}atividades
 ◈• ${prefix}multiprefixo
@@ -210,9 +213,13 @@ Usuário: @${sender.split("@")[0]}
 
 ──────────────────────────────
 
+** Quiser saber os comandos, tipo antipv, So_Adm e etc.. : use o comando ${prefix}Ativações_dono **
+
+──────────────────────────────
+
 **Comandos de Configuração:**
 
-◈• ${prefix}Ativacoes_dono
+◈• ${prefix}Recolherlink
 ◈• ${prefix}Botoff
 ◈• ${prefix}Dononogrupo
 ◈• ${prefix}Addgold
@@ -346,6 +353,7 @@ Usuário: @${sender.split("@")[0]}
 
 **Brincadeiras com Marcações:**
 
+◈• ${prefix}Golpe (marca (@))
 ◈• ${prefix}Casal (marca (@))
 ◈• ${prefix}Gay (marca (@))
 ◈• ${prefix}Feio (marca (@))
@@ -375,6 +383,7 @@ Usuário: @${sender.split("@")[0]}
 ◈• ${prefix}Ranknazista
 ◈• ${prefix}Rankotakus
 ◈• ${prefix}Rankpau
+◈• ${prefix}Rankgolpista
 
 ──────────────────────────────
 

@@ -1,7 +1,7 @@
 [
   {
     "comando": "play",
-    "info": "Este comando é usado para pedir música ou baixar vídeos/áudios através do nome ou do link, use: #prefixo#play e o nome da música ou o link do Youtube, já se for um vídeo, use: #prefixo#playmp4 e o nome do vídeo, e irei te entregar o resultado.\n\n( Obs: É apenas do Youtube, e nem todos vídeos/áudios baixará, muito grande principalmente. )"
+    "info": "Este comando é usado para pedir música ou baixar vídeos/áudios através do nome ou do link, use: #prefixo#play e o nome da música ou o link do Youtube, já se for um vídeo, use: #prefixo#playmp4 e o nome do vídeo, e irei te entregar o resultado.. caso tenha problema no play, use o play2\n\n( Obs: É apenas do Youtube, e nem todos vídeos/áudios baixará, muito grande principalmente. )"
   },
   {
     "comando": "bemvindo",
@@ -317,7 +317,7 @@
   },
   {
     "comando": "antilink",
-    "info": "Este comando #prefixo#antilink usando uma vez ele habilita, usando novamente ele desabilita. \n\nEste comando serve para habilitar a função de remover membros que enviar link no grupo, mas não removerá administradores.\n\nSe deseja remover apenas links de grupos, não outros links, use o comando #prefixo#antilinkgp\n\nBoa sorte."
+    "info": "Este comando #prefixo#antilink usando uma vez ele habilita, usando novamente ele desabilita. \n\nEste comando serve para habilitar a função de remover membros que enviar link no grupo, mas não removerá administradores.\n\nSe deseja remover apenas links de grupos, não outros links, use o comando #prefixo#antilinkgp\n\nTambém há o comando: #prefixo#advlink, que dá 3 advertencias, na terceira remove..\n\nTambém há o comando #prefixo#advlinkgp que dá 3 advertencias, mas vale só pra remoção de link de grupo.\n\nBoa sorte."
   },
   {
     "comando": "antifake",
@@ -398,5 +398,9 @@
   {
     "comando": "botoff",
     "info": "Após ativar esse comando, o bot não funcionará em nenhum grupo ( Para voltar ao normal, só deve usar o comando #prefixo#boton )"
+  },
+  {
+    "comando": "recolherlink",
+    "info": "Este comando é composto por:\n\n1: #prefixo#recolherlink\n\n2: #prefixo#recolherlinkgp\n\n3: #prefixo#listlinks\n\n4: #prefixo#zerarlinks\n\n\nO primeiro se você ativar, ele recolherá link de todos os grupos que o bot/eu: estiver.. já o segundo.. ele recolhe link só do grupo que você se encontra... ele recolhe links de grupo apenas.. já o terceiro comando, ele mostra a lista dos links, quiser zerar os link, só usar quarto comando... para zerar.. Boa sorte."
   }
 ]
