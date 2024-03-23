@@ -31,7 +31,14 @@ COMANDO_BAN_MENSAGEM: `#usuario# Foi [ REMOVIDO(A) COM SUCESSO ] - (Por motivos 
 
 COMANDO_PROMOVEU_MENSAGEM:`#usuario# Foi promovido(a) para adm com sucesso.`,
 
-COMANDO_REBAIXOU_MENSAGEM: `#usuario# Foi Rebaixado para [ MEMBRO COMUM ] com sucesso.`
+COMANDO_REBAIXOU_MENSAGEM: `#usuario# Foi Rebaixado para [ MEMBRO COMUM ] com sucesso.`,
+
+// QUISER QUE O ANTI LINK, ENVIE MENSAGEM, SÓ MUDAR O 0 PARA A MENSAGEM DE REMOÇÃO, OU ENTÃO, DEIXA 0, SE QUISER DEIXAR SEM MENSAGEM, SÓ VOLTAR PRO 0 DENOVO.
+TEXTO_REMOCAO_ANTI_LINK: `0`,
+
+LIMITE_CARACTERES_MSG: 'Muitas Caracteres enviadas, isto é contra as normas do grupo, por precaução, eu irei remover.',
+
+LISTA_NEGRA_GLOBAL_MENSAGEM: '*Olha quem deu as cara por aqui, sente o poder do ban*'
 
 }
 
