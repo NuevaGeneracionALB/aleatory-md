@@ -53,6 +53,7 @@ Usuário: @${sender.split("@")[0]}
 ◈• ${prefix}instagram (link)
 ◈• ${prefix}facebook (link)
 ◈• ${prefix}twitter (link)
+◈• ${prefix}spotify (link)
 ◈• ${prefix}gerarlink (marcar)
 ◈• ${prefix}amazon (exemplo: celular A13)
 ◈• ${prefix}grupos (exemplo: Naruto)
