@@ -330,7 +330,7 @@ Usuário: @${sender.split("@")[0]}
 ──────────────────────────────
 
 **Comandos Premium:**
-◈• ADICIONE SEUS COMANDOS PREMIUM / VEJA O ${prefix}infopremium
+◈• ADICIONE SEUS COMANDOS PREMIUM / VEJA O ${prefix}info cmdpremium
 
 ──────────────────────────────
 
