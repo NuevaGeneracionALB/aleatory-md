@@ -406,5 +406,9 @@
   {
     "comando": "spotify",
     "info": "Este comando, baixa músicas do spotify, você deve ir no site https://open.spotify.com/search pesquisar alguma música, e pegar o link dela, depois usar: #prefixo#spotify e o link, Exemplo: #prefixo#spotify https://open.spotify.com/intl-pt/track/4m3mrHuttXhK58f6Tenai1"
+  },
+  {
+    "comando": "kwai",
+    "info": "Para baixar vídeo do kwai, só usar: #prefixo#kwai e um link do kwai, Boa sorte."
   }
 ]
