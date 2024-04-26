@@ -46,7 +46,9 @@ Usuário: @${sender.split("@")[0]}
 
 🔍 PESQUISAS/BAIXAR/REALIZAR 🔍
 
+◈• ${prefix}transcrever (marcar-audio)
 ◈• ${prefix}play (nome)
+◈• ${prefix}playdoc (nome)
 ◈• ${prefix}playstore (nome)
 ◈• ${prefix}ytsearch (nome)
 ◈• ${prefix}tiktok (link)
@@ -136,6 +138,7 @@ Usuário: @${sender.split("@")[0]}
 
 **Configurações Gerais:**
 
+◈• ${prefix}autobaixar
 ◈• ${prefix}sorteio
 ◈• ${prefix}atividades
 ◈• ${prefix}multiprefixo

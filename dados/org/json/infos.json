@@ -410,5 +410,13 @@
   {
     "comando": "kwai",
     "info": "Para baixar vídeo do kwai, só usar: #prefixo#kwai e um link do kwai, Boa sorte."
+  },
+  {
+  "comando": "transcrever",
+  "info": "Você só deve marcar um áudio no whatsapp, com o comando: #prefixo#transcrever, e o que a pessoa falou, será transformado em texto, saiba que algumas vezes, talvez não funcione, só tentar novamente, se não for, creio que não está aceitando o formato do áudio."
+  },
+  {
+    "comando": "autobaixar",
+    "info": "Este comando, ativa os download automatico, qualquer link que for enviado de: instagram, facebook, twitter, tiktok, kwai, spotify, shorts do youtube, será baixado automáticamente, e também se você gravar áudio, será transcrevido automáticamente para texto, boa sorte ( Após usar o comando: #prefixo#autobaixar ele será ativado, caso queira desativar, só usar o comando novamente. )"
   }
 ]
