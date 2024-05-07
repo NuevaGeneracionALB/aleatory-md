@@ -25,7 +25,7 @@
   "description": "Sempre buscando melhorar, qualquer dúvida chama lá no WhatsApp: +55 81 9892-3680",
   "version": "4.1",
   "scripts": {
-    "start": "ulimit -c 0 && bash start.sh",
+    "start": "ulimit -c 0 && bash start.sh sim",
     "test": "node iniciar.js"
   },
   "repository": {
