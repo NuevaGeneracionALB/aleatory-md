@@ -27,7 +27,7 @@ export declare const makeMessagesSocket: (config: SocketConfig) => {
     }[]>;
     groupRequestParticipantsUpdate: (jid: string, participants: string[], action: "reject" | "approve") => Promise<{
         status: string;
-        jid: string; /** Bulk read messages. Keys can be from different chats & participants */
+        jid: string;
     }[]>;
     groupParticipantsUpdate: (jid: string, participants: string[], action: import("../Types").ParticipantAction) => Promise<{
         status: string;
