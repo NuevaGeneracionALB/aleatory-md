@@ -152,13 +152,13 @@ module.exports = function(proto) {
 
       // Spawn ffprobe
       var src = input.isStream ? 'pipe:0' : input.source;
-      var ffprobe = spawn(path, ['-show_streams', '-show_format'].concat(options, src));
+      var ffprobe = spawn(path, ['-show_streams', '-show_format'].concat(options, src), {windowsHide: true});
 
       if (input.isStream) {
         // Skip errors on stdin. These get thrown when ffprobe is complete and
         // there seems to be no way hook in and close stdin before it throws.
         ffprobe.stdin.on('error', function(err) {
-          if (['ECONNRESET', 'EPIPE'].indexOf(err.code) >= 0) { return; }
+          if (['ECONNRESET', 'EPIPE', 'EOF'].indexOf(err.code) >= 0) { return; }
           handleCallback(err);
         });
 
