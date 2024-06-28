@@ -193,6 +193,7 @@ const makeGroupsSocket = (config) => {
          * @param inviteMessage the message to accept
          */
         groupAcceptInviteV4: ev.createBufferedFunction(async (key, inviteMessage) => {
+            var _a;
             key = typeof key === 'string' ? { remoteJid: key } : key;
             const results = await groupQuery(inviteMessage.groupJid, 'set', [{
                     tag: 'accept',
@@ -224,7 +225,7 @@ const makeGroupsSocket = (config) => {
             await upsertMessage({
                 key: {
                     remoteJid: inviteMessage.groupJid,
-                    id: (0, Utils_1.generateMessageID)(),
+                    id: (0, Utils_1.generateMessageIDV2)((_a = sock.user) === null || _a === void 0 ? void 0 : _a.id),
                     fromMe: false,
                     participant: key.remoteJid,
                 },
