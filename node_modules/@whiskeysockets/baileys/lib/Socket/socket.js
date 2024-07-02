@@ -403,7 +403,7 @@ const makeSocket = (config) => {
                         {
                             tag: 'companion_platform_id',
                             attrs: {},
-                            content: '49' // Chrome
+                            content: (0, Utils_1.getPlatformId)(browser[1])
                         },
                         {
                             tag: 'companion_platform_display',

@@ -2,16 +2,10 @@
 import { AxiosRequestConfig } from 'axios';
 import { Logger } from 'pino';
 import { proto } from '../../WAProto';
-import { BaileysEventEmitter, BaileysEventMap, WACallUpdateType, WAVersion } from '../Types';
+import { BaileysEventEmitter, BaileysEventMap, BrowsersMap, WACallUpdateType, WAVersion } from '../Types';
 import { BinaryNode } from '../WABinary';
-export declare const Browsers: {
-    ubuntu: (browser: any) => [string, string, string];
-    macOS: (browser: any) => [string, string, string];
-    baileys: (browser: any) => [string, string, string];
-    windows: (browser: any) => [string, string, string];
-    /** The appropriate browser based on your OS & release */
-    appropriate: (browser: any) => [string, string, string];
-};
+export declare const Browsers: BrowsersMap;
+export declare const getPlatformId: (browser: string) => any;
 export declare const BufferJSON: {
     replacer: (k: any, value: any) => any;
     reviver: (_: any, value: any) => any;
