@@ -225,6 +225,10 @@ const processMessage = async (message, { shouldProcessHistoryMsg, ev, creds, key
         };
         const participantsIncludesMe = () => participants.find(jid => (0, WABinary_1.areJidsSameUser)(meId, jid));
         switch (message.messageStubType) {
+            case Types_1.WAMessageStubType.GROUP_PARTICIPANT_CHANGE_NUMBER:
+                participants = message.messageStubParameters || [];
+                emitParticipantsUpdate('modify');
+                break;
             case Types_1.WAMessageStubType.GROUP_PARTICIPANT_LEAVE:
             case Types_1.WAMessageStubType.GROUP_PARTICIPANT_REMOVE:
                 participants = message.messageStubParameters || [];

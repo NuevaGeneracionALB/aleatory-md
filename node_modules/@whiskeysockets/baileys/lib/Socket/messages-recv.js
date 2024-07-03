@@ -75,15 +75,16 @@ const makeMessagesRecvSocket = (config) => {
         await query(stanza);
     };
     const sendRetryRequest = async (node, forceIncludeKeys = false) => {
-        const msgId = node.attrs.id;
-        let retryCount = msgRetryCache.get(msgId) || 0;
+        const { id: msgId, participant } = node.attrs;
+        const key = `${msgId}:${participant}`;
+        let retryCount = msgRetryCache.get(key) || 0;
         if (retryCount >= maxMsgRetryCount) {
             logger.debug({ retryCount, msgId }, 'reached retry limit, clearing');
-            msgRetryCache.del(msgId);
+            msgRetryCache.del(key);
             return;
         }
         retryCount += 1;
-        msgRetryCache.set(msgId, retryCount);
+        msgRetryCache.set(key, retryCount);
         const { account, signedPreKey, signedIdentityKey: identityKey } = authState.creds;
         const deviceIdentity = (0, Utils_1.encodeSignedDeviceIdentity)(account, true);
         await authState.keys.transaction(async () => {
@@ -189,6 +190,11 @@ const makeMessagesRecvSocket = (config) => {
                         ephemeralExpiration: +(child.attrs.expiration || 0)
                     }
                 };
+                break;
+            case 'modify':
+                const oldNumber = (0, WABinary_1.getBinaryNodeChildren)(child, 'participant').map(p => p.attrs.jid);
+                msg.messageStubParameters = oldNumber || [];
+                msg.messageStubType = Types_1.WAMessageStubType.GROUP_PARTICIPANT_CHANGE_NUMBER;
                 break;
             case 'promote':
             case 'demote':
@@ -343,7 +349,7 @@ const makeMessagesRecvSocket = (config) => {
                 const ref = toRequiredBuffer((0, WABinary_1.getBinaryNodeChildBuffer)(linkCodeCompanionReg, 'link_code_pairing_ref'));
                 const primaryIdentityPublicKey = toRequiredBuffer((0, WABinary_1.getBinaryNodeChildBuffer)(linkCodeCompanionReg, 'primary_identity_pub'));
                 const primaryEphemeralPublicKeyWrapped = toRequiredBuffer((0, WABinary_1.getBinaryNodeChildBuffer)(linkCodeCompanionReg, 'link_code_pairing_wrapped_primary_ephemeral_pub'));
-                const codePairingPublicKey = decipherLinkPublicKey(primaryEphemeralPublicKeyWrapped);
+                const codePairingPublicKey = await decipherLinkPublicKey(primaryEphemeralPublicKeyWrapped);
                 const companionSharedKey = Utils_1.Curve.sharedKey(authState.creds.pairingEphemeralKeyPair.private, codePairingPublicKey);
                 const random = (0, crypto_1.randomBytes)(32);
                 const linkCodeSalt = (0, crypto_1.randomBytes)(32);
@@ -400,10 +406,10 @@ const makeMessagesRecvSocket = (config) => {
             return result;
         }
     };
-    function decipherLinkPublicKey(data) {
+    async function decipherLinkPublicKey(data) {
         const buffer = toRequiredBuffer(data);
         const salt = buffer.slice(0, 32);
-        const secretKey = (0, Utils_1.derivePairingCodeKey)(authState.creds.pairingCode, salt);
+        const secretKey = await (0, Utils_1.derivePairingCodeKey)(authState.creds.pairingCode, salt);
         const iv = buffer.slice(32, 48);
         const payload = buffer.slice(48, 80);
         return (0, Utils_1.aesDecryptCTR)(payload, secretKey, iv);

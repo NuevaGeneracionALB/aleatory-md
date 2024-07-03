@@ -17,5 +17,5 @@ export declare const makeNoiseHandler: ({ keyPair: { private: privateKey, public
     finishInit: () => void;
     processHandshake: ({ serverHello }: proto.HandshakeMessage, noiseKey: KeyPair) => Buffer;
     encodeFrame: (data: Buffer | Uint8Array) => Buffer;
-    decodeFrame: (newData: Buffer | Uint8Array, onFrame: (buff: Uint8Array | BinaryNode) => void) => void;
+    decodeFrame: (newData: Buffer | Uint8Array, onFrame: (buff: Uint8Array | BinaryNode) => void) => Promise<void>;
 };

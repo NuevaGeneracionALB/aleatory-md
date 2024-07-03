@@ -125,7 +125,7 @@ const makeNoiseHandler = ({ keyPair: { private: privateKey, public: publicKey },
             frame.set(data, introSize + 3);
             return frame;
         },
-        decodeFrame: (newData, onFrame) => {
+        decodeFrame: async (newData, onFrame) => {
             var _a;
             // the binary protocol uses its own framing mechanism
             // on top of the WS frames
@@ -143,7 +143,7 @@ const makeNoiseHandler = ({ keyPair: { private: privateKey, public: publicKey },
                 inBytes = inBytes.slice(size + 3);
                 if (isFinished) {
                     const result = decrypt(frame);
-                    frame = (0, WABinary_1.decodeBinaryNode)(result);
+                    frame = await (0, WABinary_1.decodeBinaryNode)(result);
                 }
                 logger.trace({ msg: (_a = frame === null || frame === void 0 ? void 0 : frame.attrs) === null || _a === void 0 ? void 0 : _a.id }, 'recv frame');
                 onFrame(frame);
