@@ -1,6 +1,6 @@
 /// <reference types="node" />
 /// <reference types="node" />
-import { Handler, ParserOptions } from "./Parser.js";
+import { type Handler, type ParserOptions } from "./Parser.js";
 import { Writable } from "node:stream";
 /**
  * WritableStream makes the `Parser` interface available as a NodeJS stream.

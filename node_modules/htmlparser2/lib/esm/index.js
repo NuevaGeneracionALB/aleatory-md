@@ -9,7 +9,7 @@ DomHandler as DefaultHandler, } from "domhandler";
  * Parses the data, returns the resulting document.
  *
  * @param data The data that should be parsed.
- * @param options Optional options for the parser and DOM builder.
+ * @param options Optional options for the parser and DOM handler.
  */
 export function parseDocument(data, options) {
     const handler = new DomHandler(undefined, options);
@@ -23,7 +23,7 @@ export function parseDocument(data, options) {
  * Use `parseDocument` to get the `Document` node instead.
  *
  * @param data The data that should be parsed.
- * @param options Optional options for the parser and DOM builder.
+ * @param options Optional options for the parser and DOM handler.
  * @deprecated Use `parseDocument` instead.
  */
 export function parseDOM(data, options) {
@@ -32,15 +32,27 @@ export function parseDOM(data, options) {
 /**
  * Creates a parser instance, with an attached DOM handler.
  *
- * @param callback A callback that will be called once parsing has been completed.
- * @param options Optional options for the parser and DOM builder.
+ * @param callback A callback that will be called once parsing has been completed, with the resulting document.
+ * @param options Optional options for the parser and DOM handler.
  * @param elementCallback An optional callback that will be called every time a tag has been completed inside of the DOM.
+ */
+export function createDocumentStream(callback, options, elementCallback) {
+    const handler = new DomHandler((error) => callback(error, handler.root), options, elementCallback);
+    return new Parser(handler, options);
+}
+/**
+ * Creates a parser instance, with an attached DOM handler.
+ *
+ * @param callback A callback that will be called once parsing has been completed, with an array of root nodes.
+ * @param options Optional options for the parser and DOM handler.
+ * @param elementCallback An optional callback that will be called every time a tag has been completed inside of the DOM.
+ * @deprecated Use `createDocumentStream` instead.
  */
 export function createDomStream(callback, options, elementCallback) {
     const handler = new DomHandler(callback, options, elementCallback);
     return new Parser(handler, options);
 }
-export { default as Tokenizer, } from "./Tokenizer.js";
+export { default as Tokenizer, QuoteType, } from "./Tokenizer.js";
 /*
  * All of the following exports exist for backwards-compatibility.
  * They should probably be removed eventually.

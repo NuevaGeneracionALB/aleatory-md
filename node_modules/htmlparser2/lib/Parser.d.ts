@@ -1,4 +1,4 @@
-import Tokenizer, { Callbacks, QuoteType } from "./Tokenizer.js";
+import Tokenizer, { type Callbacks, QuoteType } from "./Tokenizer.js";
 export interface ParserOptions {
     /**
      * Indicates whether special tags (`<script>`, `<style>`, and `<title>`) should get special treatment
@@ -92,10 +92,14 @@ export declare class Parser implements Callbacks {
     private attribvalue;
     private attribs;
     private readonly stack;
+    /** Determines whether self-closing tags are recognized. */
     private readonly foreignContext;
     private readonly cbs;
     private readonly lowerCaseTagNames;
     private readonly lowerCaseAttributeNames;
+    private readonly recognizeSelfClosing;
+    /** We are parsing HTML. Inverse of the `xmlMode` option. */
+    private readonly htmlMode;
     private readonly tokenizer;
     private readonly buffers;
     private bufferOffset;
@@ -107,7 +111,11 @@ export declare class Parser implements Callbacks {
     /** @internal */
     ontext(start: number, endIndex: number): void;
     /** @internal */
-    ontextentity(cp: number): void;
+    ontextentity(cp: number, endIndex: number): void;
+    /**
+     * Checks if the current tag is a void element. Override this if you want
+     * to specify your own additional void elements.
+     */
     protected isVoidElement(name: string): boolean;
     /** @internal */
     onopentagname(start: number, endIndex: number): void;

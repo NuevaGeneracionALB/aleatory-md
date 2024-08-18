@@ -19,7 +19,7 @@ export interface Callbacks {
     onprocessinginstruction(start: number, endIndex: number): void;
     onselfclosingtag(endIndex: number): void;
     ontext(start: number, endIndex: number): void;
-    ontextentity(codepoint: number): void;
+    ontextentity(codepoint: number, endIndex: number): void;
 }
 export default class Tokenizer {
     private readonly cbs;
@@ -31,6 +31,8 @@ export default class Tokenizer {
     private sectionStart;
     /** The index within the buffer that we are currently looking at. */
     private index;
+    /** The start of the last entity. */
+    private entityStart;
     /** Some behavior, eg. when decoding entities, is done while we are in another state. This keeps track of the other state type. */
     private baseState;
     /** For special parsing behavior inside of script and style tags. */
@@ -41,7 +43,7 @@ export default class Tokenizer {
     private offset;
     private readonly xmlMode;
     private readonly decodeEntities;
-    private readonly entityTrie;
+    private readonly entityDecoder;
     constructor({ xmlMode, decodeEntities, }: {
         xmlMode?: boolean;
         decodeEntities?: boolean;
@@ -51,14 +53,6 @@ export default class Tokenizer {
     end(): void;
     pause(): void;
     resume(): void;
-    /**
-     * The current index within all of the written data.
-     */
-    getIndex(): number;
-    /**
-     * The start of the current section.
-     */
-    getSectionStart(): number;
     private stateText;
     private currentSequence;
     private sequenceIndex;
@@ -110,19 +104,9 @@ export default class Tokenizer {
     private stateBeforeComment;
     private stateInSpecialComment;
     private stateBeforeSpecialS;
-    private trieIndex;
-    private trieCurrent;
-    /** For named entities, the index of the value. For numeric entities, the code point. */
-    private entityResult;
-    private entityExcess;
-    private stateBeforeEntity;
-    private stateInNamedEntity;
-    private emitNamedEntity;
-    private stateBeforeNumericEntity;
-    private emitNumericEntity;
-    private stateInNumericEntity;
-    private stateInHexEntity;
-    private allowLegacyEntity;
+    private stateBeforeSpecialT;
+    private startEntity;
+    private stateInEntity;
     /**
      * Remove data that has already been consumed from the buffer.
      */
@@ -137,7 +121,6 @@ export default class Tokenizer {
     private finish;
     /** Handle any trailing data. */
     private handleTrailingData;
-    private emitPartial;
     private emitCodePoint;
 }
 //# sourceMappingURL=Tokenizer.d.ts.map

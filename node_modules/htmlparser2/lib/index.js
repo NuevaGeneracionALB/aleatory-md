@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DomUtils = exports.parseFeed = exports.getFeed = exports.ElementType = exports.Tokenizer = exports.createDomStream = exports.parseDOM = exports.parseDocument = exports.DefaultHandler = exports.DomHandler = exports.Parser = void 0;
+exports.DomUtils = exports.parseFeed = exports.getFeed = exports.ElementType = exports.QuoteType = exports.Tokenizer = exports.createDomStream = exports.createDocumentStream = exports.parseDOM = exports.parseDocument = exports.DefaultHandler = exports.DomHandler = exports.Parser = void 0;
 var Parser_js_1 = require("./Parser.js");
 var Parser_js_2 = require("./Parser.js");
 Object.defineProperty(exports, "Parser", { enumerable: true, get: function () { return Parser_js_2.Parser; } });
@@ -40,7 +40,7 @@ Object.defineProperty(exports, "DefaultHandler", { enumerable: true, get: functi
  * Parses the data, returns the resulting document.
  *
  * @param data The data that should be parsed.
- * @param options Optional options for the parser and DOM builder.
+ * @param options Optional options for the parser and DOM handler.
  */
 function parseDocument(data, options) {
     var handler = new domhandler_1.DomHandler(undefined, options);
@@ -55,7 +55,7 @@ exports.parseDocument = parseDocument;
  * Use `parseDocument` to get the `Document` node instead.
  *
  * @param data The data that should be parsed.
- * @param options Optional options for the parser and DOM builder.
+ * @param options Optional options for the parser and DOM handler.
  * @deprecated Use `parseDocument` instead.
  */
 function parseDOM(data, options) {
@@ -65,9 +65,22 @@ exports.parseDOM = parseDOM;
 /**
  * Creates a parser instance, with an attached DOM handler.
  *
- * @param callback A callback that will be called once parsing has been completed.
- * @param options Optional options for the parser and DOM builder.
+ * @param callback A callback that will be called once parsing has been completed, with the resulting document.
+ * @param options Optional options for the parser and DOM handler.
  * @param elementCallback An optional callback that will be called every time a tag has been completed inside of the DOM.
+ */
+function createDocumentStream(callback, options, elementCallback) {
+    var handler = new domhandler_1.DomHandler(function (error) { return callback(error, handler.root); }, options, elementCallback);
+    return new Parser_js_1.Parser(handler, options);
+}
+exports.createDocumentStream = createDocumentStream;
+/**
+ * Creates a parser instance, with an attached DOM handler.
+ *
+ * @param callback A callback that will be called once parsing has been completed, with an array of root nodes.
+ * @param options Optional options for the parser and DOM handler.
+ * @param elementCallback An optional callback that will be called every time a tag has been completed inside of the DOM.
+ * @deprecated Use `createDocumentStream` instead.
  */
 function createDomStream(callback, options, elementCallback) {
     var handler = new domhandler_1.DomHandler(callback, options, elementCallback);
@@ -76,6 +89,7 @@ function createDomStream(callback, options, elementCallback) {
 exports.createDomStream = createDomStream;
 var Tokenizer_js_1 = require("./Tokenizer.js");
 Object.defineProperty(exports, "Tokenizer", { enumerable: true, get: function () { return __importDefault(Tokenizer_js_1).default; } });
+Object.defineProperty(exports, "QuoteType", { enumerable: true, get: function () { return Tokenizer_js_1.QuoteType; } });
 /*
  * All of the following exports exist for backwards-compatibility.
  * They should probably be removed eventually.

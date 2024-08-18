@@ -98,7 +98,7 @@ const htmlIntegrationElements = new Set([
 const reNameEnd = /\s|\//;
 export class Parser {
     constructor(cbs, options = {}) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         this.options = options;
         /** The start index of the last event. */
         this.startIndex = 0;
@@ -114,7 +114,6 @@ export class Parser {
         this.attribvalue = "";
         this.attribs = null;
         this.stack = [];
-        this.foreignContext = [];
         this.buffers = [];
         this.bufferOffset = 0;
         /** The index of the last written buffer. Used when resuming after a `pause()`. */
@@ -122,11 +121,15 @@ export class Parser {
         /** Indicates whether the parser has finished running / `.end` has been called. */
         this.ended = false;
         this.cbs = cbs !== null && cbs !== void 0 ? cbs : {};
-        this.lowerCaseTagNames = (_a = options.lowerCaseTags) !== null && _a !== void 0 ? _a : !options.xmlMode;
+        this.htmlMode = !this.options.xmlMode;
+        this.lowerCaseTagNames = (_a = options.lowerCaseTags) !== null && _a !== void 0 ? _a : this.htmlMode;
         this.lowerCaseAttributeNames =
-            (_b = options.lowerCaseAttributeNames) !== null && _b !== void 0 ? _b : !options.xmlMode;
-        this.tokenizer = new ((_c = options.Tokenizer) !== null && _c !== void 0 ? _c : Tokenizer)(this.options, this);
-        (_e = (_d = this.cbs).onparserinit) === null || _e === void 0 ? void 0 : _e.call(_d, this);
+            (_b = options.lowerCaseAttributeNames) !== null && _b !== void 0 ? _b : this.htmlMode;
+        this.recognizeSelfClosing =
+            (_c = options.recognizeSelfClosing) !== null && _c !== void 0 ? _c : !this.htmlMode;
+        this.tokenizer = new ((_d = options.Tokenizer) !== null && _d !== void 0 ? _d : Tokenizer)(this.options, this);
+        this.foreignContext = [!this.htmlMode];
+        (_f = (_e = this.cbs).onparserinit) === null || _f === void 0 ? void 0 : _f.call(_e, this);
     }
     // Tokenizer event handlers
     /** @internal */
@@ -138,19 +141,18 @@ export class Parser {
         this.startIndex = endIndex;
     }
     /** @internal */
-    ontextentity(cp) {
+    ontextentity(cp, endIndex) {
         var _a, _b;
-        /*
-         * Entities can be emitted on the character, or directly after.
-         * We use the section start here to get accurate indices.
-         */
-        const index = this.tokenizer.getSectionStart();
-        this.endIndex = index - 1;
+        this.endIndex = endIndex - 1;
         (_b = (_a = this.cbs).ontext) === null || _b === void 0 ? void 0 : _b.call(_a, fromCodePoint(cp));
-        this.startIndex = index;
+        this.startIndex = endIndex;
     }
+    /**
+     * Checks if the current tag is a void element. Override this if you want
+     * to specify your own additional void elements.
+     */
     isVoidElement(name) {
-        return !this.options.xmlMode && voidElements.has(name);
+        return this.htmlMode && voidElements.has(name);
     }
     /** @internal */
     onopentagname(start, endIndex) {
@@ -165,21 +167,22 @@ export class Parser {
         var _a, _b, _c, _d;
         this.openTagStart = this.startIndex;
         this.tagname = name;
-        const impliesClose = !this.options.xmlMode && openImpliesClose.get(name);
+        const impliesClose = this.htmlMode && openImpliesClose.get(name);
         if (impliesClose) {
-            while (this.stack.length > 0 &&
-                impliesClose.has(this.stack[this.stack.length - 1])) {
-                const element = this.stack.pop();
+            while (this.stack.length > 0 && impliesClose.has(this.stack[0])) {
+                const element = this.stack.shift();
                 (_b = (_a = this.cbs).onclosetag) === null || _b === void 0 ? void 0 : _b.call(_a, element, true);
             }
         }
         if (!this.isVoidElement(name)) {
-            this.stack.push(name);
-            if (foreignContextElements.has(name)) {
-                this.foreignContext.push(true);
-            }
-            else if (htmlIntegrationElements.has(name)) {
-                this.foreignContext.push(false);
+            this.stack.unshift(name);
+            if (this.htmlMode) {
+                if (foreignContextElements.has(name)) {
+                    this.foreignContext.unshift(true);
+                }
+                else if (htmlIntegrationElements.has(name)) {
+                    this.foreignContext.unshift(false);
+                }
             }
         }
         (_d = (_c = this.cbs).onopentagname) === null || _d === void 0 ? void 0 : _d.call(_c, name);
@@ -207,40 +210,37 @@ export class Parser {
     }
     /** @internal */
     onclosetag(start, endIndex) {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         this.endIndex = endIndex;
         let name = this.getSlice(start, endIndex);
         if (this.lowerCaseTagNames) {
             name = name.toLowerCase();
         }
-        if (foreignContextElements.has(name) ||
-            htmlIntegrationElements.has(name)) {
-            this.foreignContext.pop();
+        if (this.htmlMode &&
+            (foreignContextElements.has(name) ||
+                htmlIntegrationElements.has(name))) {
+            this.foreignContext.shift();
         }
         if (!this.isVoidElement(name)) {
-            const pos = this.stack.lastIndexOf(name);
+            const pos = this.stack.indexOf(name);
             if (pos !== -1) {
-                if (this.cbs.onclosetag) {
-                    let count = this.stack.length - pos;
-                    while (count--) {
-                        // We know the stack has sufficient elements.
-                        this.cbs.onclosetag(this.stack.pop(), count !== 0);
-                    }
+                for (let index = 0; index <= pos; index++) {
+                    const element = this.stack.shift();
+                    // We know the stack has sufficient elements.
+                    (_b = (_a = this.cbs).onclosetag) === null || _b === void 0 ? void 0 : _b.call(_a, element, index !== pos);
                 }
-                else
-                    this.stack.length = pos;
             }
-            else if (!this.options.xmlMode && name === "p") {
+            else if (this.htmlMode && name === "p") {
                 // Implicit open before close
                 this.emitOpenTag("p");
                 this.closeCurrentTag(true);
             }
         }
-        else if (!this.options.xmlMode && name === "br") {
+        else if (this.htmlMode && name === "br") {
             // We can't use `emitOpenTag` for implicit open, as `br` would be implicitly closed.
-            (_b = (_a = this.cbs).onopentagname) === null || _b === void 0 ? void 0 : _b.call(_a, "br");
-            (_d = (_c = this.cbs).onopentag) === null || _d === void 0 ? void 0 : _d.call(_c, "br", {}, true);
-            (_f = (_e = this.cbs).onclosetag) === null || _f === void 0 ? void 0 : _f.call(_e, "br", false);
+            (_d = (_c = this.cbs).onopentagname) === null || _d === void 0 ? void 0 : _d.call(_c, "br");
+            (_f = (_e = this.cbs).onopentag) === null || _f === void 0 ? void 0 : _f.call(_e, "br", {}, true);
+            (_h = (_g = this.cbs).onclosetag) === null || _h === void 0 ? void 0 : _h.call(_g, "br", false);
         }
         // Set `startIndex` for next node
         this.startIndex = endIndex + 1;
@@ -248,9 +248,7 @@ export class Parser {
     /** @internal */
     onselfclosingtag(endIndex) {
         this.endIndex = endIndex;
-        if (this.options.xmlMode ||
-            this.options.recognizeSelfClosing ||
-            this.foreignContext[this.foreignContext.length - 1]) {
+        if (this.recognizeSelfClosing || this.foreignContext[0]) {
             this.closeCurrentTag(false);
             // Set `startIndex` for next node
             this.startIndex = endIndex + 1;
@@ -265,10 +263,10 @@ export class Parser {
         const name = this.tagname;
         this.endOpenTag(isOpenImplied);
         // Self-closing tags will be on the top of the stack
-        if (this.stack[this.stack.length - 1] === name) {
+        if (this.stack[0] === name) {
             // If the opening tag isn't implied, the closing tag has to be implied.
             (_b = (_a = this.cbs).onclosetag) === null || _b === void 0 ? void 0 : _b.call(_a, name, !isOpenImplied);
-            this.stack.pop();
+            this.stack.shift();
         }
     }
     /** @internal */
@@ -348,7 +346,7 @@ export class Parser {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         this.endIndex = endIndex;
         const value = this.getSlice(start, endIndex - offset);
-        if (this.options.xmlMode || this.options.recognizeCDATA) {
+        if (!this.htmlMode || this.options.recognizeCDATA) {
             (_b = (_a = this.cbs).oncdatastart) === null || _b === void 0 ? void 0 : _b.call(_a);
             (_d = (_c = this.cbs).ontext) === null || _d === void 0 ? void 0 : _d.call(_c, value);
             (_f = (_e = this.cbs).oncdataend) === null || _f === void 0 ? void 0 : _f.call(_e);
@@ -366,8 +364,9 @@ export class Parser {
         if (this.cbs.onclosetag) {
             // Set the end index for all remaining tags
             this.endIndex = this.startIndex;
-            for (let index = this.stack.length; index > 0; this.cbs.onclosetag(this.stack[--index], true))
-                ;
+            for (let index = 0; index < this.stack.length; index++) {
+                this.cbs.onclosetag(this.stack[index], true);
+            }
         }
         (_b = (_a = this.cbs).onend) === null || _b === void 0 ? void 0 : _b.call(_a);
     }
@@ -386,6 +385,8 @@ export class Parser {
         this.endIndex = 0;
         (_d = (_c = this.cbs).onparserinit) === null || _d === void 0 ? void 0 : _d.call(_c, this);
         this.buffers.length = 0;
+        this.foreignContext.length = 0;
+        this.foreignContext.unshift(!this.htmlMode);
         this.bufferOffset = 0;
         this.writeIndex = 0;
         this.ended = false;
