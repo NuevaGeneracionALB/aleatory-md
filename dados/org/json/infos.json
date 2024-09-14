@@ -345,11 +345,11 @@
   },
   {
     "comando": "antivideo",
-    "info": "Este comando serve para remover pessoas que enviar vídeos no grupo, é mais para grupos que é proibido enviar vídeos."
+    "info": "Este comando serve para remover pessoas que enviar vídeos no grupo, é mais para grupos que é proibido enviar vídeos. Se desejar determinar o texto para quando remover o usuario, use: #prefixo#legenda_video e escreva algo, tipo ( Você foi removido, por enviar vídeo, e é proibido ), se deseja desativar o texto que você determinou, só usar ( #prefixo#legenda_video 0 )"
   },
   {
     "comando": "antiimg",
-    "info": "Este comando serve para remover usuários que enviar imagem no grupo, alguns grupos é proibido de enviar imagem, então é isso.."
+    "info": "Este comando serve para remover usuários que enviar imagem no grupo, alguns grupos é proibido de enviar imagem, se desejar determinar o texto para quando remover o usuario, use: #prefixo#legenda_imagem e escreva algo, tipo ( Você foi removido, por enviar imagem, e é proibido ), se deseja desativar o texto que você determinou, só usar ( #prefixo#legenda_imagem 0 ), então é isso.."
   },
   {
     "comando": "antiaudio",
@@ -357,7 +357,7 @@
   },
   {
     "comando": "antidoc",
-    "info": "Este comando serve para remover usuários que enviar documento no grupo, alguns grupos são poibido."
+    "info": "Este comando serve para remover usuários que enviar documento no grupo, alguns grupos são poibido. Se desejar determinar o texto para quando remover o usuario, use: #prefixo#legenda_documento e escreva algo, tipo ( Você foi removido, por enviar documento, e é proibido ), se deseja desativar o texto que você determinou, só usar ( #prefixo#legenda_documento 0 )"
   },
   {
     "comando": "antictt",
@@ -418,5 +418,17 @@
   {
     "comando": "autobaixar",
     "info": "Este comando, ativa os download automatico, qualquer link que for enviado de: instagram, facebook, twitter, tiktok, kwai, spotify, shorts do youtube, será baixado automáticamente, e também se você gravar áudio, será transcrevido automáticamente para texto, boa sorte ( Após usar o comando: #prefixo#autobaixar ele será ativado, caso queira desativar, só usar o comando novamente. )"
+  },
+  {
+    "comando": "ifunny",
+    "info": "Este comando, serve para baixar vídeos do ifunny, saiba que é apenas vídeos, site do ifunny: https://br.ifunny.co/, um exemplo para baixar um vídeo: #prefixo#ifunny https://br.ifunny.co/video/w9Eaa2bOB?s=cl"
+  },
+  {
+  "comando": "threads",
+  "info": "Este comando serve para baixar vídeos da rede social threads, Bom proveito. Exemplo: #prefixo#threads https://www.threads.net/@tali_mito22/post/C_3_FbKyHtm/?xmt=AQGzOjjOpgW7PRhCZRcda0GvAqfvYqPWDwHgzn_v6_FVLQ"
+  },
+  {
+  "comando": "soundcloud",
+  "info": "Este comando serve para baixar audios do soundcloud, você terá que acessar o site para pegar o link de alguma música por lá, para usar o exemplo, Bom proveito. Exemplo: #prefixo#soundcloud LINK DO SOUNDCLOUD"
   }
 ]
