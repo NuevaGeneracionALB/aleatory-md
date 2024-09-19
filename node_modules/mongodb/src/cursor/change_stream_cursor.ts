@@ -1,4 +1,4 @@
-import type { Document, Long, Timestamp } from '../bson';
+import type { Document } from '../bson';
 import {
   ChangeStream,
   type ChangeStreamDocument,
@@ -6,15 +6,19 @@ import {
   type OperationTime,
   type ResumeToken
 } from '../change_stream';
+import { type CursorResponse } from '../cmap/wire_protocol/responses';
 import { INIT, RESPONSE } from '../constants';
 import type { MongoClient } from '../mongo_client';
-import type { TODO_NODE_3286 } from '../mongo_types';
 import { AggregateOperation } from '../operations/aggregate';
 import type { CollationOptions } from '../operations/command';
-import { executeOperation, type ExecutionResult } from '../operations/execute_operation';
+import { executeOperation } from '../operations/execute_operation';
 import type { ClientSession } from '../sessions';
 import { maxWireVersion, type MongoDBNamespace } from '../utils';
-import { AbstractCursor, type AbstractCursorOptions } from './abstract_cursor';
+import {
+  AbstractCursor,
+  type AbstractCursorOptions,
+  type InitialCursorResponse
+} from './abstract_cursor';
 
 /** @internal */
 export interface ChangeStreamCursorOptions extends AbstractCursorOptions {
@@ -27,31 +31,16 @@ export interface ChangeStreamCursorOptions extends AbstractCursorOptions {
 }
 
 /** @internal */
-export type ChangeStreamAggregateRawResult<TChange> = {
-  $clusterTime: { clusterTime: Timestamp };
-  cursor: {
-    postBatchResumeToken: ResumeToken;
-    ns: string;
-    id: number | Long;
-  } & ({ firstBatch: TChange[] } | { nextBatch: TChange[] });
-  ok: 1;
-  operationTime: Timestamp;
-};
-
-/** @internal */
 export class ChangeStreamCursor<
   TSchema extends Document = Document,
   TChange extends Document = ChangeStreamDocument<TSchema>
 > extends AbstractCursor<TChange, ChangeStreamEvents> {
-  _resumeToken: ResumeToken;
-  startAtOperationTime?: OperationTime;
-  hasReceived?: boolean;
-  resumeAfter: ResumeToken;
-  startAfter: ResumeToken;
-  options: ChangeStreamCursorOptions;
-
-  postBatchResumeToken?: ResumeToken;
-  pipeline: Document[];
+  private _resumeToken: ResumeToken;
+  private startAtOperationTime: OperationTime | null;
+  private hasReceived?: boolean;
+  private readonly changeStreamCursorOptions: ChangeStreamCursorOptions;
+  private postBatchResumeToken?: ResumeToken;
+  private readonly pipeline: Document[];
 
   /**
    * @internal
@@ -69,9 +58,9 @@ export class ChangeStreamCursor<
     super(client, namespace, options);
 
     this.pipeline = pipeline;
-    this.options = options;
+    this.changeStreamCursorOptions = options;
     this._resumeToken = null;
-    this.startAtOperationTime = options.startAtOperationTime;
+    this.startAtOperationTime = options.startAtOperationTime ?? null;
 
     if (options.startAfter) {
       this.resumeToken = options.startAfter;
@@ -91,7 +80,7 @@ export class ChangeStreamCursor<
 
   get resumeOptions(): ChangeStreamCursorOptions {
     const options: ChangeStreamCursorOptions = {
-      ...this.options
+      ...this.changeStreamCursorOptions
     };
 
     for (const key of ['resumeAfter', 'startAfter', 'startAtOperationTime'] as const) {
@@ -99,7 +88,7 @@ export class ChangeStreamCursor<
     }
 
     if (this.resumeToken != null) {
-      if (this.options.startAfter && !this.hasReceived) {
+      if (this.changeStreamCursorOptions.startAfter && !this.hasReceived) {
         options.startAfter = this.resumeToken;
       } else {
         options.resumeAfter = this.resumeToken;
@@ -120,15 +109,13 @@ export class ChangeStreamCursor<
     this.hasReceived = true;
   }
 
-  _processBatch(response: ChangeStreamAggregateRawResult<TChange>): void {
-    const cursor = response.cursor;
-    if (cursor.postBatchResumeToken) {
-      this.postBatchResumeToken = response.cursor.postBatchResumeToken;
+  _processBatch(response: CursorResponse): void {
+    const { postBatchResumeToken } = response;
+    if (postBatchResumeToken) {
+      this.postBatchResumeToken = postBatchResumeToken;
 
-      const batch =
-        'firstBatch' in response.cursor ? response.cursor.firstBatch : response.cursor.nextBatch;
-      if (batch.length === 0) {
-        this.resumeToken = cursor.postBatchResumeToken;
+      if (response.batchSize === 0) {
+        this.resumeToken = postBatchResumeToken;
       }
     }
   }
@@ -139,25 +126,22 @@ export class ChangeStreamCursor<
     });
   }
 
-  async _initialize(session: ClientSession): Promise<ExecutionResult> {
+  async _initialize(session: ClientSession): Promise<InitialCursorResponse> {
     const aggregateOperation = new AggregateOperation(this.namespace, this.pipeline, {
       ...this.cursorOptions,
-      ...this.options,
+      ...this.changeStreamCursorOptions,
       session
     });
 
-    const response = await executeOperation<
-      TODO_NODE_3286,
-      ChangeStreamAggregateRawResult<TChange>
-    >(session.client, aggregateOperation);
+    const response = await executeOperation(session.client, aggregateOperation);
 
     const server = aggregateOperation.server;
     this.maxWireVersion = maxWireVersion(server);
 
     if (
       this.startAtOperationTime == null &&
-      this.resumeAfter == null &&
-      this.startAfter == null &&
+      this.changeStreamCursorOptions.resumeAfter == null &&
+      this.changeStreamCursorOptions.startAfter == null &&
       this.maxWireVersion >= 7
     ) {
       this.startAtOperationTime = response.operationTime;
@@ -168,15 +152,14 @@ export class ChangeStreamCursor<
     this.emit(INIT, response);
     this.emit(RESPONSE);
 
-    // TODO: NODE-2882
     return { server, session, response };
   }
 
-  override async getMore(batchSize: number): Promise<Document | null> {
+  override async getMore(batchSize: number): Promise<CursorResponse> {
     const response = await super.getMore(batchSize);
 
     this.maxWireVersion = maxWireVersion(this.server);
-    this._processBatch(response as ChangeStreamAggregateRawResult<TChange>);
+    this._processBatch(response);
 
     this.emit(ChangeStream.MORE, response);
     this.emit(ChangeStream.RESPONSE);

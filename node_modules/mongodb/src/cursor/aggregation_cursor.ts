@@ -2,21 +2,16 @@ import type { Document } from '../bson';
 import type { ExplainVerbosityLike } from '../explain';
 import type { MongoClient } from '../mongo_client';
 import { AggregateOperation, type AggregateOptions } from '../operations/aggregate';
-import { executeOperation, type ExecutionResult } from '../operations/execute_operation';
+import { executeOperation } from '../operations/execute_operation';
 import type { ClientSession } from '../sessions';
 import type { Sort } from '../sort';
 import type { MongoDBNamespace } from '../utils';
 import { mergeOptions } from '../utils';
-import type { AbstractCursorOptions } from './abstract_cursor';
-import { AbstractCursor, assertUninitialized } from './abstract_cursor';
+import type { AbstractCursorOptions, InitialCursorResponse } from './abstract_cursor';
+import { AbstractCursor } from './abstract_cursor';
 
 /** @public */
 export interface AggregationCursorOptions extends AbstractCursorOptions, AggregateOptions {}
-
-/** @internal */
-const kPipeline = Symbol('pipeline');
-/** @internal */
-const kOptions = Symbol('options');
 
 /**
  * The **AggregationCursor** class is an internal class that embodies an aggregation cursor on MongoDB
@@ -26,10 +21,9 @@ const kOptions = Symbol('options');
  * @public
  */
 export class AggregationCursor<TSchema = any> extends AbstractCursor<TSchema> {
+  public readonly pipeline: Document[];
   /** @internal */
-  [kPipeline]: Document[];
-  /** @internal */
-  [kOptions]: AggregateOptions;
+  private aggregateOptions: AggregateOptions;
 
   /** @internal */
   constructor(
@@ -40,18 +34,14 @@ export class AggregationCursor<TSchema = any> extends AbstractCursor<TSchema> {
   ) {
     super(client, namespace, options);
 
-    this[kPipeline] = pipeline;
-    this[kOptions] = options;
-  }
-
-  get pipeline(): Document[] {
-    return this[kPipeline];
+    this.pipeline = pipeline;
+    this.aggregateOptions = options;
   }
 
   clone(): AggregationCursor<TSchema> {
-    const clonedOptions = mergeOptions({}, this[kOptions]);
+    const clonedOptions = mergeOptions({}, this.aggregateOptions);
     delete clonedOptions.session;
-    return new AggregationCursor(this.client, this.namespace, this[kPipeline], {
+    return new AggregationCursor(this.client, this.namespace, this.pipeline, {
       ...clonedOptions
     });
   }
@@ -61,29 +51,30 @@ export class AggregationCursor<TSchema = any> extends AbstractCursor<TSchema> {
   }
 
   /** @internal */
-  async _initialize(session: ClientSession): Promise<ExecutionResult> {
-    const aggregateOperation = new AggregateOperation(this.namespace, this[kPipeline], {
-      ...this[kOptions],
+  async _initialize(session: ClientSession): Promise<InitialCursorResponse> {
+    const aggregateOperation = new AggregateOperation(this.namespace, this.pipeline, {
+      ...this.aggregateOptions,
       ...this.cursorOptions,
       session
     });
 
     const response = await executeOperation(this.client, aggregateOperation);
 
-    // TODO: NODE-2882
     return { server: aggregateOperation.server, session, response };
   }
 
   /** Execute the explain for the cursor */
   async explain(verbosity?: ExplainVerbosityLike): Promise<Document> {
-    return await executeOperation(
-      this.client,
-      new AggregateOperation(this.namespace, this[kPipeline], {
-        ...this[kOptions], // NOTE: order matters here, we may need to refine this
-        ...this.cursorOptions,
-        explain: verbosity ?? true
-      })
-    );
+    return (
+      await executeOperation(
+        this.client,
+        new AggregateOperation(this.namespace, this.pipeline, {
+          ...this.aggregateOptions, // NOTE: order matters here, we may need to refine this
+          ...this.cursorOptions,
+          explain: verbosity ?? true
+        })
+      )
+    ).shift(this.aggregateOptions);
   }
 
   /** Add a stage to the aggregation pipeline
@@ -101,8 +92,8 @@ export class AggregationCursor<TSchema = any> extends AbstractCursor<TSchema> {
   addStage(stage: Document): this;
   addStage<T = Document>(stage: Document): AggregationCursor<T>;
   addStage<T = Document>(stage: Document): AggregationCursor<T> {
-    assertUninitialized(this);
-    this[kPipeline].push(stage);
+    this.throwIfInitialized();
+    this.pipeline.push(stage);
     return this as unknown as AggregationCursor<T>;
   }
 

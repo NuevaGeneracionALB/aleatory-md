@@ -2,7 +2,7 @@
 import { Boom } from '@hapi/boom';
 import { proto } from '../../WAProto';
 import { AnyMessageContent, MediaConnInfo, MessageReceiptType, MessageRelayOptions, MiscMessageGenerationOptions, SocketConfig, WAMessageKey } from '../Types';
-import { BinaryNode } from '../WABinary';
+import { BinaryNode, JidWithDevice } from '../WABinary';
 export declare const makeMessagesSocket: (config: SocketConfig) => {
     getPrivacyTokens: (jids: string[]) => Promise<BinaryNode>;
     assertSessions: (jids: string[], force: boolean) => Promise<boolean>;
@@ -16,6 +16,11 @@ export declare const makeMessagesSocket: (config: SocketConfig) => {
         [_: string]: string;
     }>;
     sendPeerDataOperationMessage: (pdoMessage: proto.Message.IPeerDataOperationRequestMessage) => Promise<string>;
+    createParticipantNodes: (jids: string[], message: proto.IMessage, extraAttrs?: BinaryNode['attrs']) => Promise<{
+        nodes: BinaryNode[];
+        shouldIncludeDeviceIdentity: boolean;
+    }>;
+    getUSyncDevices: (jids: string[], useCache: boolean, ignoreZeroDevices: boolean) => Promise<JidWithDevice[]>;
     updateMediaMessage: (message: proto.IWebMessageInfo) => Promise<proto.IWebMessageInfo>;
     sendMessage: (jid: string, content: AnyMessageContent, options?: MiscMessageGenerationOptions) => Promise<proto.WebMessageInfo | undefined>;
     groupMetadata: (jid: string) => Promise<import("../Types").GroupMetadata>;
