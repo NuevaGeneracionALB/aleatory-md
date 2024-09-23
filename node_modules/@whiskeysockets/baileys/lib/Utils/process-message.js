@@ -150,7 +150,8 @@ const processMessage = async (message, { shouldProcessHistoryMsg, placeholderRes
                         ...data,
                         isLatest: histNotification.syncType !== WAProto_1.proto.HistorySync.HistorySyncType.ON_DEMAND
                             ? isLatest
-                            : undefined
+                            : undefined,
+                        peerDataRequestSessionId: histNotification.peerDataRequestSessionId
                     });
                 }
                 break;

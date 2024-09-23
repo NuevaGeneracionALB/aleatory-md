@@ -322,7 +322,8 @@ const getCallStatusFromNode = ({ tag, attrs }) => {
                 status = 'timeout';
             }
             else {
-                status = 'reject';
+                //fired when accepted/rejected/timeout/caller hangs up
+                status = 'terminate';
             }
             break;
         case 'reject':

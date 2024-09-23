@@ -76,7 +76,7 @@ const processHistoryMessage = (item) => {
         contacts,
         messages,
         syncType: item.syncType,
-        progress: item.progress,
+        progress: item.progress
     };
 };
 exports.processHistoryMessage = processHistoryMessage;

@@ -176,6 +176,9 @@ function append(data, historyCache, event, eventData, logger) {
                 }
             }
             data.historySets.empty = false;
+            data.historySets.syncType = eventData.syncType;
+            data.historySets.progress = eventData.progress;
+            data.historySets.peerDataRequestSessionId = eventData.peerDataRequestSessionId;
             data.historySets.isLatest = eventData.isLatest || data.historySets.isLatest;
             break;
         case 'chats.upsert':
@@ -442,7 +445,10 @@ function consolidateEvents(data) {
             chats: Object.values(data.historySets.chats),
             messages: Object.values(data.historySets.messages),
             contacts: Object.values(data.historySets.contacts),
-            isLatest: data.historySets.isLatest
+            syncType: data.historySets.syncType,
+            progress: data.historySets.progress,
+            isLatest: data.historySets.isLatest,
+            peerDataRequestSessionId: data.historySets.peerDataRequestSessionId
         };
     }
     const chatUpsertList = Object.values(data.chatUpserts);
