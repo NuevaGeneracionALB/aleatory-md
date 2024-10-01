@@ -183,12 +183,12 @@ const makeChatsSocket = (config) => {
     };
     /** update the profile picture for yourself or a group */
     const updateProfilePicture = async (jid, content) => {
-        let targetJid = '';
+        let targetJid;
         if (!jid) {
             throw new boom_1.Boom('Illegal no-jid profile update. Please specify either your ID or the ID of the chat you wish to update');
         }
         if ((0, WABinary_1.jidNormalizedUser)(jid) !== (0, WABinary_1.jidNormalizedUser)(authState.creds.me.id)) {
-            targetJid = jid; // in case it is someone other than us
+            targetJid = (0, WABinary_1.jidNormalizedUser)(jid); // in case it is someone other than us
         }
         const { img } = await (0, Utils_1.generateProfilePicture)(content);
         await query({
@@ -210,12 +210,12 @@ const makeChatsSocket = (config) => {
     };
     /** remove the profile picture for yourself or a group */
     const removeProfilePicture = async (jid) => {
-        let targetJid = '';
+        let targetJid;
         if (!jid) {
             throw new boom_1.Boom('Illegal no-jid profile update. Please specify either your ID or the ID of the chat you wish to update');
         }
         if ((0, WABinary_1.jidNormalizedUser)(jid) !== (0, WABinary_1.jidNormalizedUser)(authState.creds.me.id)) {
-            targetJid = jid; // in case it is someone other than us
+            targetJid = (0, WABinary_1.jidNormalizedUser)(jid); // in case it is someone other than us
         }
         await query({
             tag: 'iq',
