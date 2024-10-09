@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@whiskeysockets/baileys": "github:whiskeysockets/baileys",
+    "aleatory-md": "file:",
     "async-lock": "^1.4.1",
     "axios": "^0.21.1",
     "cfonts": "^2.10.0",
