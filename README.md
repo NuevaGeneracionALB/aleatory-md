@@ -1,6 +1,6 @@
 # Aleatory MD - Bot de WhatsApp
 <div align="center">
-<img src="https://telegra.ph/file/e6018110d95e1a9fc7efe.jpg" alt="Aleatory MD - BOT" width="300" />
+<img src="https://dl.dropboxusercontent.com/scl/fi/cy83v9jlstlha87nperqg/1746565321013.jpeg?rlkey=mcmx2prlb1hl49b87u9055lam&dl=0" alt="Aleatory MD - BOT" width="300" />
 
 [![Author](https://img.shields.io/badge/Autor-Aleatory-red.svg?style=for-the-badge&logo=github)](https://github.com/NuevaGeneracionALB/aleatory-md.git)
 </div>
